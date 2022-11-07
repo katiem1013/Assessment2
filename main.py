@@ -1,17 +1,20 @@
-opening_text: """ """
+opening_text = """You awaken in a room, it is dim but you can make out a door on each wall. There are no windows.
+The door to the north seems to be the main door, there is a padlock keeping it locked shut.
+You are on the bed, it is perfectly made apart from where you've moved it as you sat up.
+"""
+
+help_guide = """Basic commands: 
+'north', 'south', 'east', 'west' to move around the room. 
+use [item] to use something.
+examine [object] to get a closer look."""
 
 print(opening_text)
-
-print("You have awoken in a forest, there are four ways you can go. ")
-input("")
 directions = ["north", "east", "south", "west"]
-while directions is not int:  # if directions not entered will repeat until direction is given
-    print("options are 'north' 'east' 'south' 'west' ")  # example of directions
-    input("")  # resubmit directions
+starting_room_options = input("").lower()  # submit directions, and change anything entered to lowercase
+if starting_room_options in directions:  # if directions not entered will repeat until direction is given
 
-    if int == "south":  # if south is entered will carry out these functions:
-        cabin_scene()  # calling the cabin function
-
-
-def cabin_scene():
-    print("You come across an abandoned cabin.")
+    if starting_room_options == "south":  # if south is entered will carry out these functions:
+        print("hello")
+else:
+    print("I do not understand")  # asking the player to reenter
+    exit()
