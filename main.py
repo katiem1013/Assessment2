@@ -1,8 +1,10 @@
-directions = ["north", "east", "south", "west", "help"]
-inventory = []
+inventory = [] # inventory list
 
 # opening descriptions
-opening_text = """You awaken in a room that you do not recognise with no memories on how you got here 
+opening_text = """You awaken in a room that you do not recognise with no memories on how you got here, you remember most
+of yesterday but after leaving work in the evening it all goes blank. You should probably get out of here, your cat will
+be hungry if you don't get home soon. When you think about it you're not sure what time it is nor how long you've been
+asleep.  
 """
 
 # different room descriptions
@@ -29,7 +31,7 @@ to be stocked well. There are multiple boxes in the corner on the floor.
 """
 
 # basic help guide of commands that can be written
-help_guide = """\033[0;31m
+help_guide = """\033[1;31m
 - Basic commands: 
 - 'north', 'south', 'east', 'west' to move around the room. 
 - use [item] to use something.
@@ -37,57 +39,118 @@ help_guide = """\033[0;31m
 - inventory to open your inventory.\n \033[0;39m \n"""  #/033[0;31m and /n make the text appear red then \033[0;39m \n turns it back to white
 
 
-def kitchen_scene():  # defining the kitchen scene
-    print(kitchen_description)
-    def kitchen_scene_restart():  # defining the point in which players return to after completeing an action
-        kitchen_options = input("What would you like to do? ").lower()
-        if kitchen_options == "north":  # if south is entered will carry out these functions:
-            starting_room_scene()  # will return the player to the starting room
+# the point in scenes the player will go back to when an action is completed in order to stop them from having to read the descriptions each time
+def starting_room_scene_restart():  # defining the point in which players return to after completeing an action
+    box = False  # whether or not the box has been interacted with
+    print("")
+    starting_room_options = input("What would you like to do? ").lower()  # submit directions, and change anything entered to lowercase
+    if starting_room_options == "south":  # if south is entered will carry out these functions:
+        kitchen_scene()
 
-        elif kitchen_options == "west":  # if west is entered will carry out these functions:
-            bathroom_scene()
+    elif starting_room_options == "west":  # if west is entered will carry out these functions:
+        bathroom_scene()
 
-        elif kitchen_options == "east":  # if south is entered will carry out these functions:
-            cupboard_scene()
+    elif starting_room_options == "east":  # if south is entered will carry out these functions:
+        cupboard_scene()
 
-        elif kitchen_optionsstarting_room_options == "help":  # if help is entered will carry out these functions:
-            print(help_guide)
+    elif starting_room_options == "north":  # if north is entered will carry out these functions:
+        print("The door is padlocked shut, you pull at the handle and it doesn't move.")
+        starting_room_scene_restart()
+
+    elif starting_room_options == "help":  # if help is entered will carry out these functions:
+        print(help_guide)  # displays the help guide
+        starting_room_scene_restart()  # goes back to the beginning of the scence
+
+    elif starting_room_options == "inventory":  # if inventory is entered will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        starting_room_scene_restart()  # goes back to the beginning of the scence
+    else:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        starting_room_scene_restart()
+
+def kitchen_scene_restart():  # defining the point in which players return to after completeing an action
+    box = False  # whether or not the box has been interacted with
+    print("")
+    kitchen_options = input("What would you like to do? ").lower()
+    if kitchen_options == "north":  # if south is entered will carry out these functions:
+        starting_room_scene()  # will return the player to the starting room
+
+    elif box == False and kitchen_options == "examine box":  # checks if the box has been opened and what the player typed
+        box_pickup = input("""The box is just big enough to hold a handfull of golf balls, the design is very intercrite 
+but a little ugly. Would you like to open the box? """).lower()
+        if box_pickup == "yes":
+            print("You reach into the ")
+            inventory.append("What ever is in the box")
+            box = True  # whether or not the box has been interacted with, switches back when code restarts
+            print(box)
             kitchen_scene_restart()
+
+        elif box_pickup == "no":
+            print("The box remains shut on the table and the contains remains there.")
+            kitchen_scene_restart()
+
         else:
-            print("I do not understand")  # asking the player to reenter
+            print("I do not understand, type help for general instructions.")  # asking the player to reenter
             kitchen_scene_restart()
 
-def bathroom_scene():  # defining the bathroom scene
-    print(bathroom_description)
-    exit()
+    elif box == True and kitchen_options == "examine box":  # checks if the box has been opened and what the player typed
+        print("The box remains open on the table, it is empty.")
+
+    elif kitchen_options == "examine box":  # if south is entered will carry out these functions:
+        print("Vague fridge description")
+
+    elif kitchen_options == "help":  # if help is entered will carry out these functions:
+        print(help_guide)
+        kitchen_scene_restart()
+
+    elif kitchen_options == "inventory":  # if inventory is entered will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        kitchen_scene_restart()  # goes back to the beginning of the scence
+
+    else:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        kitchen_scene_restart()
 
 
+def bathroom_scene_restart():  # defining the point in which players return to after completeing an action
+    print("")
+    bathroom_options = input("What would you like to do? ").lower()
+    if bathroom_options == "east":  # if east is entered will carry out these functions:
+        starting_room_scene()  # will return the player to the starting room
+
+
+def cupboard_scene_restart():  # defining the point in which players return to after completeing an action
+    print("")
+    cupboard_options = input("What would you like to do? ").lower()
+    if cupboard_options == "west":  # if west is entered will carry out these functions:
+        starting_room_scene()  # will return the player to the starting room
+
+
+
+# all scenes that include the descriptions of the room
 def cupboard_scene():  # defining the cupboard scene
-    print(cupboard_description)
-    exit()
+    print(cupboard_description)  # displays the cupboard description
+    print("")
+    cupboard_scene_restart()
 
 
 def starting_room_scene():  # defining the starting room scene
     print(starting_room_description)  # displays the starting room description
-    def starting_room_scene_restart():  # defining the point in which players return to after completeing an action
-        starting_room_options = input("What would you like to do? ").lower()  # submit directions, and change anything entered to lowercase
-        while starting_room_options in directions:  # if directions not entered will repeat until direction is given
+    print("")
+    starting_room_scene_restart()
 
-            if starting_room_options == "south":  # if south is entered will carry out these functions:
-                kitchen_scene()
 
-            elif starting_room_options == "west":  # if west is entered will carry out these functions:
-                bathroom_scene()
+def bathroom_scene():  # defining the bathroom scene
+    print(bathroom_description)  # displays the bathroom description
+    print("")
+    bathroom_scene_restart()
 
-            elif starting_room_options == "east":  # if south is entered will carry out these functions:
-                cupboard_scene()
 
-            elif starting_room_options == "help":  # if help is entered will carry out these functions:
-                print(help_guide)
-                starting_room_scene_restart()
-        else:
-            print("I do not understand")  # asking the player to reenter
-            starting_room_scene_restart()
+def kitchen_scene():  # defining the kitchen scene
+    print(kitchen_description)  # displays the kitchen description
+    print("")
+    kitchen_scene_restart()
+
 
 print(opening_text)  # displays the opening text which is defined earlier
 starting_room_scene()
