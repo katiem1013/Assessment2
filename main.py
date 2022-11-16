@@ -1,3 +1,5 @@
+import os
+
 inventory = [] # inventory list
 
 # opening descriptions
@@ -68,25 +70,29 @@ def starting_room_scene_restart():  # defining the point in which players return
         print("I do not understand, type help for general instructions.")  # asking the player to reenter
         starting_room_scene_restart()
 
+
 def kitchen_scene_restart():  # defining the point in which players return to after completeing an action
-    box = False  # whether or not the box has been interacted with
+    box = False  # sets the box as closed
     print("")
     kitchen_options = input("What would you like to do? ").lower()
-    if kitchen_options == "north":  # if south is entered will carry out these functions:
+    if kitchen_options == "north":  # if norht is entered will carry out these functions:
         starting_room_scene()  # will return the player to the starting room
 
     elif box == False and kitchen_options == "examine box":  # checks if the box has been opened and what the player typed
         box_pickup = input("""The box is just big enough to hold a handfull of golf balls, the design is very intercrite 
 but a little ugly. Would you like to open the box? """).lower()
+
         if box_pickup == "yes":
-            print("You reach into the ")
-            inventory.append("What ever is in the box")
+            print("""You reach into the box and there sits a rusted, falling apart screwdriver. It's kind of a weird 
+place to keep it, instead of thinking to hard about the really strange place to keep a tool you shove it into your 
+pocket for later use.""")
+            inventory.append("Rusted Screwdriver")
             box = True  # whether or not the box has been interacted with, switches back when code restarts
             print(box)
             kitchen_scene_restart()
 
         elif box_pickup == "no":
-            print("The box remains shut on the table and the contains remains there.")
+            print("The box remains shut on the table and the contains remain unknown.")
             kitchen_scene_restart()
 
         else:
@@ -96,8 +102,20 @@ but a little ugly. Would you like to open the box? """).lower()
     elif box == True and kitchen_options == "examine box":  # checks if the box has been opened and what the player typed
         print("The box remains open on the table, it is empty.")
 
-    elif kitchen_options == "examine box":  # if south is entered will carry out these functions:
-        print("Vague fridge description")
+    elif kitchen_options == "examine fridge":  # if examine fridge is entered will carry out these functions:
+        print("Unlike the cupboards the fridge is not well stocked, there is a few bottles of water but that is it.")
+        kitchen_scene_restart()
+
+    elif kitchen_options == "examine chair":  # if examine chair is entered will carry out these functions:
+        print("""The chair is nothing special but if you stood on the chair you would be able to see out the little 
+window, it seems practically new.""")
+        kitchen_scene_restart()
+
+    elif kitchen_options == "stand on chair":  # if stand on chair is entered will carry out these functions:
+        print("""You climb onto the chair, it rocks gently beneath you but you hold out your arms to balance yourself.
+Once you are up there you can't see anything new in the room but you are able to see out the little window. From what
+you can tell you must be in a basement since you can only see the bottom of trees from your postion.""")
+        kitchen_scene_restart()
 
     elif kitchen_options == "help":  # if help is entered will carry out these functions:
         print(help_guide)
