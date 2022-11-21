@@ -1,6 +1,7 @@
 import os
 
-inventory = [] # inventory list
+inventory = []  # inventory list
+box = False  # sets the box as closed
 
 # opening descriptions
 opening_text = """You awaken in a room that you do not recognise with no memories on how you got here, you remember most
@@ -42,18 +43,18 @@ help_guide = """\033[1;31m
 
 
 # the point in scenes the player will go back to when an action is completed in order to stop them from having to read the descriptions each time
-def starting_room_scene_restart():  # defining the point in which players return to after completeing an action
-    box = False  # whether or not the box has been interacted with
+def starting_room_scene_restart():  # defining the point in which players return to after completing an action
+
     print("")
     starting_room_options = input("What would you like to do? ").lower()  # submit directions, and change anything entered to lowercase
     if starting_room_options == "south":  # if south is entered will carry out these functions:
-        kitchen_scene()
+        kitchen_scene()  # starts the kitchen scene
 
     elif starting_room_options == "west":  # if west is entered will carry out these functions:
-        bathroom_scene()
+        bathroom_scene()  # starts the bathroom scene
 
     elif starting_room_options == "east":  # if south is entered will carry out these functions:
-        cupboard_scene()
+        cupboard_scene()  # starts the cupboard scene
 
     elif starting_room_options == "north":  # if north is entered will carry out these functions:
         print("The door is padlocked shut, you pull at the handle and it doesn't move.")
@@ -61,25 +62,25 @@ def starting_room_scene_restart():  # defining the point in which players return
 
     elif starting_room_options == "help":  # if help is entered will carry out these functions:
         print(help_guide)  # displays the help guide
-        starting_room_scene_restart()  # goes back to the beginning of the scence
+        starting_room_scene_restart()  # goes back to the beginning of the scene
 
     elif starting_room_options == "inventory":  # if inventory is entered will carry out these functions:
         print(inventory)  # displays the inventory guide
-        starting_room_scene_restart()  # goes back to the beginning of the scence
+        starting_room_scene_restart()  # goes back to the beginning of the scene
     else:
         print("I do not understand, type help for general instructions.")  # asking the player to reenter
         starting_room_scene_restart()
 
 
-def kitchen_scene_restart():  # defining the point in which players return to after completeing an action
-    box = False  # sets the box as closed
+def kitchen_scene_restart():  # defining the point in which players return to after completing an action
+    global box  # declares the global box variable within this scene
     print("")
     kitchen_options = input("What would you like to do? ").lower()
-    if kitchen_options == "north":  # if norht is entered will carry out these functions:
+    if kitchen_options == "north":  # if north is entered will carry out these functions:
         starting_room_scene()  # will return the player to the starting room
 
-    elif box == False and kitchen_options == "examine box":  # checks if the box has been opened and what the player typed
-        box_pickup = input("""The box is just big enough to hold a handfull of golf balls, the design is very intercrite 
+    elif box == False and kitchen_options == "examine box":  # checks if the box has been opened + what the player typed
+        box_pickup = input("""The box is just big enough to hold a handful of golf balls, the design is very detailed 
 but a little ugly. Would you like to open the box? """).lower()
 
         if box_pickup == "yes":
@@ -88,7 +89,6 @@ place to keep it, instead of thinking to hard about the really strange place to 
 pocket for later use.""")
             inventory.append("Rusted Screwdriver")
             box = True  # whether or not the box has been interacted with, switches back when code restarts
-            print(box)
             kitchen_scene_restart()
 
         elif box_pickup == "no":
@@ -99,8 +99,9 @@ pocket for later use.""")
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
             kitchen_scene_restart()
 
-    elif box == True and kitchen_options == "examine box":  # checks if the box has been opened and what the player typed
+    elif box == True and kitchen_options == "examine box":  # checks if the box has been opened + what the player typed
         print("The box remains open on the table, it is empty.")
+        kitchen_scene_restart()
 
     elif kitchen_options == "examine fridge":  # if examine fridge is entered will carry out these functions:
         print("Unlike the cupboards the fridge is not well stocked, there is a few bottles of water but that is it.")
@@ -146,29 +147,31 @@ def cupboard_scene_restart():  # defining the point in which players return to a
 
 
 # all scenes that include the descriptions of the room
+
+
 def cupboard_scene():  # defining the cupboard scene
     print(cupboard_description)  # displays the cupboard description
     print("")
-    cupboard_scene_restart()
+    cupboard_scene_restart()   # starts the cupboard scene from a point that doesn't include the room descriptions
 
 
 def starting_room_scene():  # defining the starting room scene
     print(starting_room_description)  # displays the starting room description
     print("")
-    starting_room_scene_restart()
+    starting_room_scene_restart()   # starts the starting scene from a point that doesn't include the room descriptions
 
 
 def bathroom_scene():  # defining the bathroom scene
     print(bathroom_description)  # displays the bathroom description
     print("")
-    bathroom_scene_restart()
+    bathroom_scene_restart()   # starts the bathroom scene from a point that doesn't include the room descriptions
 
 
 def kitchen_scene():  # defining the kitchen scene
     print(kitchen_description)  # displays the kitchen description
     print("")
-    kitchen_scene_restart()
+    kitchen_scene_restart()   # starts the kitchen scene from a point that doesn't include the room descriptions
 
 
 print(opening_text)  # displays the opening text which is defined earlier
-starting_room_scene()
+starting_room_scene()  # starts the starting scene
