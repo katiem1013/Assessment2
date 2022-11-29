@@ -73,18 +73,29 @@ seen so far. Whatever was there was dragged out recently.""")  # displays the de
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
     # if examine bedside table is entered will carry out these functions:
-    elif starting_room_options == "examine bedside table" or "examine bedside tables":
+    elif starting_room_options == "examine bedside table":
+        print("""Both bedside tables, like everything in the room, look new. One contains a lamp, it doesn't work when 
+you pull it. When you check both draws one contains two batteries, the other empty. You shove the batteries into your 
+pocket and shut the draws.""")  # displays the description
+        starting_room_scene_restart()  # goes back to the beginning of the scene
+
+    elif starting_room_options == "examine bedside tables":
         print("""Both bedside tables, like everything in the room, look new. One contains a lamp, it doesn't work when 
 you pull it. When you check both draws one contains two batteries, the other empty. You shove the batteries into your 
 pocket and shut the draws.""")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
     elif starting_room_options == "examine lamp":  # if examine lamp is entered will carry out these functions:
-        print("""""")  # displays the description
+        print("""Upon closer inspection on the lamp you realise that where you though it was a normal lamp it is in fact
+a horse. A horse with a lampshade on its head, you aren't sure where the on switch is and are kind of scared to find
+out. It's actually pretty cool, you consider buying one but as you're inspecting it you see the price tag. £5,509. You 
+put it back down, maybe not then.""")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
     elif starting_room_options == "examine padlock":  # if examine padlock is entered will carry out these functions:
-        print("""""")  # displays the description
+        print("""The padlock needs key to unlock it, out of everything you've seen so far it's the most well used. It 
+has scratches covering it as though someones been yanking it, or at the very least has had it attached to something that
+bashed it about a lot.""")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
     elif starting_room_options == "help":  # if help is entered will carry out these functions:
@@ -201,6 +212,35 @@ def bathroom_scene_restart():  # defining the point in which players return to a
     bathroom_options = input("What would you like to do? ").lower()  # gets the players input
     if bathroom_options == "east":  # if east is entered will carry out these functions:
         starting_room_scene()  # will return the player to the starting room
+
+    elif bathroom_options == "examine shower":  # if examine shower is entered will carry out these functions:
+        print("""It's one of those showers that is shoved into the corner of the room and would usually have two glass 
+doors that open on the corner but instead it is two shower curtains, when you push them back there are a range of shower
+products. A weird amount really.""")  # displays the description
+        starting_room_scene_restart()  # goes back to the beginning of the scene
+
+    elif bathroom_options == "examine toilet":  # if examine toilet is entered will carry out these functions:
+        print("""Upon closer inspection you think, wow, that sure is a toilet. It might possibly be the most average 
+toilet you've ever seen.""")  # displays the description
+        starting_room_scene_restart()  # goes back to the beginning of the scene
+
+    elif bathroom_options == "examine sink":  # if examine sink is entered will carry out these functions:
+        print("""If a sink could appear in the dictionary next to the word sink there is a real chance it could be this 
+one.""")  # displays the description
+        starting_room_scene_restart()  # goes back to the beginning of the scene
+
+    elif bathroom_options == "examine vent":  # if examine vent is entered will carry out these functions:
+        print("The vent is pretty high up, you can't quite reach it from here.")  # displays the description
+        starting_room_scene_restart()  # goes back to the beginning of the scene
+
+    elif bathroom_options == "examine toothbrushes":  # if examine padlock is entered will carry out these functions:
+        print("""Three toothbrushes sit in a pot, they're the only things in there. There's a green, blue and purple one 
+The green has obviously been use, though it's unclear how recently.""")  # displays the description
+        starting_room_scene_restart()  # goes back to the beginning of the scene
+
+    elif bathroom_options == "examine mat":  # if examine padlock is entered will carry out these functions:
+        print("""""")  # displays the description
+        starting_room_scene_restart()  # goes back to the beginning of the scene
 
 
 def cupboard_scene_restart():  # defining the point in which players return to after completing an action
