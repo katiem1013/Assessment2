@@ -39,7 +39,7 @@ help_guide = """\033[1;31m
 - 'north', 'south', 'east', 'west' to move around the room. 
 - use [item] to use something.
 - examine [object] to get a closer look.
-- inventory to open your inventory.\n \033[0;39m \n"""  #/033[0;31m and /n make the text appear red then \033[0;39m \n turns it back to white
+- inventory to open your inventory.\n \033[0;39m \n"""  # /033[0;31m and /n make the text appear red then \033[0;39m \n turns it back to white
 
 
 # the point in scenes the player will go back to when an action is completed in order to stop them from having to read the descriptions each time
@@ -112,10 +112,27 @@ pocket for later use.""")
 window, it seems practically new.""")
         kitchen_scene_restart()
 
-    elif kitchen_options == "stand on chair":  # if stand on chair is entered will carry out these functions:
+    elif kitchen_options == "examine window":  # if examine window is entered will carry out these functions:
+        print("""You are unable to see out of the window from here, when you stand back you are able to see the sky but
+you can't quite tell what time it is.""")
+        kitchen_scene_restart()
+
+    elif kitchen_options == "examine table":  # if examine table is entered will carry out these functions:
+        print("""""")
+        kitchen_scene_restart()
+
+    elif kitchen_options == "examine oven":  # if examine oven is entered will carry out these functions:
+        print("""""")
+        kitchen_scene_restart()
+
+    elif kitchen_options == "examine cupboard" or "examine cupboards":  # if examine cupboard is entered will carry out these functions:
+        print("""Cupboard""")
+        kitchen_scene_restart()
+
+    elif kitchen_options == "stand on chair" or "use chair":  # if stand on chair or use chair is entered it will carry out these functions:
         print("""You climb onto the chair, it rocks gently beneath you but you hold out your arms to balance yourself.
 Once you are up there you can't see anything new in the room but you are able to see out the little window. From what
-you can tell you must be in a basement since you can only see the bottom of trees from your postion.""")
+you can tell you must be in a basement since you can only see the bottom of trees from your position.""")
         kitchen_scene_restart()
 
     elif kitchen_options == "help":  # if help is entered will carry out these functions:
@@ -124,7 +141,7 @@ you can tell you must be in a basement since you can only see the bottom of tree
 
     elif kitchen_options == "inventory":  # if inventory is entered will carry out these functions:
         print(inventory)  # displays the inventory guide
-        kitchen_scene_restart()  # goes back to the beginning of the scence
+        kitchen_scene_restart()  # goes back to the beginning of the scene
 
     else:
         print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -145,10 +162,7 @@ def cupboard_scene_restart():  # defining the point in which players return to a
         starting_room_scene()  # will return the player to the starting room
 
 
-
 # all scenes that include the descriptions of the room
-
-
 def cupboard_scene():  # defining the cupboard scene
     print(cupboard_description)  # displays the cupboard description
     print("")
