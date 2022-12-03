@@ -1,7 +1,6 @@
 inventory = []  # inventory list
-findable_items = ["Batteries"]  # list of things the player can find
 box = False  # sets the box as closed
-word = "use"
+bedside_draw = False
 
 # opening descriptions
 opening_text = """You awaken in a room that you do not recognise with no memories on how you got here, you remember most
@@ -47,9 +46,7 @@ help_guide = """\033[1;31m
 # in order to stop them from having to read the descriptions each time
 def starting_room_scene_restart():  # defining the point in which players return to after completing an action
 
-    global findable_items  # declares the global findable_items variable within this scene
-    print("")
-    # submit directions:
+    global bedside_draw  # declares the global bedside_draw variable within this scene
     starting_room_options = input("What would you like to do? ").lower()  # gets the players input
     # . lower() changes anything entered to lowercase
 
@@ -72,19 +69,11 @@ empty, it looks as though something was once there but whatever it was is gone. 
 seen so far. Whatever was there was dragged out recently.""")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
-    # if examine bedside table is entered will carry out these functions:
-    elif starting_room_options == "examine bedside table":
+    # if examine bedside table(s) is entered will carry out these functions:
+    elif starting_room_options == "examine bedside table" or starting_room_options == "examine bedside tables":
         print("""Both bedside tables, like everything in the room, look new. One contains a lamp, it doesn't work when 
-you pull it. When you check both draws one contains two batteries, the other empty. You shove the batteries into your 
-pocket and shut the draws.""")  # displays the description
-        starting_room_scene_restart()  # goes back to the beginning of the scene
-
-    elif starting_room_options == "examine bedside tables":
-        print("""Both bedside tables, like everything in the room, look new. One contains a lamp, it doesn't work when 
-you pull it. When you check both draws one contains two batteries, the other empty. You shove the batteries into your 
-pocket and shut the draws.""")  # displays the description
-        starting_room_scene_restart()  # goes back to the beginning of the scene
-
+you pull it. There is one draw in both beside tables""")  # displays the description
+        
     elif starting_room_options == "examine lamp":  # if examine lamp is entered will carry out these functions:
         print("""Upon closer inspection on the lamp you realise that where you though it was a normal lamp it is in fact
 a horse. A horse with a lampshade on its head, you aren't sure where the on switch is and are kind of scared to find
@@ -97,7 +86,20 @@ put it back down, maybe not then.""")  # displays the description
 has scratches covering it as though someones been yanking it, or at the very least has had it attached to something that
 bashed it about a lot.""")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
+        
+    # if the beside draw has yet to be opened it will carry out these functions:
+    elif (starting_room_options == "use draw" or starting_room_options == "open draw") and bedside_draw is False:
+        print("""When you check both draws one contains two batteries, the other empty. You shove the batteries into
+    your pocket and shut the draws.""")  # displays the description
+        inventory.append('batteries')  # adds batteries to the inventory
+        bedside_draw = True  # sets the beside draws as open
+        starting_room_scene_restart()  # goes back to the beginning of the scene
 
+    # if the beside draw has been opened it will carry out these functions:
+    elif (starting_room_options == "use draw" or starting_room_options == "open draw") and bedside_draw is True:
+        print("When you open the draws they are both empty.")  # displays the description
+        starting_room_scene_restart()  # goes back to the beginning of the scene
+    
     elif starting_room_options == "help":  # if help is entered will carry out these functions:
         print(help_guide)  # displays the help guide
         starting_room_scene_restart()  # goes back to the beginning of the scene
@@ -105,38 +107,22 @@ bashed it about a lot.""")  # displays the description
     elif starting_room_options == "inventory":  # if inventory is entered will carry out these functions:
         print(inventory)  # displays the inventory guide
         starting_room_scene_restart()  # goes back to the beginning of the scene
-    else:
+
+    else:  # if no other option is fitting it will carry out these functions::
         print("I do not understand, type help for general instructions.")  # asking the player to reenter
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
 
 def kitchen_scene_restart():  # defining the point in which players return to after completing an action
     global box  # declares the global box variable within this scene
-    print("")
     kitchen_options = input("What would you like to do? ").lower()  # gets the players input
     if kitchen_options == "north":  # if north is entered will carry out these functions:
         starting_room_scene()  # will return the player to the starting room
 
     elif box is False and kitchen_options == "examine box":  # checks if the box has been opened + what the player typed
-        box_pickup = input("""The box is just big enough to hold a handful of golf balls, the design is very detailed 
-but a little ugly. Would you like to open the box? """).lower()  # gets the players input
-
-        if box_pickup == "yes":
-            print("""You reach into the box and there sits a rusted, falling apart screwdriver. It's kind of a weird 
-place to keep it, instead of thinking to hard about the really strange place to keep a tool you shove it into your 
-pocket for later use.""")  # displays the description
-            inventory.append("Rusted Screwdriver")  # adds the screwdriver to the inventory
-            box = True  # whether or not the box has been interacted with, switches back when code restarts
-            kitchen_scene_restart()  # goes back to the beginning of the scene
-
-        elif box_pickup == "no":
-            print("The box remains shut on the table and the contains remain unknown.")  # displays the description
-            kitchen_scene_restart()  # goes back to the beginning of the scene
-
-        else:
-            print("I do not understand, type help for general instructions.")  # asking the player to reenter
-            kitchen_scene_restart()  # goes back to the beginning of the scene
-
+        print("""The box is just big enough to hold a handful of golf balls, the design is very detailed 
+but a little ugly.""")  # gets the players input
+        
     elif box is True and kitchen_options == "examine box":  # checks if the box has been opened + what the player typed
         print("The box remains open on the table, it is empty.")  # displays the description
         kitchen_scene_restart()  # goes back to the beginning of the scene
@@ -180,18 +166,26 @@ front edge of them. You pick up the closest can and realise it's empty. You repl
 another, it's also empty.""")  # displays the description
         kitchen_scene_restart()  # goes back to the beginning of the scene
 
-    elif kitchen_options == "stand on chair":  # if stand on chair is entered it will carry out these functions:
+    # if stand on chair or use chair is entered it will carry out these functions:
+    elif kitchen_options == "stand on chair" or kitchen_options == "use chair":
         print("""You climb onto the chair, it rocks gently beneath you and creaks loudly in the silent room but you hold
 out your arms to balance yourself. bOnce you are up there you can't see anything new in the room but you are able to see
 out the little window. From what you can tell you must be in a basement since you can only see the bottom of trees from 
 your position. Even from up here you cant quite tell what time it is.""")  # displays the description
         kitchen_scene_restart()  # goes back to the beginning of the scene
 
-    elif kitchen_options == "use chair":  # if use chair is entered it will carry out these functions:
-        print("""You climb onto the chair, it rocks gently beneath you and creaks loudly in the silent room but you hold
-out your arms to balance yourself. bOnce you are up there you can't see anything new in the room but you are able to see
-out the little window. From what you can tell you must be in a basement since you can only see the bottom of trees from 
-your position. Even from up here you cant quite tell what time it is.""")  # displays the description
+    # if open box or use box is entered and the box hasn't been opened it will carry out these functions:
+    elif (kitchen_options == "use box" or kitchen_options == "open box") and box is False:
+        print("""You reach into the box and there sits a rusted, falling apart screwdriver. It's kind of a weird 
+place to keep it, instead of thinking to hard about the really strange place to keep a tool you shove it into your 
+pocket for later use.""")  # displays the description
+        inventory.append("screwdriver")  # adds the screwdriver to the inventory
+        box = True  # sets the box to true to confirm it's been opened
+        kitchen_scene_restart()  # goes back to the beginning of the scene
+
+    # if open box or use box is entered and the box has been opened will carry out these functions:
+    elif (kitchen_options == "use box" or kitchen_options == "open box") and box is True:
+        print("The box is empty, you already took the screwdriver from it.")  # displays the description
         kitchen_scene_restart()  # goes back to the beginning of the scene
 
     elif kitchen_options == "help":  # if help is entered will carry out these functions:
@@ -202,45 +196,58 @@ your position. Even from up here you cant quite tell what time it is.""")  # dis
         print(inventory)  # displays the inventory guide
         kitchen_scene_restart()  # goes back to the beginning of the scene
 
-    else:
+    else:  # if no other option is fitting it will carry out these functions:
         print("I do not understand, type help for general instructions.")  # asking the player to reenter
         kitchen_scene_restart()
 
 
 def bathroom_scene_restart():  # defining the point in which players return to after completing an action
-    print("")
     bathroom_options = input("What would you like to do? ").lower()  # gets the players input
     if bathroom_options == "east":  # if east is entered will carry out these functions:
-        starting_room_scene()  # will return the player to the starting room
+        bathroom_scene_restart()  # will return the player to the starting room
 
     elif bathroom_options == "examine shower":  # if examine shower is entered will carry out these functions:
         print("""It's one of those showers that is shoved into the corner of the room and would usually have two glass 
 doors that open on the corner but instead it is two shower curtains, when you push them back there are a range of shower
 products. A weird amount really.""")  # displays the description
-        starting_room_scene_restart()  # goes back to the beginning of the scene
+        bathroom_scene_restart()  # goes back to the beginning of the scene
 
     elif bathroom_options == "examine toilet":  # if examine toilet is entered will carry out these functions:
         print("""Upon closer inspection you think, wow, that sure is a toilet. It might possibly be the most average 
 toilet you've ever seen.""")  # displays the description
-        starting_room_scene_restart()  # goes back to the beginning of the scene
+        bathroom_scene_restart()  # goes back to the beginning of the scene
 
     elif bathroom_options == "examine sink":  # if examine sink is entered will carry out these functions:
         print("""If a sink could appear in the dictionary next to the word sink there is a real chance it could be this 
-one.""")  # displays the description
-        starting_room_scene_restart()  # goes back to the beginning of the scene
+one. It is a picture perfect sink.""")  # displays the description
+        bathroom_scene_restart()  # goes back to the beginning of the scene
 
     elif bathroom_options == "examine vent":  # if examine vent is entered will carry out these functions:
         print("The vent is pretty high up, you can't quite reach it from here.")  # displays the description
-        starting_room_scene_restart()  # goes back to the beginning of the scene
+        bathroom_scene_restart()  # goes back to the beginning of the scene
 
     elif bathroom_options == "examine toothbrushes":  # if examine padlock is entered will carry out these functions:
         print("""Three toothbrushes sit in a pot, they're the only things in there. There's a green, blue and purple one 
 The green has obviously been use, though it's unclear how recently.""")  # displays the description
-        starting_room_scene_restart()  # goes back to the beginning of the scene
+        bathroom_scene_restart()  # goes back to the beginning of the scene
 
     elif bathroom_options == "examine mat":  # if examine padlock is entered will carry out these functions:
-        print("""""")  # displays the description
-        starting_room_scene_restart()  # goes back to the beginning of the scene
+        print("""While it's obviously supposed to be white you can tell even from the door that it's greying from use. 
+It's bone dry, well dead bone dry, alive bones are actually wet. You don't really think much of the mat though it looks 
+as though there is something underneath.""")  # displays the description
+        bathroom_scene_restart()  # goes back to the beginning of the scene
+
+    elif bathroom_options == "help":  # if help is entered will carry out these functions:
+        print(help_guide)
+        kitchen_scene_restart()  # goes back to the beginning of the scene
+
+    elif bathroom_options == "inventory":  # if inventory is entered will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        kitchen_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        bathroom_scene_restart()  # goes back to the beginning of the scene
 
 
 def cupboard_scene_restart():  # defining the point in which players return to after completing an action
