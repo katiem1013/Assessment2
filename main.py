@@ -73,7 +73,8 @@ seen so far. Whatever was there was dragged out recently.""")  # displays the de
     elif starting_room_options == "examine bedside table" or starting_room_options == "examine bedside tables":
         print("""Both bedside tables, like everything in the room, look new. One contains a lamp, it doesn't work when 
 you pull it. There is one draw in both beside tables""")  # displays the description
-        
+        starting_room_scene_restart()  # goes back to the beginning of the scene
+
     elif starting_room_options == "examine lamp":  # if examine lamp is entered will carry out these functions:
         print("""Upon closer inspection on the lamp you realise that where you though it was a normal lamp it is in fact
 a horse. A horse with a lampshade on its head, you aren't sure where the on switch is and are kind of scared to find
@@ -86,7 +87,7 @@ put it back down, maybe not then.""")  # displays the description
 has scratches covering it as though someones been yanking it, or at the very least has had it attached to something that
 bashed it about a lot.""")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
-        
+
     # if the beside draw has yet to be opened it will carry out these functions:
     elif (starting_room_options == "use draw" or starting_room_options == "open draw") and bedside_draw is False:
         print("""When you check both draws one contains two batteries, the other empty. You shove the batteries into
@@ -99,7 +100,7 @@ bashed it about a lot.""")  # displays the description
     elif (starting_room_options == "use draw" or starting_room_options == "open draw") and bedside_draw is True:
         print("When you open the draws they are both empty.")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
-    
+
     elif starting_room_options == "help":  # if help is entered will carry out these functions:
         print(help_guide)  # displays the help guide
         starting_room_scene_restart()  # goes back to the beginning of the scene
@@ -121,7 +122,8 @@ def kitchen_scene_restart():  # defining the point in which players return to af
 
     elif box is False and kitchen_options == "examine box":  # checks if the box has been opened + what the player typed
         print("""The box is just big enough to hold a handful of golf balls, the design is very detailed 
-but a little ugly.""")  # gets the players input
+but a little ugly.""")  # displays the description
+        kitchen_scene_restart()  # goes back to the beginning of the scene
         
     elif box is True and kitchen_options == "examine box":  # checks if the box has been opened + what the player typed
         print("The box remains open on the table, it is empty.")  # displays the description
