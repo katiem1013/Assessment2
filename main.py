@@ -1,6 +1,11 @@
+import random
+
 inventory = []  # inventory list
 box = False  # sets the box as closed
 bedside_draw = False
+safe_code = []
+codes_cracked = 0
+safe_opened = False
 
 # opening descriptions
 opening_text = """You awaken in a room that you do not recognise with no memories on how you got here, you remember most
@@ -124,7 +129,7 @@ def kitchen_scene_restart():  # defining the point in which players return to af
         print("""The box is just big enough to hold a handful of golf balls, the design is very detailed 
 but a little ugly.""")  # displays the description
         kitchen_scene_restart()  # goes back to the beginning of the scene
-        
+
     elif box is True and kitchen_options == "examine box":  # checks if the box has been opened + what the player typed
         print("The box remains open on the table, it is empty.")  # displays the description
         kitchen_scene_restart()  # goes back to the beginning of the scene
@@ -204,6 +209,9 @@ pocket for later use.""")  # displays the description
 
 
 def bathroom_scene_restart():  # defining the point in which players return to after completing an action
+
+    global safe_opened  # declares the global safe opened variable within this scene
+
     bathroom_options = input("What would you like to do? ").lower()  # gets the players input
     if bathroom_options == "east":  # if east is entered will carry out these functions:
         bathroom_scene_restart()  # will return the player to the starting room
@@ -239,13 +247,63 @@ It's bone dry, well dead bone dry, alive bones are actually wet. You don't reall
 as though there is something underneath.""")  # displays the description
         bathroom_scene_restart()  # goes back to the beginning of the scene
 
+    # if examine use mat or move mat is entered will carry out these functions:
+    elif bathroom_options == "use mat" or bathroom_options == "move mat":
+        print("""When you move the mat theres a safe underneath, you aren't sure what the code is but theres tree notes 
+on the bottom of the mat it read:""")  # displays the description
+
+        if safe_opened is False:  # if safe has not been opened carry out these functions:
+            global safe_code  # declares the global safe code variable within this scene
+            while len(safe_code) < 3:  # checks how many successful attempt there have already been
+                code = random.randint(3, 12)  # randomises what numbers the is, between 3 and 12
+                if code not in safe_code:  # checks to see if the number has already been chosen
+                    safe_code.append(code)  # adds the number to the code list if they haven't already been used
+                global codes_cracked  # declares the global code cracked variable within this scene
+                
+                # while the number of successful attempts is less than three the code will repeat
+                while codes_cracked < len(safe_code):
+                    print("you must enter a pair of numbers that divide to %d." % code)  # tells the player what to do
+                    try:  # catches errors, instead of stopping the code it reruns
+                        player_number_1 = float(input("Enter number: "))  # asking the player to enter a number
+                        player_number_2 = float(input("Enter number: "))  # asking the player to enter a number
+                        result = player_number_1 // player_number_2  # divides the numbers given
+                        if result == code:  # if the result is the same as the code these functions will happen:
+                            print("Correct.")  # confirms the guess was correct
+                            codes_cracked += 1  # adds 1 to the amount of successful attempts
+    
+                    except ValueError:  # if the player enters anything but a number these functions will happen:
+                        print("Not a number.")  # confirms its not a number
+                        break  # stops the loop and skip to the next code after the loo
+    
+                    except ZeroDivisionError:  # if the player enters 0 these functions will happen:
+                        print("Can't divide by zero.")  # confirms they cannot divide by 0
+    
+                else:
+                    print("You have opened the safe.")  # displays the description
+                    print("""You think it's kind of weird that whoever lives here put the code to the safe on the mat 
+hiding it, and even weird they did it as a riddle, but it works out for you because it clicks open and you are able to 
+reach in and pull out a... you can't actually tell what it is. It's paper, green, kind of crushed. It might be a frog? 
+Judging by the eyes and weird uneven legs. A solid attempt, just not a great one. The state of it makes you feel less
+guilty when you unfold it and find a singular word written on it: Fireplace... 
+        
+What does that mean?""")  # displays the description
+                    bathroom_scene_restart()   # goes back to the beginning of the scene
+
+        elif safe_opened is True:  # of safe has been opened carry out these functions:
+            print("The safe is unlocked but close. It remains empty.")
+            bathroom_scene_restart()  # goes back to the beginning of the scene
+
+        else:  # if no other option is fitting it will carry out these functions:
+            print("I do not understand, type help for general instructions.")  # asking the player to reenter
+            bathroom_scene_restart()  # goes back to the beginning of the scene
+
     elif bathroom_options == "help":  # if help is entered will carry out these functions:
-        print(help_guide)
-        kitchen_scene_restart()  # goes back to the beginning of the scene
+        print(help_guide)  # displays help guide
+        bathroom_scene_restart()   # goes back to the beginning of the scene
 
     elif bathroom_options == "inventory":  # if inventory is entered will carry out these functions:
         print(inventory)  # displays the inventory guide
-        kitchen_scene_restart()  # goes back to the beginning of the scene
+        bathroom_scene_restart()   # goes back to the beginning of the scene
 
     else:  # if no other option is fitting it will carry out these functions:
         print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -258,30 +316,42 @@ def cupboard_scene_restart():  # defining the point in which players return to a
     if cupboard_options == "west":  # if west is entered will carry out these functions:
         starting_room_scene()  # will return the player to the starting room
 
+    elif cupboard_options == "help":  # if help is entered will carry out these functions:
+        print(help_guide)  # displays help guide
+        cupboard_scene_restart()   # goes back to the beginning of the scene
+
+    elif cupboard_options == "inventory":  # if inventory is entered will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        cupboard_scene_restart()   # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        cupboard_scene_restart()  # goes back to the beginning of the scene
+
 
 # all scenes that include the descriptions of the room
 def cupboard_scene():  # defining the cupboard scene
     print(cupboard_description)  # displays the cupboard description
     print("")
-    cupboard_scene_restart()   # starts the cupboard scene from a point that doesn't include the room descriptions
+    cupboard_scene_restart()  # starts the cupboard scene from a point that doesn't include the room descriptions
 
 
 def starting_room_scene():  # defining the starting room scene
     print(starting_room_description)  # displays the starting room description
     print("")
-    starting_room_scene_restart()   # starts the starting scene from a point that doesn't include the room descriptions
+    starting_room_scene_restart()  # starts the starting scene from a point that doesn't include the room descriptions
 
 
 def bathroom_scene():  # defining the bathroom scene
     print(bathroom_description)  # displays the bathroom description
     print("")
-    bathroom_scene_restart()   # starts the bathroom scene from a point that doesn't include the room descriptions
+    bathroom_scene_restart()  # starts the bathroom scene from a point that doesn't include the room descriptions
 
 
 def kitchen_scene():  # defining the kitchen scene
     print(kitchen_description)  # displays the kitchen description
     print("")
-    kitchen_scene_restart()   # starts the kitchen scene from a point that doesn't include the room descriptions
+    kitchen_scene_restart()  # starts the kitchen scene from a point that doesn't include the room descriptions
 
 
 print(opening_text)  # displays the opening text which is defined earlier
