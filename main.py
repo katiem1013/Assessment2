@@ -1,11 +1,14 @@
 import random
 
 inventory = []  # inventory list
+
+# variables for inside the house
 box = False  # sets the box as closed
-bedside_draw = False
-safe_code = []
-codes_cracked = 0
-safe_opened = False
+bedside_draw = False  # sets the bedside table draws as closed
+safe_code = []  # list for the safe code once it has been randomly chosen
+codes_cracked = 0  # the amount of successful attempts there have been
+safe_opened = False  # sets the safe as closed
+vent_opened = False  # sets the vent as closed
 
 # opening descriptions
 opening_text = """You awaken in a room that you do not recognise with no memories on how you got here, you remember most
@@ -55,39 +58,39 @@ def starting_room_scene_restart():  # defining the point in which players return
     starting_room_options = input("What would you like to do? ").lower()  # gets the players input
     # . lower() changes anything entered to lowercase
 
-    if starting_room_options == "south":  # if south is entered will carry out these functions:
+    if starting_room_options == "south":  # if south is entered it will carry out these functions:
         kitchen_scene()  # starts the kitchen scene
 
-    elif starting_room_options == "west":  # if west is entered will carry out these functions:
+    elif starting_room_options == "west":  # if west is entered it will carry out these functions:
         bathroom_scene()  # starts the bathroom scene
 
-    elif starting_room_options == "east":  # if south is entered will carry out these functions:
+    elif starting_room_options == "east":  # if south is entered it will carry out these functions:
         cupboard_scene()  # starts the cupboard scene
 
-    elif starting_room_options == "north":  # if north is entered will carry out these functions:
+    elif starting_room_options == "north":  # if north is entered it will carry out these functions:
         print("The door is padlocked shut, you pull at the handle and it doesn't move.")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
-    elif starting_room_options == "examine bed":  # if bed is entered will carry out these functions:
+    elif starting_room_options == "examine bed":  # if bed is entered it will carry out these functions:
         print("""Other then where you were sleeping the bed is made perfectly, you crouch down and under the bed it is
 empty, it looks as though something was once there but whatever it was is gone. It's dusty, the dirtiest thing you've 
 seen so far. Whatever was there was dragged out recently.""")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
-    # if examine bedside table(s) is entered will carry out these functions:
+    # if examine bedside table(s) is entered it will carry out these functions:
     elif starting_room_options == "examine bedside table" or starting_room_options == "examine bedside tables":
         print("""Both bedside tables, like everything in the room, look new. One contains a lamp, it doesn't work when 
 you pull it. There is one draw in both beside tables""")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
-    elif starting_room_options == "examine lamp":  # if examine lamp is entered will carry out these functions:
+    elif starting_room_options == "examine lamp":  # if examine lamp is entered it will carry out these functions:
         print("""Upon closer inspection on the lamp you realise that where you though it was a normal lamp it is in fact
 a horse. A horse with a lampshade on its head, you aren't sure where the on switch is and are kind of scared to find
 out. It's actually pretty cool, you consider buying one but as you're inspecting it you see the price tag. £5,509. You 
 put it back down, maybe not then.""")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
-    elif starting_room_options == "examine padlock":  # if examine padlock is entered will carry out these functions:
+    elif starting_room_options == "examine padlock":  # if examine padlock is entered it will carry out these functions:
         print("""The padlock needs key to unlock it, out of everything you've seen so far it's the most well used. It 
 has scratches covering it as though someones been yanking it, or at the very least has had it attached to something that
 bashed it about a lot.""")  # displays the description
@@ -106,11 +109,11 @@ bashed it about a lot.""")  # displays the description
         print("When you open the draws they are both empty.")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
-    elif starting_room_options == "help":  # if help is entered will carry out these functions:
+    elif starting_room_options == "help":  # if help is entered it will carry out these functions:
         print(help_guide)  # displays the help guide
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
-    elif starting_room_options == "inventory":  # if inventory is entered will carry out these functions:
+    elif starting_room_options == "inventory":  # if inventory is entered it will carry out these functions:
         print(inventory)  # displays the inventory guide
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
@@ -134,29 +137,29 @@ but a little ugly.""")  # displays the description
         print("The box remains open on the table, it is empty.")  # displays the description
         kitchen_scene_restart()  # goes back to the beginning of the scene
 
-    elif kitchen_options == "examine fridge":  # if examine fridge is entered will carry out these functions:
+    elif kitchen_options == "examine fridge":  # if examine fridge is entered it will carry out these functions:
         print("""Unlike the cupboards the fridge is not well stocked, there is a few bottles of water on one of the 
 shelves. The first one you pick up has been opened and is missing some water. The rest have not been. When the water is 
 in your hand you notice that it is far too warm for being in the fridge.""")  # displays the description
         kitchen_scene_restart()  # goes back to the beginning of the scene
 
-    elif kitchen_options == "examine chair":  # if examine chair is entered will carry out these functions:
+    elif kitchen_options == "examine chair":  # if examine chair is entered it will carry out these functions:
         print("""The chair is nothing special but if you stood on the chair you would be able to see out the little 
 window, it seems practically new.""")  # displays the description
         kitchen_scene_restart()  # goes back to the beginning of the scene
 
-    elif kitchen_options == "examine window":  # if examine window is entered will carry out these functions:
+    elif kitchen_options == "examine window":  # if examine window is entered it will carry out these functions:
         print("""You are unable to see out of the window from here, when you stand back you are able to see the sky but
 you can't quite tell what time it is.""")  # displays the description
         kitchen_scene_restart()  # goes back to the beginning of the scene
 
-    elif kitchen_options == "examine table":  # if examine table is entered will carry out these functions:
+    elif kitchen_options == "examine table":  # if examine table is entered it will carry out these functions:
         print("""The table looks somewhat new, there are scratches on the edge you can't tell what made them. There is 
 a box sitting in the middle if not a little closer to the left side. The table is made of wood unlike the chair tucked
 under it which is made out of metal.""")  # displays the description
         kitchen_scene_restart()  # goes back to the beginning of the scene
 
-    elif kitchen_options == "examine oven":  # if examine oven is entered will carry out these functions:
+    elif kitchen_options == "examine oven":  # if examine oven is entered it will carry out these functions:
         print("""From what you can tell the oven is gas, you reach out and try to turn it on but nothing you do works.
 When you try to pull open the main oven it won't move no matter how hard you pull it.""")  # displays the description
         kitchen_scene_restart()  # goes back to the beginning of the scene
@@ -190,16 +193,16 @@ pocket for later use.""")  # displays the description
         box = True  # sets the box to true to confirm it's been opened
         kitchen_scene_restart()  # goes back to the beginning of the scene
 
-    # if open box or use box is entered and the box has been opened will carry out these functions:
+    # if open box or use box is entered and the box has been opened it will carry out these functions:
     elif (kitchen_options == "use box" or kitchen_options == "open box") and box is True:
         print("The box is empty, you already took the screwdriver from it.")  # displays the description
         kitchen_scene_restart()  # goes back to the beginning of the scene
 
-    elif kitchen_options == "help":  # if help is entered will carry out these functions:
+    elif kitchen_options == "help":  # if help is entered it will carry out these functions:
         print(help_guide)
         kitchen_scene_restart()  # goes back to the beginning of the scene
 
-    elif kitchen_options == "inventory":  # if inventory is entered will carry out these functions:
+    elif kitchen_options == "inventory":  # if inventory is entered it will carry out these functions:
         print(inventory)  # displays the inventory guide
         kitchen_scene_restart()  # goes back to the beginning of the scene
 
@@ -213,35 +216,35 @@ def bathroom_scene_restart():  # defining the point in which players return to a
     global safe_opened  # declares the global safe opened variable within this scene
 
     bathroom_options = input("What would you like to do? ").lower()  # gets the players input
-    if bathroom_options == "east":  # if east is entered will carry out these functions:
+    if bathroom_options == "east":  # if east is entered it will carry out these functions:
         bathroom_scene_restart()  # will return the player to the starting room
 
-    elif bathroom_options == "examine shower":  # if examine shower is entered will carry out these functions:
+    elif bathroom_options == "examine shower":  # if examine shower is entered it will carry out these functions:
         print("""It's one of those showers that is shoved into the corner of the room and would usually have two glass 
 doors that open on the corner but instead it is two shower curtains, when you push them back there are a range of shower
 products. A weird amount really.""")  # displays the description
         bathroom_scene_restart()  # goes back to the beginning of the scene
 
-    elif bathroom_options == "examine toilet":  # if examine toilet is entered will carry out these functions:
+    elif bathroom_options == "examine toilet":  # if examine toilet is entered it will carry out these functions:
         print("""Upon closer inspection you think, wow, that sure is a toilet. It might possibly be the most average 
 toilet you've ever seen.""")  # displays the description
         bathroom_scene_restart()  # goes back to the beginning of the scene
 
-    elif bathroom_options == "examine sink":  # if examine sink is entered will carry out these functions:
+    elif bathroom_options == "examine sink":  # if examine sink is entered it will carry out these functions:
         print("""If a sink could appear in the dictionary next to the word sink there is a real chance it could be this 
 one. It is a picture perfect sink.""")  # displays the description
         bathroom_scene_restart()  # goes back to the beginning of the scene
 
-    elif bathroom_options == "examine vent":  # if examine vent is entered will carry out these functions:
+    elif bathroom_options == "examine vent":  # if examine vent is entered it will carry out these functions:
         print("The vent is pretty high up, you can't quite reach it from here.")  # displays the description
         bathroom_scene_restart()  # goes back to the beginning of the scene
 
-    elif bathroom_options == "examine toothbrushes":  # if examine padlock is entered will carry out these functions:
+    elif bathroom_options == "examine toothbrushes":  # if examine padlock is entered it will carry out these functions:
         print("""Three toothbrushes sit in a pot, they're the only things in there. There's a green, blue and purple one 
 The green has obviously been use, though it's unclear how recently.""")  # displays the description
         bathroom_scene_restart()  # goes back to the beginning of the scene
 
-    elif bathroom_options == "examine mat":  # if examine padlock is entered will carry out these functions:
+    elif bathroom_options == "examine mat":  # if examine padlock is entered it will carry out these functions:
         print("""While it's obviously supposed to be white you can tell even from the door that it's greying from use. 
 It's bone dry, well dead bone dry, alive bones are actually wet. You don't really think much of the mat though it looks 
 as though there is something underneath.""")  # displays the description
@@ -254,12 +257,12 @@ on the bottom of the mat it read:""")  # displays the description
 
         if safe_opened is False:  # if safe has not been opened carry out these functions:
             global safe_code  # declares the global safe code variable within this scene
-            while len(safe_code) < 3:  # checks how many successful attempt there have already been
+            while len(safe_code) < 1:  # checks how many successful attempt there have already been
                 code = random.randint(3, 12)  # randomises what numbers the is, between 3 and 12
                 if code not in safe_code:  # checks to see if the number has already been chosen
                     safe_code.append(code)  # adds the number to the code list if they haven't already been used
                 global codes_cracked  # declares the global code cracked variable within this scene
-                
+
                 # while the number of successful attempts is less than three the code will repeat
                 while codes_cracked < len(safe_code):
                     print("you must enter a pair of numbers that divide to %d." % code)  # tells the player what to do
@@ -270,24 +273,25 @@ on the bottom of the mat it read:""")  # displays the description
                         if result == code:  # if the result is the same as the code these functions will happen:
                             print("Correct.")  # confirms the guess was correct
                             codes_cracked += 1  # adds 1 to the amount of successful attempts
-    
+
                     except ValueError:  # if the player enters anything but a number these functions will happen:
-                        print("Not a number.")  # confirms its not a number
+                        print("Not a number.")  # confirms it is not a number
                         break  # stops the loop and skip to the next code after the loo
-    
+
                     except ZeroDivisionError:  # if the player enters 0 these functions will happen:
                         print("Can't divide by zero.")  # confirms they cannot divide by 0
-    
+
                 else:
                     print("You have opened the safe.")  # displays the description
                     print("""You think it's kind of weird that whoever lives here put the code to the safe on the mat 
-hiding it, and even weird they did it as a riddle, but it works out for you because it clicks open and you are able to 
+hiding it, and even weirder they did it as a riddle, but it works out for you because it clicks open and you are able to 
 reach in and pull out a... you can't actually tell what it is. It's paper, green, kind of crushed. It might be a frog? 
 Judging by the eyes and weird uneven legs. A solid attempt, just not a great one. The state of it makes you feel less
 guilty when you unfold it and find a singular word written on it: Fireplace... 
-        
-What does that mean?""")  # displays the description
-                    bathroom_scene_restart()   # goes back to the beginning of the scene
+
+What does that mean?
+""")  # displays the description
+                    bathroom_scene_restart()  # goes back to the beginning of the scene
 
         elif safe_opened is True:  # of safe has been opened carry out these functions:
             print("The safe is unlocked but close. It remains empty.")
@@ -297,13 +301,22 @@ What does that mean?""")  # displays the description
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
             bathroom_scene_restart()  # goes back to the beginning of the scene
 
-    elif bathroom_options == "help":  # if help is entered will carry out these functions:
-        print(help_guide)  # displays help guide
-        bathroom_scene_restart()   # goes back to the beginning of the scene
+    elif "stool" in inventory and (bathroom_options == "use stool" or bathroom_options == "stand on stool"):
+        print("""You stand on the stool, there isn't much else to see apart from what you could 
+already see but you can now reach the vent.""")
+        bathroom_stool_scene()  # goes back to the beginning of the scene
 
-    elif bathroom_options == "inventory":  # if inventory is entered will carry out these functions:
+    elif "stool" not in inventory and (bathroom_options == "use stool" or bathroom_options == "stand on stool"):
+        print("You do not have a stool.")
+        bathroom_scene_restart()  # goes back to the beginning of the scene
+
+    elif bathroom_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        bathroom_scene_restart()  # goes back to the beginning of the scene
+
+    elif bathroom_options == "inventory":  # if inventory is entered it will carry out these functions:
         print(inventory)  # displays the inventory guide
-        bathroom_scene_restart()   # goes back to the beginning of the scene
+        bathroom_scene_restart()  # goes back to the beginning of the scene
 
     else:  # if no other option is fitting it will carry out these functions:
         print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -313,20 +326,68 @@ What does that mean?""")  # displays the description
 def cupboard_scene_restart():  # defining the point in which players return to after completing an action
     print("")
     cupboard_options = input("What would you like to do? ").lower()  # gets the players input
-    if cupboard_options == "west":  # if west is entered will carry out these functions:
+    if cupboard_options == "west":  # if west is entered it will carry out these functions:
         starting_room_scene()  # will return the player to the starting room
 
-    elif cupboard_options == "help":  # if help is entered will carry out these functions:
+    elif cupboard_options == "help":  # if help is entered it will carry out these functions:
         print(help_guide)  # displays help guide
-        cupboard_scene_restart()   # goes back to the beginning of the scene
+        cupboard_scene_restart()  # goes back to the beginning of the scene
 
-    elif cupboard_options == "inventory":  # if inventory is entered will carry out these functions:
+    elif cupboard_options == "inventory":  # if inventory is entered ut will carry out these functions:
         print(inventory)  # displays the inventory guide
-        cupboard_scene_restart()   # goes back to the beginning of the scene
+        cupboard_scene_restart()  # goes back to the beginning of the scene
 
     else:  # if no other option is fitting it will carry out these functions:
         print("I do not understand, type help for general instructions.")  # asking the player to reenter
         cupboard_scene_restart()  # goes back to the beginning of the scene
+
+
+# the scene for the bathroom but the player is stood on a stool
+def bathroom_stool_scene():
+    global vent_opened
+    stool_options = input("What would you like to do?")
+
+    if "screwdriver" in inventory and stool_options == "use screwdriver":
+        screwdriver_use = input("What would you like to use the screwdriver on? ")
+        # if vent is entered and the vent hadn't been opened it will carry out these functions:
+        if screwdriver_use == "vent" and vent_opened is False:
+            print("""You start unscrewing the vent, the screws are rusted so it takes a lot of effort but eventually all
+four come out and you are able to pop the vent front off of the wall. """)  # displays the description
+            bathroom_stool_scene()  # goes back to the beginning of the scene
+
+        elif screwdriver_use == "vent" and vent_opened is True:
+            print("The vent is already open")  # displays the description
+            bathroom_stool_scene()  # goes back to the beginning of the scene
+
+    # if open vent is entered, and it has not been opened it will carry out these functions:
+    elif stool_options == "open vent" and vent_opened is False:
+        open_vent = input("The vent is screwed shut, what would you like to use to open it? ")
+        if open_vent == "screwdriver" and "screwdriver" in inventory:
+            print("You unscrew the vent")  # displays the description
+            bathroom_stool_scene()  # goes back to the beginning of the scene
+
+    # if open vent is entered, and it has been opened it will carry out these functions:
+    elif stool_options == "open vent" and vent_opened is True:
+        print("The vent is already open.")  # displays the description
+        bathroom_stool_scene()  # goes back to the beginning of the scene
+
+    elif stool_options == "get off stool":  # if 'get off stool' is entered it will carry out these functions:
+        print("""You step off of the stool. It wobbles as you do causing you to almost fall, you're glad no one was here
+to see that.""")  # displays the description
+        bathroom_scene_restart()  # goes back to the beginning of the bathroom scene
+
+    elif stool_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        bathroom_stool_scene()  # goes back to the beginning of the scene
+
+    elif stool_options == "inventory":  # if inventory is entered it will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        bathroom_stool_scene()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions")  # asking the player to reenter
+        print("Perhaps try 'get off stool' if you are really stuck")  # giving a hint to get off the stool
+        bathroom_stool_scene()  # goes back to the beginning of the scene
 
 
 # all scenes that include the descriptions of the room
