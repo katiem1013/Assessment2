@@ -3,12 +3,14 @@ import random
 inventory = []  # inventory list
 
 # variables for inside the house
-box = False  # sets the box as closed
-bedside_draw = False  # sets the bedside table draws as closed
-safe_code = []  # list for the safe code once it has been randomly chosen
-codes_cracked = 0  # the amount of successful attempts there have been
-safe_opened = False  # sets the safe as closed
-vent_opened = False  # sets the vent as closed
+box = False  # sets the box in the kitchen as closed
+bedside_draw = False  # sets the bedside table in the starting room draws as closed
+safe_code = []  # list for the safe code in the bathroom once it has been randomly chosen
+codes_cracked = 0  # the amount of successful attempts there have been to open the bathroom safe
+safe_opened = False  # sets the bathroom safe as closed
+vent_opened = False  # sets the bathroom vent as closed
+stool_in_bathroom = False  # sets the stool in the bathroom as no
+flashlight_with_batteries = False  # sets the flashlight with batteries as no
 
 # opening descriptions
 opening_text = """You awaken in a room that you do not recognise with no memories on how you got here, you remember most
@@ -37,7 +39,7 @@ toothbrushes. They seem to be brand new. The mat on the floor also looks to be b
 
 cupboard_description = """The room turns out to not be a room but is in fact a cupboard. There is a string attached to 
 the light but when you pull it it fails to turn on. You cannot tell what is on the shelves in this light but they seem
-to be stocked well. There are multiple boxes in the corner on the floor. 
+to be stocked well. There are multiple boxes in the corner on the floor with a stool tucked behind them. 
 """
 
 # basic help guide of commands that can be written
@@ -55,6 +57,7 @@ help_guide = """\033[1;31m
 def starting_room_scene_restart():  # defining the point in which players return to after completing an action
 
     global bedside_draw  # declares the global bedside_draw variable within this scene
+    global flashlight_with_batteries  # declares the global flashlight with batteries variable within this scene
     starting_room_options = input("What would you like to do? ").lower()  # gets the players input
     # . lower() changes anything entered to lowercase
 
@@ -100,9 +103,18 @@ bashed it about a lot.""")  # displays the description
     elif (starting_room_options == "use draw" or starting_room_options == "open draw") and bedside_draw is False:
         print("""When you check both draws one contains two batteries, the other empty. You shove the batteries into
     your pocket and shut the draws.""")  # displays the description
-        inventory.append('batteries')  # adds batteries to the inventory
+        inventory.append("batteries")  # adds batteries to the inventory
         bedside_draw = True  # sets the beside draws as open
-        starting_room_scene_restart()  # goes back to the beginning of the scene
+
+        # if the flashlight and batteries are in the inventory it will carry out these functions:
+        if (inventory == "flashlight" and "batteries") and flashlight_with_batteries is False:
+            print("You take a moment to put the batteries in the flashlight.")  # displays the description
+            inventory.remove("batteries")  # removes batteries from inventory
+            flashlight_with_batteries = True  # sets the flashlight with batteries variable as true
+            starting_room_scene_restart()  # goes back to the beginning of the scene
+
+        else:  # if no other option is fitting it will carry out these functions:
+            starting_room_scene_restart()  # goes back to the beginning of the scene
 
     # if the beside draw has been opened it will carry out these functions:
     elif (starting_room_options == "use draw" or starting_room_options == "open draw") and bedside_draw is True:
@@ -214,6 +226,7 @@ pocket for later use.""")  # displays the description
 def bathroom_scene_restart():  # defining the point in which players return to after completing an action
 
     global safe_opened  # declares the global safe opened variable within this scene
+    global stool_in_bathroom   # declares the global stool in bathroom variable within this scene
 
     bathroom_options = input("What would you like to do? ").lower()  # gets the players input
     if bathroom_options == "east":  # if east is entered it will carry out these functions:
@@ -288,7 +301,6 @@ hiding it, and even weirder they did it as a riddle, but it works out for you be
 reach in and pull out a... you can't actually tell what it is. It's paper, green, kind of crushed. It might be a frog? 
 Judging by the eyes and weird uneven legs. A solid attempt, just not a great one. The state of it makes you feel less
 guilty when you unfold it and find a singular word written on it: Fireplace... 
-
 What does that mean?
 """)  # displays the description
                     bathroom_scene_restart()  # goes back to the beginning of the scene
@@ -302,6 +314,11 @@ What does that mean?
             bathroom_scene_restart()  # goes back to the beginning of the scene
 
     elif "stool" in inventory and (bathroom_options == "use stool" or bathroom_options == "stand on stool"):
+        print("""You stand on the stool, there isn't much else to see apart from what you could 
+already see but you can now reach the vent.""")
+        bathroom_stool_scene()  # goes back to the beginning of the scene
+
+    elif stool_in_bathroom is True and (bathroom_options == "use stool" or bathroom_options == "stand on stool"):
         print("""You stand on the stool, there isn't much else to see apart from what you could 
 already see but you can now reach the vent.""")
         bathroom_stool_scene()  # goes back to the beginning of the scene
@@ -324,10 +341,36 @@ already see but you can now reach the vent.""")
 
 
 def cupboard_scene_restart():  # defining the point in which players return to after completing an action
-    print("")
+
+    global flashlight_with_batteries  # declares the global flashlight with batteries variable within this scene
     cupboard_options = input("What would you like to do? ").lower()  # gets the players input
     if cupboard_options == "west":  # if west is entered it will carry out these functions:
         starting_room_scene()  # will return the player to the starting room
+
+    elif cupboard_options == "examine stool":  # if help is entered it will carry out these functions:
+        print("""The stool is very obviously old and well used, it's three legs are sturdy. They have probably been
+replaced multiple times each leg is a different colour of wood. It could take your weight. You decide to take it with 
+you, it might be useful.
+""")  # displays the description
+        inventory.append("stool")  # adds stool to the inventory
+        cupboard_scene_restart()  # goes back to the beginning of the scene
+
+    elif cupboard_options == "examine boxes":  # if help is entered it will carry out these functions:
+        print("""The boxes are pretty full, though most are half bubble wrap and half different plates, bowls and cups 
+though in the bottom of one you find a flashlight and in another a first aid kit. You shove both in your pocket, you're
+glad you are wearing mens clothes so that this can fit.""")  # displays the description
+        inventory.append("flashlight")  # adds flashlight to the inventory
+        inventory.append("first aid kit")  # adds first aid kit to the inventory
+
+        # if the flashlight and batteries are in the inventory it will carry out these functions:
+        if (inventory == "flashlight" and "batteries") and flashlight_with_batteries is False:
+            print("You take a moment to put the batteries in the flashlight.")  # displays the description
+            inventory.remove("batteries")  # removes batteries from inventory
+            flashlight_with_batteries = True  # sets the flashlight with batteries variable as true
+            cupboard_scene_restart()  # goes back to the beginning of the scene
+
+        else:  # if no other option is fitting it will carry out these functions:
+            cupboard_scene_restart()  # goes back to the beginning of the scene
 
     elif cupboard_options == "help":  # if help is entered it will carry out these functions:
         print(help_guide)  # displays help guide
@@ -344,17 +387,22 @@ def cupboard_scene_restart():  # defining the point in which players return to a
 
 # the scene for the bathroom but the player is stood on a stool
 def bathroom_stool_scene():
-    global vent_opened
-    stool_options = input("What would you like to do?")
+    global vent_opened  # declares the global vent opened variable within this scene
+    global stool_in_bathroom  # declares the global stool in bathroom variable within this scene
+    stool_in_bathroom = True  # sets the stool in bathroom variable as true
+    stool_options = input("What would you like to do?")  # gets the players input
 
+    # if use screwdriver is entered and it is in the inventory it will carry out these functions:
     if "screwdriver" in inventory and stool_options == "use screwdriver":
-        screwdriver_use = input("What would you like to use the screwdriver on? ")
-        # if vent is entered and the vent hadn't been opened it will carry out these functions:
+        screwdriver_use = input("What would you like to use the screwdriver on? ")  # gets the players input
+
+        # if vent is entered and the vent hasn't been opened it will carry out these functions:
         if screwdriver_use == "vent" and vent_opened is False:
             print("""You start unscrewing the vent, the screws are rusted so it takes a lot of effort but eventually all
 four come out and you are able to pop the vent front off of the wall. """)  # displays the description
             bathroom_stool_scene()  # goes back to the beginning of the scene
 
+        # if vent is entered and the vent has been opened it will carry out these functions:
         elif screwdriver_use == "vent" and vent_opened is True:
             print("The vent is already open")  # displays the description
             bathroom_stool_scene()  # goes back to the beginning of the scene
@@ -373,7 +421,8 @@ four come out and you are able to pop the vent front off of the wall. """)  # di
 
     elif stool_options == "get off stool":  # if 'get off stool' is entered it will carry out these functions:
         print("""You step off of the stool. It wobbles as you do causing you to almost fall, you're glad no one was here
-to see that.""")  # displays the description
+to see that. You leave the stool here.""")  # displays the description
+        inventory.remove("stool")
         bathroom_scene_restart()  # goes back to the beginning of the bathroom scene
 
     elif stool_options == "help":  # if help is entered it will carry out these functions:
