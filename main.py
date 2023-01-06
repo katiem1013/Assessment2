@@ -99,10 +99,27 @@ has scratches covering it as though someones been yanking it, or at the very lea
 bashed it about a lot.""")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
-    # if the beside draw has yet to be opened it will carry out these functions:
-    elif (starting_room_options == "use draw" or starting_room_options == "open draw") and bedside_draw is False:
+    # if the beside draws have yet to be opened it will carry out these functions:
+    elif (starting_room_options == "use draws" or starting_room_options == "open draws") and bedside_draw is False:
         print("""When you check both draws one contains two batteries, the other empty. You shove the batteries into
     your pocket and shut the draws.""")  # displays the description
+        inventory.append("batteries")  # adds batteries to the inventory
+        bedside_draw = True  # sets the beside draws as open
+
+        # if the flashlight and batteries are in the inventory it will carry out these functions:
+        if (inventory == "flashlight" and "batteries") and flashlight_with_batteries is False:
+            print("You take a moment to put the batteries in the flashlight.")  # displays the description
+            inventory.remove("batteries")  # removes batteries from inventory
+            flashlight_with_batteries = True  # sets the flashlight with batteries variable as true
+            starting_room_scene_restart()  # goes back to the beginning of the scene
+
+        else:  # if no other option is fitting it will carry out these functions:
+            starting_room_scene_restart()  # goes back to the beginning of the scene
+
+    # beside draw function but non-plural
+    elif (starting_room_options == "use draw" or starting_room_options == "open draw") and bedside_draw is False:
+        print("""When you check both draws one contains two batteries, the other empty. You shove the batteries into
+your pocket and shut the draws.""")  # displays the description
         inventory.append("batteries")  # adds batteries to the inventory
         bedside_draw = True  # sets the beside draws as open
 
@@ -120,6 +137,9 @@ bashed it about a lot.""")  # displays the description
     elif (starting_room_options == "use draw" or starting_room_options == "open draw") and bedside_draw is True:
         print("When you open the draws they are both empty.")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
+
+    elif starting_room_options == "use key" and "key" in inventory:
+        print("yay!")
 
     elif starting_room_options == "help":  # if help is entered it will carry out these functions:
         print(help_guide)  # displays the help guide
@@ -230,7 +250,7 @@ def bathroom_scene_restart():  # defining the point in which players return to a
 
     bathroom_options = input("What would you like to do? ").lower()  # gets the players input
     if bathroom_options == "east":  # if east is entered it will carry out these functions:
-        bathroom_scene_restart()  # will return the player to the starting room
+        starting_room_scene()  # will return the player to the starting room
 
     elif bathroom_options == "examine shower":  # if examine shower is entered it will carry out these functions:
         print("""It's one of those showers that is shoved into the corner of the room and would usually have two glass 
@@ -399,7 +419,10 @@ def bathroom_stool_scene():
         # if vent is entered and the vent hasn't been opened it will carry out these functions:
         if screwdriver_use == "vent" and vent_opened is False:
             print("""You start unscrewing the vent, the screws are rusted so it takes a lot of effort but eventually all
-four come out and you are able to pop the vent front off of the wall. """)  # displays the description
+four come out and you are able to pop the vent front off of the wall. You look around inside but you can't see much, you
+reach your hand in but it goes straight into a spiders web. Still you search around a bit and manage to pull out a key. 
+Weird.""")  # displays the description
+            inventory.append("key")  # adds the key to the inventory
             bathroom_stool_scene()  # goes back to the beginning of the scene
 
         # if vent is entered and the vent has been opened it will carry out these functions:
@@ -422,7 +445,7 @@ four come out and you are able to pop the vent front off of the wall. """)  # di
     elif stool_options == "get off stool":  # if 'get off stool' is entered it will carry out these functions:
         print("""You step off of the stool. It wobbles as you do causing you to almost fall, you're glad no one was here
 to see that. You leave the stool here.""")  # displays the description
-        inventory.remove("stool")
+        inventory.remove("stool")  # removes the stool from the inventory
         bathroom_scene_restart()  # goes back to the beginning of the bathroom scene
 
     elif stool_options == "help":  # if help is entered it will carry out these functions:
