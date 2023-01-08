@@ -2,7 +2,7 @@ import random
 import sys
 import time
 
-typing_speed = 100  # amount of words per minute
+typing_speed = 1000  # amount of words per minute
 
 
 def slow_type(text):  # defining text typing out slowly
@@ -26,19 +26,55 @@ stool_in_bathroom = False  # sets the stool in the bathroom as no
 flashlight_with_batteries = False  # sets the flashlight with batteries as no
 
 # outside descriptions
+outside_1_description = """"""
+
+outside_2_shack_description = """"""
+
+outside_3_description = """"""
+
+outside_4_description = """"""
+
+outside_5_description = """"""
+
+outside_6_crossroads_description = """"""
+
+outside_7_T_junction_description = """"""
+
+outside_8_graveyard_description = """"""
+
+outside_9_building_description = """"""
+
+outside_10_description = """"""
+
+outside_11_split_path_description = """"""
+
+outside_12_description = """"""
+
+outside_13_description = """"""
+
+outside_14_description = """"""
+
+outside_15_description = """"""
+
+outside_16_description = """"""
+
+lake_description = """"""
 
 # opening descriptions
-opening_text = """You awaken in a room that you do not recognise with no memories on how you got here, you 
-remember most of yesterday but after leaving work in the evening it all goes blank. You should probably get out of here, 
-your cat will be hungry if you don't get home soon. When you think about it you're not sure what time it is nor how long
-you've been asleep.  
+opening_text = """You awaken in a room that you do not recognise with no memories on how you got here, you remember most 
+of yesterday but after leaving work in the evening it all goes blank. You should probably get out of here, your cat will 
+be hungry if you don't get home soon. When you think about it you're not sure what time it is nor how long you've been 
+asleep.  
 """
 
 # different rooms in the house descriptions
-starting_room_description = """The room is dim but you can make out a door on each wall. There are no windows.
-The door to the north seems to be the main door, there is a padlock keeping it locked shut. You are on the bed, 
-it is perfectly made apart from where you've moved it as you got up. There are two bedside tables, one contains a lamp
-both have draws that are currently shut."""
+# \033[1;92m turns the text green \033[0;39m turns it back.
+starting_room_description = """The room is dim but you can make out a door on each wall that lead to different rooms.
+There are no windows. To the\033[1;92m South\033[0;39m is the kitchen, if the counters and fridge you can see are 
+anything to go off of. The door to the\033[1;92m East\033[0;39m is a cupboard, and the\033[1;92m West\033[0;39m is the 
+bathroom.The door to the\033[1;92m North\033[0;39m seems to be the main door, there is a padlock keeping it locked shut. 
+You are on the bed, it is perfectly made apart from where you've moved it as you got up. There are two
+bedside tables, one contains a lamp both have draws that are currently shut."""
 
 kitchen_description = """The room you enter is a kitchen, the oven and fridge are old and run down. You can tell from 
 here they barely work. The cupboards are stocked well enough from what you can see, generic store brand version of all 
@@ -66,7 +102,9 @@ familiarity of it all is comforting...
 
 You really need to get out of here."""
 
-upstairs_description = """"""
+upstairs_description = """ Similar the stairs the upstairs room is dingy, gross and just a little too empty. Theres an 
+unlit campfire in the corner despite the fireplace directly in the middle of the wall opposite you. Next to the campfire 
+is a crowbar. The door is to the\033[1;92m North\033[0;39m. There is nothing else in the room."""
 
 # basic help guide of commands that can be written
 # /033[0;31m and /n make the text appear red
@@ -116,6 +154,7 @@ def starting_room_scene_restart():  # defining the point in which players return
                     # displays the description:
                     slow_type("The lock clicks open and you are able to pull it off and open the door.")
                     inventory.remove("key")
+                    door_locked = False
                     starting_room_scene_restart()  # goes back to the beginning of the scene
 
                 elif key == "no":
@@ -604,6 +643,449 @@ def upstairs_scene():
     slow_type(upstairs_description)  # displays the upstairs description
     print("")  # blank print for formatting
     upstairs_scene_restart()  # starts the upstairs scene from a point that doesn't include the room descriptions
+    
+ 
+# all scenes outside of the building that include the descriptions
+def outside_1_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_1_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+    
+    if outside_1_options == "error":
+        print("error")
+    
+    elif outside_1_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_1_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_1_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_1_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_1_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_2_shack_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_2_shack_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_2_shack_options == "error":
+        print("error")
+    
+    elif outside_2_shack_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_2_shack_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_2_shack_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_2_shack_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_2_shack_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_3_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_3_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+    
+    if outside_3_options == "error":
+        print("error")
+    
+    elif outside_3_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_3_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_3_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_3_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_3_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_4_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_4_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_4_options == "error":
+        print("error")
+    
+    elif outside_4_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_4_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_4_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_4_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_4_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_5_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_5_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_5_options == "error":
+        print("error")
+    
+    elif outside_5_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_5_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_5_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_5_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_5_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_6_crossroads_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_6_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_6_options == "error":
+        print("error")
+
+    elif outside_6_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_6_crossroads_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_6_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_6_crossroads_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_6_crossroads_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_7_t_junction_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_7_t_junction_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_7_t_junction_options == "error":
+        print("error")
+
+    elif outside_7_t_junction_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_7_t_junction_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_7_t_junction_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_7_t_junction_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_7_t_junction_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_8_graveyard_scene_restart():
+    print("")  # blank print for formatting
+    outside_8_graveyard_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_8_graveyard_options == "error":
+        print("error")
+
+    elif outside_8_graveyard_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_8_graveyard_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_8_graveyard_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_8_graveyard_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_8_graveyard_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_9_building_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_9_building_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_9_building_options == "error":
+        print("error")
+
+    elif outside_9_building_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_9_building_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_9_building_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_9_building_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_9_building_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_10_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_10_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_10_options == "error":
+        print("error")
+
+    elif outside_10_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_10_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_10_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_10_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_10_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_11_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_11_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_11_options == "error":
+        print("error")
+
+    elif outside_11_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_11_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_11_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_11_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_11_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_12_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_12_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_12_options == "error":
+        print("error")
+
+    elif outside_12_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_12_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_12_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_12_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_12_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_13_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_13_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_13_options == "error":
+        print("error")
+
+    elif outside_13_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_13_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_13_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_13_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_13_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_14_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_14_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_14_options == "error":
+        print("error")
+
+    elif outside_14_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_14_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_14_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_14_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_14_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_15_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_15_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_15_options == "error":
+        print("error")
+
+    elif outside_15_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_15_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_15_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_15_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_15_scene_restart()  # goes back to the beginning of the scene
+
+
+def outside_16_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_16_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_16_options == "error":
+        print("error")
+
+    elif outside_16_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        outside_16_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_16_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        outside_16_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        outside_16_scene_restart()  # goes back to the beginning of the scene
+
+
+def lake_scene_restart():
+    
+    print("")  # blank print for formatting
+    outside_lake_options = input("What would you like to do? ").lower()  # gets the players input
+    print("")  # blank print for formatting
+
+    if outside_lake_options == "error":
+        print("error")
+
+    elif outside_lake_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+        lake_scene_restart()  # goes back to the beginning of the scene
+
+    elif outside_lake_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+        lake_scene_restart()  # goes back to the beginning of the scene
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
+        lake_scene_restart()  # goes back to the beginning of the scene
+
+
+# all scenes outside of the building that include the descriptions
+def outside_1_scene():
+    print("")  # blank print for formatting
+
+
+def outside_2_shack_scene():
+    print("")  # blank print for formatting
+
+
+def outside_3_scene():
+    print("")  # blank print for formatting
+
+
+def outside_4_scene():
+    print("")  # blank print for formatting
+
+
+def outside_5_scene():
+    print("")  # blank print for formatting
+
+
+def outside_6_crossroads_scene():
+    print("")  # blank print for formatting
+
+
+def outside_7_T_junction_scene():
+    print("")  # blank print for formatting
+
+
+def outside_8_graveyard_scene():
+    print("")  # blank print for formatting
+
+
+def outside_9_building_scene():
+    print("")  # blank print for formatting
+
+
+def outside_10_scene():
+    print("")  # blank print for formatting
+
+
+def outside_11_scene():
+    print("")  # blank print for formatting
+
+
+def outside_12_scene():
+    print("")  # blank print for formatting
+
+
+def outside_13_scene():
+    print("")  # blank print for formatting
+
+
+def outside_14_scene():
+    print("")  # blank print for formatting
+
+
+def outside_15_scene():
+    print("")  # blank print for formatting
+
+
+def outside_16_scene():
+    print("")  # blank print for formatting
+
+
+def lake_scene():
+    print("")  # blank print for formatting
 
 
 print("")  # blank print for formatting
