@@ -2,7 +2,6 @@ import random
 import sys
 import time
 
-
 typing_speed = 100  # amount of words per minute
 
 
@@ -16,6 +15,7 @@ def slow_type(text):  # defining text typing out slowly
 inventory = []  # inventory list
 
 # variables for inside the house
+door_locked = True  # sets the main door as locked
 box = False  # sets the box in the kitchen as closed
 bedside_draw = False  # sets the bedside table in the starting room draws as closed
 safe_code = []  # list for the safe code in the bathroom once it has been randomly chosen
@@ -85,6 +85,7 @@ def starting_room_scene_restart():  # defining the point in which players return
 
     global bedside_draw  # declares the global bedside_draw variable within this scene
     global flashlight_with_batteries  # declares the global flashlight with batteries variable within this scene
+    global door_locked  # declares the global door locked variable within this scene
 
     print("")  # blank print for formatting
     starting_room_options = input("What would you like to do? ").lower()  # gets the players input
@@ -100,9 +101,39 @@ def starting_room_scene_restart():  # defining the point in which players return
     elif starting_room_options == "east":  # if south is entered it will carry out these functions:
         cupboard_scene()  # starts the cupboard scene
 
-    elif starting_room_options == "north":  # if north is entered it will carry out these functions:
-        slow_type("The door is padlocked shut, you pull at the handle. It doesn't move. ")  # displays the description
-        starting_room_scene_restart()  # goes back to the beginning of the scene
+    # if north is entered and the door is locked it will carry out these functions:
+    elif starting_room_options == "north" and door_locked is True:
+        if "key" in inventory:
+            slow_type("The door is padlocked shut, you pull at the handle. It doesn't move.You have a key on you")
+            print("")  # blank print for formatting
+
+            while True:  # will happen while
+                print("")  # blank print for formatting
+                key = input("Would you like to use it? ")
+                print("")  # blank print for formatting
+
+                if key == "yes":
+                    # displays the description:
+                    slow_type("The lock clicks open and you are able to pull it off and open the door.")
+                    inventory.remove("key")
+                    starting_room_scene_restart()  # goes back to the beginning of the scene
+
+                elif key == "no":
+                    slow_type("The lock stays locked.")  # displays the description
+                    starting_room_scene_restart()  # goes back to the beginning of the scene
+
+                else:  # if no other option is fitting it will carry out these functions::
+                    print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+        else:
+            # displays the description:
+            slow_type("The door is padlocked shut, you pull at the handle. It doesn't move.")
+            starting_room_scene_restart()  # goes back to the beginning of the scene
+
+    # if north is entered and the door is locked it will carry out these functions:
+    elif starting_room_options == "north" and door_locked is False:
+        slow_type(going_up_stairs_description)  # displays the description
+        upstairs_scene()  # starts the upstairs scene
 
     elif starting_room_options == "examine bed":  # if bed is entered it will carry out these functions:
         slow_type("""Other then where you were sleeping the bed is made perfectly, you crouch down and under the bed it 
@@ -169,7 +200,17 @@ your pocket and shut the draws.""")  # displays the description
         starting_room_scene_restart()  # goes back to the beginning of the scene
 
     elif starting_room_options == "use key" and "key" in inventory:
-        slow_type("yay!")
+        print("")  # blank print for formatting
+        key = input("What would you like to use it on? ")
+        print("")  # blank print for formatting
+
+        if key == "door":
+            slow_type("The lock clicks open and you are able to pull it off and open the door.")
+            inventory.remove("key")
+            starting_room_scene_restart()
+
+        else:
+            print("You can not use the key there.")
 
     elif starting_room_options == "help":  # if help is entered it will carry out these functions:
         print(help_guide)  # displays the help guide
@@ -516,10 +557,10 @@ def upstairs_scene_restart():
     print("")  # blank print for formatting
     upstairs_options = input("What would you like to do? ").lower()  # gets the players input
     print("")  # blank print for formatting
-    
+
     if upstairs_options == "south":
         print("south")
-        
+
     elif upstairs_options == "help":  # if help is entered it will carry out these functions:
         print(help_guide)  # displays help guide
         upstairs_scene_restart()  # goes back to the beginning of the scene
@@ -531,8 +572,8 @@ def upstairs_scene_restart():
     else:  # if no other option is fitting it will carry out these functions:
         print("I do not understand, type help for general instructions.")  # asking the player to reenter
         upstairs_scene_restart()  # goes back to the beginning of the scene
-       
-       
+
+
 # all scenes that include the descriptions of the room
 def starting_room_scene():  # defining the starting room scene
     print("")  # blank print for formatting
