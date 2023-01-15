@@ -6,6 +6,7 @@ import time
 inventory = []  # inventory list
 needed_items = {}  # boat part list
 player_health = 100  # player health
+got_map = True  # has map
 
 typing_speed = 10000  # amount of words per minute
 
@@ -19,6 +20,8 @@ def slow_type(text):  # defining text typing out slowly
 
 # variables for outside the house
 enemy_1_health = 100
+enemy_2_health = 100
+enemy_3_health = 100
 
 # variables for inside the house
 door_locked = True  # sets the main door as locked
@@ -41,7 +44,6 @@ stumble back, breath catching in your throat."""
 outside_1_description_without_enemy = """The dirt path leads you through some trees, theres not much around as you push 
 the branches out of the way. An opening is presented to you. A circle where trees once would have been but have been 
 cut down and the stumps dug up. A body of the beast you slayed slumped in the middle, you almost feel bad for it. 
-
 Almost."""
 
 outside_2_shack_description = """The outside of the shack is as run down as the inside. The wood is all mismatched and 
@@ -78,7 +80,11 @@ outside_12_description_with_enemy = """"""
 
 outside_12_description_without_enemy = """"""
 
-lake_description = """"""
+lake_description = """The path leads you to an opening, a lake is ahead of you. It goes on for miles and you can only 
+see the other side when straining your eyes. Theres no trees there, you recon that's your best shot of getting out of 
+here. Looking around the area you are in is the only one that it completely blocked off by trees and where the water is
+not too deep to walk in. There is an abandoned boat just this side of the trees and there is rubbish littered across
+what little of the beach there is."""
 
 # opening descriptions
 opening_text = """You awaken in a room that you do not recognise with no memories on how you got here, you remember most 
@@ -516,7 +522,6 @@ def bathroom_stool_scene():  # the scene for the bathroom but the player is stoo
 eventually all four come out and you are able to pop the vent front off of the wall. You look around inside but you 
 can't see much, you reach your hand in but it goes straight into a spiders web. Still you search around a bit and manage 
 to pull out a key. 
-
 Weird.""")  # displays the description
                 inventory.append("key")  # adds the key to the inventory
 
@@ -698,6 +703,7 @@ def outside_1_scene():
 
 
 def outside_2_shack_scene():
+
     print("")  # blank print for formatting
     slow_type(outside_2_shack_description)  # displays the cupboard description
     print("")  # blank print for formatting
@@ -731,9 +737,18 @@ def outside_2_shack_scene():
 
 
 def outside_3_scene():
-    print("")  # blank print for formatting
-    slow_type()  # displays the cupboard description
-    print("")  # blank print for formatting
+
+    if enemy_2_health >= 1:
+
+        print("")  # blank print for formatting
+        slow_type(outside_3_description_with_enemy)  # displays the outside description
+        print("")  # blank print for formatting
+
+    elif enemy_2_health < 1:
+
+        print("")  # blank print for formatting
+        slow_type(outside_3_description_without_enemy)  # displays the outside description
+        print("")  # blank print for formatting
 
     while True:
 
@@ -764,6 +779,7 @@ def outside_3_scene():
 
 
 def outside_4_scene():
+
     print("")  # blank print for formatting
     slow_type(outside_4_description)  # displays the cupboard description
     print("")  # blank print for formatting
@@ -797,6 +813,7 @@ def outside_4_scene():
 
 
 def outside_5_scene():
+    
     print("")  # blank print for formatting
     slow_type(outside_5_description)  # displays the cupboard description
     print("")  # blank print for formatting
@@ -830,6 +847,7 @@ def outside_5_scene():
 
 
 def outside_6_crossroads_scene():
+
     print("")  # blank print for formatting
     slow_type(outside_6_crossroads_description)  # displays the cupboard description
     print("")  # blank print for formatting
@@ -863,6 +881,7 @@ def outside_6_crossroads_scene():
 
 
 def outside_7_t_junction_scene():
+
     print("")  # blank print for formatting
     slow_type(outside_7_T_junction_description)  # displays the cupboard description
     print("")  # blank print for formatting
@@ -896,6 +915,7 @@ def outside_7_t_junction_scene():
 
 
 def outside_8_graveyard_scene():
+
     print("")  # blank print for formatting
     slow_type(outside_8_graveyard_description)  # displays the cupboard description
     print("")  # blank print for formatting
@@ -929,6 +949,7 @@ def outside_8_graveyard_scene():
 
 
 def outside_9_building_scene():
+
     print("")  # blank print for formatting
     slow_type(outside_9_building_description)  # displays the cupboard description
     print("")  # blank print for formatting
@@ -962,6 +983,7 @@ def outside_9_building_scene():
 
 
 def outside_10_scene():
+
     print("")  # blank print for formatting
     slow_type(outside_10_description)  # displays the cupboard description
     print("")  # blank print for formatting
@@ -995,6 +1017,7 @@ def outside_10_scene():
 
 
 def outside_11_scene():
+
     print("")  # blank print for formatting
     slow_type(outside_11_split_path_description)  # displays the cupboard description
     print("")  # blank print for formatting
@@ -1028,9 +1051,18 @@ def outside_11_scene():
 
 
 def outside_12_scene():
-    print("")  # blank print for formatting
-    slow_type()  # displays the cupboard description
-    print("")  # blank print for formatting
+
+    if enemy_3_health >= 1:
+
+        print("")  # blank print for formatting
+        slow_type(outside_12_description_with_enemy)  # displays the outside description
+        print("")  # blank print for formatting
+
+    elif enemy_3_health < 1:
+
+        print("")  # blank print for formatting
+        slow_type(outside_12_description_without_enemy)  # displays the outside description
+        print("")  # blank print for formatting
 
     while True:
 
@@ -1073,7 +1105,7 @@ def lake_scene():
         print("")  # blank print for formatting
 
         if lake_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("There is a lake, you are unable to go that way without a boat.")
 
         elif lake_options == "east":  # if east is entered it will carry out these functions:
             print("You cannot go that way.")
