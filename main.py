@@ -62,15 +62,27 @@ outside_4_description = """A shack sits at the end of the path. As run down as t
 half hanging off so you can see the hole in the ground and can tell that it's supposed to be a toilet. You would not use
 it if your life depended on it."""
 
-outside_5_description = """"""
+outside_5_description = """The path continues on to the north but to the south there is a dirt path that heads off into 
+the trees. The gap isn’t big enough for you to see through it but big enough for you to walk through. There are some 
+bushes on the outskirts of the trees, there is a weird gap in one of the bushes. Almost as if something, maybe a 
+squirrel, has been in it. 
+"""
 
 outside_6_crossroads_description = """"""
 
 outside_7_T_junction_description = """"""
 
-outside_8_graveyard_description = """"""
+outside_8_graveyard_description = """The path leads you to a graveyard. Rows of headstones lay in front of you, all 
+varying in quality and how well looked after they are. The row you are closest to is very obviously the newest set of 
+graves. Some have not been there long enough for even mother nature to touch them. At the end of the front row there is 
+an empty grave, freshly dug. To the left of the path there is a grave out of place, the headstone is blank. The nameless 
+grave, from what you can tell, has been dug up again and again though you are not sure why. 	
+"""
 
-outside_9_building_description = """"""
+outside_9_building_description = """At the end of the path there is a building. The walls and roof are half missing, 
+windows all smashed in. The door swings side to side with a quiet creek with each swish of the wind. You cannot tell 
+what is inside but the outside has clearly succumbed to the elements over the years. 
+"""
 
 outside_10_description = """"""
 
@@ -675,7 +687,7 @@ def outside_1_scene():
         print("")  # blank print for formatting
 
         if outside_1_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_5_scene()
 
         elif outside_1_options == "east":  # if east is entered it will carry out these functions:
             print("You cannot go that way.")
@@ -715,7 +727,7 @@ def outside_2_shack_scene():
         print("")  # blank print for formatting
 
         if outside_2_shack_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_6_crossroads_scene()
 
         elif outside_2_shack_options == "east":  # if east is entered it will carry out these functions:
             print("You cannot go that way.")
@@ -757,7 +769,7 @@ def outside_3_scene():
         print("")  # blank print for formatting
 
         if outside_3_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_7_t_junction_scene()
 
         elif outside_3_options == "east":  # if east is entered it will carry out these functions:
             print("You cannot go that way.")
@@ -765,8 +777,9 @@ def outside_3_scene():
         elif outside_3_options == "south":  # if west is entered it will carry out these functions:
             print("You cannot go that way.")
 
-        elif outside_3_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+        # if west is entered and the enemy has zero health it will carry out these functions:
+        elif outside_3_options == "west" and enemy_2_health <= 0:
+            outside_4_scene()
 
         elif outside_3_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -794,12 +807,12 @@ def outside_4_scene():
             print("You cannot go that way.")
 
         elif outside_4_options == "east":  # if east is entered it will carry out these functions:
+            outside_3_scene()
+
+        elif outside_4_options == "south":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")
 
-        elif outside_4_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
-
-        elif outside_4_options == "west":  # if south is entered it will carry out these functions:
+        elif outside_4_options == "west":  # if west is entered it will carry out these functions:
             print("You cannot go that way.")
 
         elif outside_4_options == "help":  # if help is entered it will carry out these functions:
@@ -813,7 +826,7 @@ def outside_4_scene():
 
 
 def outside_5_scene():
-    
+
     print("")  # blank print for formatting
     slow_type(outside_5_description)  # displays the cupboard description
     print("")  # blank print for formatting
@@ -825,16 +838,16 @@ def outside_5_scene():
         print("")  # blank print for formatting
 
         if outside_5_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_9_building_scene()
 
         elif outside_5_options == "east":  # if east is entered it will carry out these functions:
             print("You cannot go that way.")
 
-        elif outside_5_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+        elif outside_5_options == "south":  # if south is entered it will carry out these functions:
+            outside_1_scene()
 
-        elif outside_5_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+        elif outside_5_options == "west":  # if west is entered it will carry out these functions:
+            outside_6_crossroads_scene()
 
         elif outside_5_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -859,16 +872,16 @@ def outside_6_crossroads_scene():
         print("")  # blank print for formatting
 
         if outside_6_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_10_scene()
 
         elif outside_6_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_5_scene()
 
         elif outside_6_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_2_shack_scene()
 
         elif outside_6_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_7_t_junction_scene()
 
         elif outside_6_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -893,16 +906,16 @@ def outside_7_t_junction_scene():
         print("")  # blank print for formatting
 
         if outside_7_t_junction_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_11_scene()
 
         elif outside_7_t_junction_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_6_crossroads_scene()
 
         elif outside_7_t_junction_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_3_scene()
 
         elif outside_7_t_junction_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_8_graveyard_scene()
 
         elif outside_7_t_junction_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -930,7 +943,7 @@ def outside_8_graveyard_scene():
             print("You cannot go that way.")
 
         elif outside_8_graveyard_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_7_t_junction_scene()
 
         elif outside_8_graveyard_options == "south":  # if west is entered it will carry out these functions:
             print("You cannot go that way.")
@@ -967,7 +980,7 @@ def outside_9_building_scene():
             print("You cannot go that way.")
 
         elif outside_9_building_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_5_scene()
 
         elif outside_9_building_options == "west":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")
@@ -1001,10 +1014,10 @@ def outside_10_scene():
             print("You cannot go that way.")
 
         elif outside_10_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_6_crossroads_scene()
 
         elif outside_10_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_11_scene()
 
         elif outside_10_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1029,16 +1042,16 @@ def outside_11_scene():
         print("")  # blank print for formatting
 
         if outside_11_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            lake_scene()
 
         elif outside_11_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_10_scene()
 
         elif outside_11_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_7_t_junction_scene()
 
         elif outside_11_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_12_scene()
 
         elif outside_11_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1074,7 +1087,7 @@ def outside_12_scene():
             print("You cannot go that way.")
 
         elif outside_12_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_11_scene()
 
         elif outside_12_options == "south":  # if west is entered it will carry out these functions:
             print("You cannot go that way.")
@@ -1111,7 +1124,7 @@ def lake_scene():
             print("You cannot go that way.")
 
         elif lake_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_11_scene()
 
         elif lake_options == "west":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")
