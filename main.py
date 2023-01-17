@@ -6,6 +6,10 @@ import time
 inventory = []  # inventory list
 needed_items = {}  # boat part list
 player_health = 150  # player health
+knife_damage = 0
+shovel_damage = 0
+crowbar_damage = 0
+ore_damage = 0
 got_map = True  # has map
 
 typing_speed = 10000  # amount of words per minute
@@ -26,9 +30,6 @@ class Enemy:
         self.weapon = weapon
         self.attack = attack
 
-    def attack(self, damage):
-        pass
-
 
 enemy_1 = Enemy(100, "Monster", "Fangs", random.randrange(0, 30))
 enemy_2 = Enemy(100, "Bugbear", "Tree Log", random.randrange(0, 30))
@@ -45,6 +46,19 @@ safe_opened = False  # sets the bathroom safe as closed
 vent_opened = False  # sets the bathroom vent as closed
 stool_in_bathroom = False  # sets the stool in the bathroom as no
 flashlight_with_batteries = False  # sets the flashlight with batteries as no
+
+# outside map
+player_map = """ 
+\033[1;37;40m         _____              \033[0;39m
+\033[1;37;40m   \    |_____|     |__/    \033[0;39m
+\033[1;37;40m   _|_____| |_______|____   \033[0;39m
+\033[1;37;40m  /  ______   ____   ____|  \033[0;39m
+\033[1;37;40m  | |      | |    | |       \033[0;39m
+\033[1;37;40m  _____     \ \   / /       \033[0;39m
+\033[1;37;40m |_____|     \  v  /        \033[0;39m
+\033[1;37;40m _____________|   |________ \033[0;39m
+\033[1;34;40m ~~~~~~~~~~~~~~~~~~~~~~~~~~ \033[0;39m          
+"""
 
 # outside descriptions
 outside_1_description_with_enemy = """The dirt path leads you through some trees, theres not much around as you push the 
@@ -81,7 +95,8 @@ bushes on the outskirts of the trees, there is a weird gap in one of the bushes.
 squirrel, has been in it. 
 """
 
-outside_6_crossroads_description = """"""
+outside_6_crossroads_description = """You come to a crossroad, you can't quite tell where each place goes and there is 
+no sign either. """
 
 outside_7_T_junction_description = """"""
 
@@ -163,7 +178,8 @@ help_guide = """\033[1;31m
 - 'north', 'south', 'east', 'west' to move around the room. 
 - use [item] to use something.
 - examine [object] to get a closer look.
-- inventory to open your inventory.\n \033[0;39m \n"""  # \033[0;39m \n turns it back to white
+- inventory to open your inventory.
+- map to see your map.\n \033[0;39m \n"""  # \033[0;39m \n turns it back to white
 
 
 # the point in scenes the player will go back to when an action is completed
@@ -178,6 +194,7 @@ def starting_room_scene():  # defining the point in which players return to afte
     global bedside_draw  # declares the global bedside_draw variable within this scene
     global flashlight_with_batteries  # declares the global flashlight with batteries variable within this scene
     global door_locked  # declares the global door locked variable within this scene
+    global got_map  # declares the map in the scene
 
     while True:
 
@@ -306,6 +323,14 @@ into your pocket and shut the draws.""")  # displays the description
         elif starting_room_options == "inventory":  # if inventory is entered it will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif starting_room_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif starting_room_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions::
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
@@ -317,6 +342,7 @@ def kitchen_scene():
     print("")  # blank print for formatting
 
     global box  # declares the global box variable within this scene
+    global got_map  # declares the map in the scene
 
     while True:
 
@@ -397,6 +423,14 @@ pocket for later use.""")  # displays the description
         elif kitchen_options == "inventory":  # if inventory is entered it will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif kitchen_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif kitchen_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
@@ -409,6 +443,7 @@ def bathroom_scene():
 
     global safe_opened  # declares the global safe opened variable within this scene
     global stool_in_bathroom  # declares the global stool in bathroom variable within this scene
+    global got_map  # declares the map in the scene
 
     while True:
 
@@ -521,6 +556,14 @@ What does that mean?
         elif bathroom_options == "inventory":  # if inventory is entered it will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif bathroom_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif bathroom_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
@@ -529,6 +572,7 @@ def bathroom_stool_scene():  # the scene for the bathroom but the player is stoo
 
     global vent_opened  # declares the global vent opened variable within this scene
     global stool_in_bathroom  # declares the global stool in bathroom variable within this scene
+    global got_map  # declares the map in the scene
     stool_in_bathroom = True  # sets the stool in bathroom variable as true
 
     while True:
@@ -577,6 +621,14 @@ was here to see that. You leave the stool here.""")  # displays the description
         elif stool_options == "inventory":  # if inventory is entered it will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif stool_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif stool_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             slow_type("I do not understand, type help for general instructions")  # asking the player to reenter
             slow_type("Perhaps try 'get off stool' if you are really stuck")  # giving a hint to get off the stool
@@ -589,6 +641,7 @@ def cupboard_scene():  # defining the point in which players return to after com
     print("")  # blank print for formatting
 
     global flashlight_with_batteries  # declares the global flashlight with batteries variable within this scene
+    global got_map  # declares the map in the scene
 
     while True:
 
@@ -637,11 +690,21 @@ pocket, you're glad you are wearing mens clothes so that this can fit.""")  # di
         elif cupboard_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif cupboard_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif cupboard_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 def upstairs_scene():
+
+    global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
     slow_type(upstairs_description)  # displays the upstairs description
@@ -672,12 +735,22 @@ def upstairs_scene():
         elif upstairs_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif upstairs_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif upstairs_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 # all scenes outside of the building that include the descriptions
 def outside_1_scene():
+
+    global got_map  # declares the map in the scene
 
     # prints out a description based on the amount of health
     if enemy_1.health >= 1:
@@ -726,11 +799,21 @@ def outside_1_scene():
         elif outside_1_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif outside_1_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif outside_1_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 def outside_2_shack_scene():
+
+    global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
     slow_type(outside_2_shack_description)  # displays the cupboard description
@@ -760,11 +843,21 @@ def outside_2_shack_scene():
         elif outside_2_shack_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif outside_2_shack_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif outside_2_shack_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 def outside_3_scene():
+
+    global got_map  # declares the map in the scene
 
     # prints out a description based on the amount of health
     if enemy_2.health >= 1:
@@ -805,11 +898,21 @@ def outside_3_scene():
         elif outside_3_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif outside_3_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif outside_3_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 def outside_4_scene():
+
+    global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
     slow_type(outside_4_description)  # displays the cupboard description
@@ -839,11 +942,21 @@ def outside_4_scene():
         elif outside_4_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif outside_4_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif outside_4_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 def outside_5_scene():
+
+    global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
     slow_type(outside_5_description)  # displays the cupboard description
@@ -873,11 +986,21 @@ def outside_5_scene():
         elif outside_5_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif outside_5_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif outside_5_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 def outside_6_crossroads_scene():
+
+    global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
     slow_type(outside_6_crossroads_description)  # displays the cupboard description
@@ -907,11 +1030,21 @@ def outside_6_crossroads_scene():
         elif outside_6_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif outside_6_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif outside_6_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 def outside_7_t_junction_scene():
+
+    global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
     slow_type(outside_7_T_junction_description)  # displays the cupboard description
@@ -920,32 +1053,42 @@ def outside_7_t_junction_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_7_t_junction_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_7_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if outside_7_t_junction_options == "north":  # if south is entered it will carry out these functions:
+        if outside_7_options == "north":  # if south is entered it will carry out these functions:
             outside_11_scene()
 
-        elif outside_7_t_junction_options == "east":  # if east is entered it will carry out these functions:
+        elif outside_7_options == "east":  # if east is entered it will carry out these functions:
             outside_6_crossroads_scene()
 
-        elif outside_7_t_junction_options == "south":  # if west is entered it will carry out these functions:
+        elif outside_7_options == "south":  # if west is entered it will carry out these functions:
             outside_3_scene()
 
-        elif outside_7_t_junction_options == "west":  # if south is entered it will carry out these functions:
+        elif outside_7_options == "west":  # if south is entered it will carry out these functions:
             outside_8_graveyard_scene()
 
-        elif outside_7_t_junction_options == "help":  # if help is entered it will carry out these functions:
+        elif outside_7_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
 
-        elif outside_7_t_junction_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        elif outside_7_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
+            # if map is entered and the player has the map it will carry out these functions:
+
+        elif outside_7_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif outside_7_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 def outside_8_graveyard_scene():
+
+    global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
     slow_type(outside_8_graveyard_description)  # displays the cupboard description
@@ -954,32 +1097,42 @@ def outside_8_graveyard_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_8_graveyard_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_8_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if outside_8_graveyard_options == "north":  # if south is entered it will carry out these functions:
+        if outside_8_options == "north":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")
 
-        elif outside_8_graveyard_options == "east":  # if east is entered it will carry out these functions:
+        elif outside_8_options == "east":  # if east is entered it will carry out these functions:
             outside_7_t_junction_scene()
 
-        elif outside_8_graveyard_options == "south":  # if west is entered it will carry out these functions:
+        elif outside_8_options == "south":  # if west is entered it will carry out these functions:
             print("You cannot go that way.")
 
-        elif outside_8_graveyard_options == "west":  # if south is entered it will carry out these functions:
+        elif outside_8_options == "west":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")
 
-        elif outside_8_graveyard_options == "help":  # if help is entered it will carry out these functions:
+        elif outside_8_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
 
-        elif outside_8_graveyard_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        elif outside_8_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
+
+        # if map is entered and the player has the map it will carry out these functions:
+        elif outside_8_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif outside_8_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 def outside_9_building_scene():
+
+    global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
     slow_type(outside_9_building_description)  # displays the cupboard description
@@ -988,32 +1141,42 @@ def outside_9_building_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_9_building_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_9_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if outside_9_building_options == "north":  # if south is entered it will carry out these functions:
+        if outside_9_options == "north":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")
 
-        elif outside_9_building_options == "east":  # if east is entered it will carry out these functions:
+        elif outside_9_options == "east":  # if east is entered it will carry out these functions:
             print("You cannot go that way.")
 
-        elif outside_9_building_options == "south":  # if west is entered it will carry out these functions:
+        elif outside_9_options == "south":  # if west is entered it will carry out these functions:
             outside_5_scene()
 
-        elif outside_9_building_options == "west":  # if south is entered it will carry out these functions:
+        elif outside_9_options == "west":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")
 
-        elif outside_9_building_options == "help":  # if help is entered it will carry out these functions:
+        elif outside_9_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
 
-        elif outside_9_building_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        elif outside_9_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
+
+        # if map is entered and the player has the map it will carry out these functions:
+        elif outside_9_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif outside_9_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 def outside_10_scene():
+
+    global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
     slow_type(outside_10_description)  # displays the cupboard description
@@ -1043,11 +1206,21 @@ def outside_10_scene():
         elif outside_10_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif outside_10_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif outside_10_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 def outside_11_scene():
+
+    global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
     slow_type(outside_11_split_path_description)  # displays the cupboard description
@@ -1077,11 +1250,21 @@ def outside_11_scene():
         elif outside_11_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+         # if map is entered and the player has the map it will carry out these functions:
+        elif outside_11_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif outside_11_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 def outside_12_scene():
+
+    global got_map  # declares the map in the scene
 
     # prints out a description based on the amount of health
     if enemy_3.health >= 1:
@@ -1121,11 +1304,21 @@ def outside_12_scene():
         elif outside_12_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif outside_12_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif outside_12_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 def lake_scene():
+
+    global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
     slow_type(lake_description)  # displays the cupboard description
@@ -1155,11 +1348,100 @@ def lake_scene():
         elif lake_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
 
+        # if map is entered and the player has the map it will carry out these functions:
+        elif lake_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif lake_options == "map" and got_map is False:
+            print("You do not have a map.")  # displays the map
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+
+def enemy_1_fight():
+
+    while True:
+        if enemy_1.health >= 1:
+            usr = input("which weapon you want to use: ")
+            usr_words = usr.split(" ")  # list
+            for word in usr_words:
+                if word in inventory:
+                    if word == "crowbar":
+                        print("With this you do 5 damage. On we go!")
+                        enemy_1.health = enemy_1.health - crowbar_damage
+
+                    elif word == "knife":
+                        print("With this you do 3 damage. On we go!")
+                        enemy_1.health = enemy_1.health - knife_damage
+
+                else:
+                    print("please choose a weapon you actually have")
+
+        elif enemy_1.health <= 1:
+            print("The monster is dead!")
+            exit()
+
+        else:
+            print("")
+
+
+def enemy_2_fight():
+
+    while True:
+        if enemy_2.health >= 1:
+            usr = input("which weapon you want to use: ")
+            usr_words = usr.split(" ")  # list
+            for word in usr_words:
+                if word in inventory:
+                    if word == "crowbar":
+                        print("With this you do 5 damage. On we go!")
+                        enemy_2.health = enemy_2.health - crowbar_damage
+
+                    elif word == "knife":
+                        print("")
+                        enemy_2.health = enemy_2.health - knife_damage
+
+                else:
+                    print("please choose a weapon you actually have")
+
+        elif enemy_2.health <= 1:
+            print("The monster is dead!")
+            exit()
+
+        else:
+            print("")
+
+
+def enemy_3_fight():
+
+    slow_type("")
+
+    while True:
+        if enemy_3.health >= 1:
+            usr = input("which weapon you want to use: ")
+            usr_words = usr.split(" ")  # list
+            for word in usr_words:
+                if word in inventory:
+                    if word == "crowbar":
+                        print("")
+                        enemy_3.health = enemy_3.health - crowbar_damage
+
+                    elif word == "knife":
+                        print("With this you do 3 damage. On we go!")
+                        enemy_3.health = enemy_3.health - knife_damage
+
+                else:
+                    print("please choose a weapon you actually have")
+
+        elif enemy_3.health <= 1:
+            print("The monster is dead!")
+            exit()
+
+        else:
+            print("")
 
 
 print("")  # blank print for formatting
 slow_type(opening_text)  # displays the opening text which is defined earlier
 starting_room_scene()  # starts the starting scene
-
