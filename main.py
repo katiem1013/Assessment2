@@ -5,7 +5,7 @@ import time
 
 inventory = []  # inventory list
 needed_items = {}  # boat part list
-player_health = 100  # player health
+player_health = 150  # player health
 got_map = True  # has map
 
 typing_speed = 10000  # amount of words per minute
@@ -18,10 +18,22 @@ def slow_type(text):  # defining text typing out slowly
         time.sleep(random.random() * 10.0 / typing_speed)  # how quickly the text will type
 
 
-# variables for outside the house
-enemy_1_health = 100
-enemy_2_health = 100
-enemy_3_health = 100
+# enemy class
+class Enemy:
+    def __init__(self, health, name, weapon, attack):
+        self.health = health
+        self.name = name
+        self.weapon = weapon
+        self.attack = attack
+
+    def attack(self, damage):
+        pass
+
+
+enemy_1 = Enemy(100, "Monster", "Fangs", random.randrange(0, 30))
+enemy_2 = Enemy(100, "Bugbear", "Tree Log", random.randrange(0, 30))
+enemy_3 = Enemy(150, "Karkinos", "Claws", random.randrange(0, 30))
+
 
 # variables for inside the house
 door_locked = True  # sets the main door as locked
@@ -52,7 +64,8 @@ contrast makes the whole building creepier. You really should get out of here.""
 
 outside_3_description_with_enemy = """Up ahead the dirt path splits into two. If you continued forward you can see the 
 end but to the right you can't quite see due to the trees blocking it. Theres a... monster, or maybe a rabid animal, or
-something up ahead. It looks not quite human and  not quite animal and not quite right either. """
+something up ahead. It looks not quite human and  not quite animal and not quite right either. You remember a monster 
+from a book you read as a kid... it sort of looks like a Bugbear"""
 
 outside_3_description_without_enemy = """Up ahead the dirt path splits into two. If you continued forward you can see 
 the end but to the right you can't quite see due to the trees blocking it. The body of the monster is crumpled at the 
@@ -297,7 +310,7 @@ into your pocket and shut the draws.""")  # displays the description
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
-def kitchen_scene():  # defining the point in which players return to after completing an action
+def kitchen_scene():
 
     print("")  # blank print for formatting
     slow_type(kitchen_description)  # displays the kitchen description
@@ -388,7 +401,7 @@ pocket for later use.""")  # displays the description
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
-def bathroom_scene():  # defining the point in which players return to after completing an action
+def bathroom_scene():
 
     print("")  # blank print for formatting
     slow_type(bathroom_description)  # displays the bathroom description
@@ -629,6 +642,7 @@ pocket, you're glad you are wearing mens clothes so that this can fit.""")  # di
 
 
 def upstairs_scene():
+
     print("")  # blank print for formatting
     slow_type(upstairs_description)  # displays the upstairs description
     print("")  # blank print for formatting
@@ -665,13 +679,15 @@ def upstairs_scene():
 # all scenes outside of the building that include the descriptions
 def outside_1_scene():
 
-    if enemy_1_health >= 1:
+    # prints out a description based on the amount of health
+    if enemy_1.health >= 1:
 
         print("")  # blank print for formatting
         slow_type(outside_1_description_with_enemy)  # displays the outside description
         print("")  # blank print for formatting
 
-    elif enemy_1_health < 1:
+    # prints out a description based on the amount of health
+    elif enemy_1.health < 1:
 
         print("")  # blank print for formatting
         slow_type(outside_1_description_without_enemy)  # displays the outside description
@@ -698,10 +714,10 @@ def outside_1_scene():
         elif outside_1_options == "west":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")
 
-        elif enemy_1_health > 1 and outside_1_options == "examine monster":
+        elif enemy_1.health > 1 and outside_1_options == "examine monster":
             print("Blood pours out of its mouth, eyes open and staring straight into your own.")
 
-        elif enemy_1_health <= 100 and outside_1_options == "examine monster":
+        elif enemy_1.health <= 100 and outside_1_options == "examine monster":
             print()
 
         elif outside_1_options == "help":  # if help is entered it will carry out these functions:
@@ -750,13 +766,15 @@ def outside_2_shack_scene():
 
 def outside_3_scene():
 
-    if enemy_2_health >= 1:
+    # prints out a description based on the amount of health
+    if enemy_2.health >= 1:
 
         print("")  # blank print for formatting
         slow_type(outside_3_description_with_enemy)  # displays the outside description
         print("")  # blank print for formatting
 
-    elif enemy_2_health < 1:
+    # prints out a description based on the amount of health
+    elif enemy_2.health < 1:
 
         print("")  # blank print for formatting
         slow_type(outside_3_description_without_enemy)  # displays the outside description
@@ -778,7 +796,7 @@ def outside_3_scene():
             print("You cannot go that way.")
 
         # if west is entered and the enemy has zero health it will carry out these functions:
-        elif outside_3_options == "west" and enemy_2_health <= 0:
+        elif outside_3_options == "west" and enemy_2.health <= 0:
             outside_4_scene()
 
         elif outside_3_options == "help":  # if help is entered it will carry out these functions:
@@ -1065,13 +1083,15 @@ def outside_11_scene():
 
 def outside_12_scene():
 
-    if enemy_3_health >= 1:
+    # prints out a description based on the amount of health
+    if enemy_3.health >= 1:
 
         print("")  # blank print for formatting
         slow_type(outside_12_description_with_enemy)  # displays the outside description
         print("")  # blank print for formatting
 
-    elif enemy_3_health < 1:
+    # prints out a description based on the amount of health
+    elif enemy_3.health < 1:
 
         print("")  # blank print for formatting
         slow_type(outside_12_description_without_enemy)  # displays the outside description
@@ -1142,3 +1162,4 @@ def lake_scene():
 print("")  # blank print for formatting
 slow_type(opening_text)  # displays the opening text which is defined earlier
 starting_room_scene()  # starts the starting scene
+
