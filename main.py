@@ -6,10 +6,10 @@ import time
 inventory = []  # inventory list
 needed_items = {}  # boat part list
 player_health = 150  # player health
-knife_damage = 0
-shovel_damage = 0
-crowbar_damage = 0
-ore_damage = 0
+knife_damage = 25
+shovel_damage = 35
+crowbar_damage = 30
+ore_damage = 30
 got_map = True  # has map
 
 typing_speed = 10000  # amount of words per minute
@@ -55,7 +55,7 @@ player_map = """
 \033[1;37;40m  /  ______   ____   ____|  \033[0;39m
 \033[1;37;40m  | |      | |    | |       \033[0;39m
 \033[1;37;40m  _____     \ \   / /       \033[0;39m
-\033[1;37;40m |_____|     \  v  /        \033[0;39m
+\033[1;37;40m |_____|     \  v  /----    \033[0;39m
 \033[1;37;40m _____________|   |________ \033[0;39m
 \033[1;34;40m ~~~~~~~~~~~~~~~~~~~~~~~~~~ \033[0;39m          
 """
@@ -129,7 +129,7 @@ what little of the beach there is."""
 # opening descriptions
 opening_text = """You awaken in a room that you do not recognise with no memories on how you got here, you remember most 
 of yesterday but after leaving work in the evening it all goes blank. You should probably get out of here, your cat will 
-be hungry if you don't get home soon. When you think about it you're not sure what time it is nor how long you've been 
+be hungry if you don't get home soon. when you think about it you're not sure what time it is nor how long you've been 
 asleep.  
 """
 
@@ -137,7 +137,7 @@ asleep.
 # \033[1;92m turns the text green \033[0;39m turns it back.
 starting_room_description = """The room is dim but you can make out a door on each wall that lead to different rooms.
 There are no windows. To the\033[1;92m South\033[0;39m is the kitchen, if the counters and fridge you can see are 
-anything to go off of. The door to the\033[1;92m East\033[0;39m is a cupboard, and the\033[1;92m West\033[0;39m is the 
+anything to go off of. The door to the\033[1;92m East\033[0;39m is a cupboard, and the\033[1;92m west\033[0;39m is the 
 bathroom.The door to the\033[1;92m North\033[0;39m seems to be the main door, there is a padlock keeping it locked shut. 
 You are on the bed, it is perfectly made apart from where you've moved it as you got up. There are two
 bedside tables, one contains a lamp both have draws that are currently shut."""
@@ -167,7 +167,7 @@ going_down_stairs_description = """Going back down the stairs feels as dreadful 
 familiarity of it all is comforting... 
 You really need to get out of here."""
 
-upstairs_description = """ Similar the stairs the upstairs room is dingy, gross and just a little too empty. Theres an 
+upstairs_description = """Similar to the stairs the upstairs room is dingy, gross and just a little too empty. Theres an 
 unlit campfire in the corner despite the fireplace directly in the middle of the wall opposite you. Next to the campfire 
 is a crowbar. The door is to the\033[1;92m North\033[0;39m. There is nothing else in the room."""
 
@@ -199,7 +199,7 @@ def starting_room_scene():  # defining the point in which players return to afte
     while True:
 
         print("")  # blank print for formatting
-        starting_room_options = input("What would you like to do? ").lower()  # gets the players input
+        starting_room_options = input("what would you like to do? ").lower()  # gets the players input
         # . lower() changes anything entered to lowercase
         print("")  # blank print for formatting
 
@@ -220,7 +220,7 @@ def starting_room_scene():  # defining the point in which players return to afte
 
                 while True:  # will happen while
                     print("")  # blank print for formatting
-                    key = input("Would you like to use it? ")
+                    key = input("would you like to use it? ")
                     print("")  # blank print for formatting
 
                     if key == "yes":
@@ -250,7 +250,7 @@ def starting_room_scene():  # defining the point in which players return to afte
         elif starting_room_options == "examine bed":  # if bed is entered it will carry out these functions:
             slow_type("""Other then where you were sleeping the bed is made perfectly, you crouch down and under the bed
 it is empty, it looks as though something was once there but whatever it was is gone. It's dusty, the dirtiest thing 
-you've seen so far. Whatever was there was dragged out recently.""")  # displays the description
+you've seen so far. whatever was there was dragged out recently.""")  # displays the description
 
         # if examine bedside table(s) is entered it will carry out these functions:
         elif starting_room_options == "examine bedside table" or starting_room_options == "examine bedside tables":
@@ -271,7 +271,7 @@ something that bashed it about a lot.""")  # displays the description
 
         # if the beside draws have yet to be opened it will carry out these functions:
         elif (starting_room_options == "use draws" or starting_room_options == "open draws") and bedside_draw is False:
-            slow_type("""When you check both draws one contains two batteries, the other empty. You shove the batteries 
+            slow_type("""when you check both draws one contains two batteries, the other empty. You shove the batteries 
 into your pocket and shut the draws.""")  # displays the description
             inventory.append("batteries")  # adds batteries to the inventory
             bedside_draw = True  # sets the beside draws as open
@@ -287,7 +287,7 @@ into your pocket and shut the draws.""")  # displays the description
 
         # beside draw function but non-plural
         elif (starting_room_options == "use draw" or starting_room_options == "open draw") and bedside_draw is False:
-            slow_type("""When you check both draw one contains two batteries, the other empty. You shove the batteries 
+            slow_type("""when you check both draw one contains two batteries, the other empty. You shove the batteries 
 into your pocket and shut the draws.""")  # displays the description
             inventory.append("batteries")  # adds batteries to the inventory
             bedside_draw = True  # sets the beside draws as open
@@ -303,11 +303,11 @@ into your pocket and shut the draws.""")  # displays the description
 
         # if the beside draw has been opened it will carry out these functions:
         elif (starting_room_options == "use draw" or starting_room_options == "open draw") and bedside_draw is True:
-            slow_type("When you open the draws they are both empty.")  # displays the description
+            slow_type("when you open the draws they are both empty.")  # displays the description
 
         elif starting_room_options == "use key" and "key" in inventory:
             print("")  # blank print for formatting
-            key = input("What would you like to use it on? ")
+            key = input("what would you like to use it on? ")
             print("")  # blank print for formatting
 
             if key == "door":
@@ -329,7 +329,7 @@ into your pocket and shut the draws.""")  # displays the description
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif starting_room_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions::
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -347,20 +347,20 @@ def kitchen_scene():
     while True:
 
         print("")  # blank print for formatting
-        kitchen_options = input("What would you like to do? ").lower()  # gets the players input
+        kitchen_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if kitchen_options == "north":  # if south is entered it will carry out these functions:
             starting_room_scene()  # will return the player to the starting room
 
         elif kitchen_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif kitchen_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif kitchen_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif box is False and kitchen_options == "examine box":  # checks if the box has been opened
             slow_type("""The box is just big enough to hold a handful of golf balls, the design is very detailed but a 
@@ -371,7 +371,7 @@ little ugly.""")  # displays the description
 
         elif kitchen_options == "examine fridge":  # if examine fridge is entered it will carry out these functions:
             slow_type("""Unlike the cupboards the fridge is not well stocked, there is a few bottles of water on one of 
-the shelves. The first one you pick up has been opened and is missing some water. The rest have not been. When the water 
+the shelves. The first one you pick up has been opened and is missing some water. The rest have not been. when the water 
 is in your hand you notice that it is far too warm for being in the fridge.""")  # displays the description
 
         elif kitchen_options == "examine chair":  # if examine chair is entered it will carry out these functions:
@@ -389,7 +389,7 @@ tucked under it which is made out of metal.""")  # displays the description
 
         elif kitchen_options == "examine oven":  # if examine oven is entered it will carry out these functions:
             slow_type("""From what you can tell the oven is gas, you reach out and try to turn it on but nothing you do
-works. When you try to pull open the main oven it won't move no matter how hard you pull it as if someone has glued it 
+works. when you try to pull open the main oven it won't move no matter how hard you pull it as if someone has glued it 
 shut.""")  # displays the description
 
         # if examine cupboard is entered it will carry out these functions:
@@ -429,7 +429,7 @@ pocket for later use.""")  # displays the description
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif kitchen_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -448,20 +448,20 @@ def bathroom_scene():
     while True:
 
         print("")  # blank print for formatting
-        bathroom_options = input("What would you like to do? ").lower()  # gets the players input
+        bathroom_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if bathroom_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif bathroom_options == "east":  # if east is entered it will carry out these functions:
             starting_room_scene()  # will return the player to the starting room
 
         elif bathroom_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif bathroom_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif bathroom_options == "examine shower":  # if examine shower is entered it will carry out these functions:
             slow_type("""It's one of those showers that is shoved into the corner of the room and would usually have two 
@@ -485,13 +485,13 @@ be this one. It is a picture perfect sink.""")  # displays the description
 purple one. The green has obviously been use, though it's unclear how recently.""")  # displays the description
 
         elif bathroom_options == "examine mat":  # if examine padlock is entered it will carry out these functions:
-            slow_type("""While it's obviously supposed to be white you can tell even from the door that it's greying 
+            slow_type("""while it's obviously supposed to be white you can tell even from the door that it's greying 
 from use. It's bone dry, well dead bone dry, alive bones are actually wet. You don't really think much of the mat though 
 it looks as though there is something underneath.""")  # displays the description
 
         # if examine use mat or move mat is entered will carry out these functions:
         elif bathroom_options == "use mat" or bathroom_options == "move mat":
-            slow_type("""When you move the mat theres a safe underneath, you aren't sure what the code is but theres 
+            slow_type("""when you move the mat theres a safe underneath, you aren't sure what the code is but theres 
 tree notes on the bottom of the mat it read:""")  # displays the description
 
             if safe_opened is False:  # if safe has not been opened carry out these functions:
@@ -528,7 +528,7 @@ the mat hiding it, and even weirder they did it as a riddle, but it works out fo
 able to reach in and pull out a... you can't actually tell what it is. It's paper, green, kind of crushed. It might be a
 frog? Judging by the eyes and weird uneven legs. A solid attempt, just not a great one. The state of it makes you feel 
 less guilty when you unfold it and find a singular word written on it: Fireplace... 
-What does that mean?
+what does that mean?
 """)  # displays the description
 
             elif safe_opened is True:  # of safe has been opened carry out these functions:
@@ -562,7 +562,7 @@ What does that mean?
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif bathroom_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -578,12 +578,12 @@ def bathroom_stool_scene():  # the scene for the bathroom but the player is stoo
     while True:
 
         print("")  # blank print for formatting
-        stool_options = input("What would you like to do?")  # gets the players input
+        stool_options = input("what would you like to do?")  # gets the players input
         print("")  # blank print for formatting
 
         # if use screwdriver is entered and it is in the inventory it will carry out these functions:
         if "screwdriver" in inventory and stool_options == "use screwdriver":
-            screwdriver_use = input("What would you like to use the screwdriver on? ")  # gets the players input
+            screwdriver_use = input("what would you like to use the screwdriver on? ")  # gets the players input
 
             # if vent is entered and the vent hasn't been opened it will carry out these functions:
             if screwdriver_use == "vent" and vent_opened is False:
@@ -591,7 +591,7 @@ def bathroom_stool_scene():  # the scene for the bathroom but the player is stoo
 eventually all four come out and you are able to pop the vent front off of the wall. You look around inside but you 
 can't see much, you reach your hand in but it goes straight into a spiders web. Still you search around a bit and manage 
 to pull out a key. 
-Weird.""")  # displays the description
+weird.""")  # displays the description
                 inventory.append("key")  # adds the key to the inventory
 
             # if vent is entered and the vent has been opened it will carry out these functions:
@@ -627,7 +627,7 @@ was here to see that. You leave the stool here.""")  # displays the description
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif stool_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             slow_type("I do not understand, type help for general instructions")  # asking the player to reenter
@@ -646,17 +646,17 @@ def cupboard_scene():  # defining the point in which players return to after com
     while True:
 
         print("")  # blank print for formatting
-        cupboard_options = input("What would you like to do? ").lower()  # gets the players input
+        cupboard_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if cupboard_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif cupboard_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif cupboard_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif cupboard_options == "west":  # if west is entered it will carry out these functions:
             starting_room_scene()  # will return the player to the starting room
@@ -696,7 +696,7 @@ pocket, you're glad you are wearing mens clothes so that this can fit.""")  # di
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif cupboard_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -710,24 +710,42 @@ def upstairs_scene():
     slow_type(upstairs_description)  # displays the upstairs description
     print("")  # blank print for formatting
 
-    print("")  # blank print for formatting
-    upstairs_options = input("What would you like to do? ").lower()  # gets the players input
-    print("")  # blank print for formatting
-
     while True:
 
+        print("")  # blank print for formatting
+        upstairs_options = input("What would you like to do? ").lower()  # gets the players input
+        print("")  # blank print for formatting
+
         if upstairs_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            outside_2_shack_scene()
 
         elif upstairs_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
-        elif upstairs_options == "south":  # if west is entered it will carry out these functions:
-            print(going_down_stairs_description)
+        elif upstairs_options == "south":  # if south is entered it will carry out these functions:
+            slow_type(going_down_stairs_description)  # displays the description
             starting_room_scene()  # goes back to the starting room scene
 
-        elif upstairs_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+        elif upstairs_options == "west":  # if west is entered it will carry out these functions:
+            print("You cannot go that way.")  # lets the player know there is no path there
+
+        # if examine crowbar is entered it will carry out these functions:
+        elif upstairs_options == "examine crowbar" and "crowbar" not in inventory:
+            slow_type("""The crowbar is old and rusted but sturdy. You doubt it will break anytime soon and trust it 
+could do some damage. """)  # displays the description
+            crowbar = input("Would you like to take it with you? ")  # gets the players input
+            if crowbar == "yes":  # if yes is entered it will carry out these functions:
+                inventory.append("crowbar")  # adds crowbar to inventory
+                slow_type("You take the crowbar and hang it on your belt.")
+
+            elif crowbar == "no":  # if no is entered it will carry out these functions:
+                slow_type("You put the crowbar back where you found it.")  # displays the description
+
+            else:  # if no other option is fitting it will carry out these functions:
+                print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+        elif upstairs_options == "examine crowbar" and "crowbar" in inventory:
+            print("You already have the crowbar")  # displays the description
 
         elif upstairs_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -741,7 +759,7 @@ def upstairs_scene():
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif upstairs_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -756,14 +774,14 @@ def outside_1_scene():
     if enemy_1.health >= 1:
 
         print("")  # blank print for formatting
-        slow_type(outside_1_description_with_enemy)  # displays the outside description
+        slow_type(outside_1_description_with_enemy)  # displays the outside description with the enemy
         print("")  # blank print for formatting
 
     # prints out a description based on the amount of health
     elif enemy_1.health < 1:
 
         print("")  # blank print for formatting
-        slow_type(outside_1_description_without_enemy)  # displays the outside description
+        slow_type(outside_1_description_without_enemy)  # displays the outside description without the enemy
         print("")  # blank print for formatting
 
     else:
@@ -772,23 +790,23 @@ def outside_1_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_1_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_1_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_1_options == "north":  # if south is entered it will carry out these functions:
             outside_5_scene()
 
         elif outside_1_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_1_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_1_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif enemy_1.health > 1 and outside_1_options == "examine monster":
-            print("Blood pours out of its mouth, eyes open and staring straight into your own.")
+            slow_type("Blood pours out of its mouth, eyes open and staring straight into your own.")
 
         elif enemy_1.health <= 100 and outside_1_options == "examine monster":
             print()
@@ -802,10 +820,11 @@ def outside_1_scene():
         # if map is entered and the player has the map it will carry out these functions:
         elif outside_1_options == "map" and got_map is True:
             print(player_map)  # displays the map
+            print("You are on the thin path in the top left.")  # where the player is on the map
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif outside_1_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -816,26 +835,26 @@ def outside_2_shack_scene():
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
-    slow_type(outside_2_shack_description)  # displays the cupboard description
+    slow_type(outside_2_shack_description)  # displays the outside description
     print("")  # blank print for formatting
 
     while True:
 
         print("")  # blank print for formatting
-        outside_2_shack_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_2_shack_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_2_shack_options == "north":  # if south is entered it will carry out these functions:
             outside_6_crossroads_scene()
 
         elif outside_2_shack_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_2_shack_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            upstairs_scene()  # lets the player know there is no path there
 
         elif outside_2_shack_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_2_shack_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -846,10 +865,11 @@ def outside_2_shack_scene():
         # if map is entered and the player has the map it will carry out these functions:
         elif outside_2_shack_options == "map" and got_map is True:
             print(player_map)  # displays the map
+            print("You are outside the shack at the top of the map.")  # where the player is on the map
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif outside_2_shack_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -863,30 +883,30 @@ def outside_3_scene():
     if enemy_2.health >= 1:
 
         print("")  # blank print for formatting
-        slow_type(outside_3_description_with_enemy)  # displays the outside description
+        slow_type(outside_3_description_with_enemy)  # displays the outside description with the enemy
         print("")  # blank print for formatting
 
     # prints out a description based on the amount of health
     elif enemy_2.health < 1:
 
         print("")  # blank print for formatting
-        slow_type(outside_3_description_without_enemy)  # displays the outside description
+        slow_type(outside_3_description_without_enemy)  # displays the outside description without the enemy
         print("")  # blank print for formatting
 
     while True:
 
         print("")  # blank print for formatting
-        outside_3_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_3_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_3_options == "north":  # if south is entered it will carry out these functions:
             outside_7_t_junction_scene()
 
         elif outside_3_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_3_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         # if west is entered and the enemy has zero health it will carry out these functions:
         elif outside_3_options == "west" and enemy_2.health <= 0:
@@ -901,10 +921,11 @@ def outside_3_scene():
         # if map is entered and the player has the map it will carry out these functions:
         elif outside_3_options == "map" and got_map is True:
             print(player_map)  # displays the map
+            print("You are on the thin split path in the top right.")  # where the player is on the map
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif outside_3_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -915,26 +936,26 @@ def outside_4_scene():
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
-    slow_type(outside_4_description)  # displays the cupboard description
+    slow_type(outside_4_description)  # displays the outside description
     print("")  # blank print for formatting
 
     while True:
 
         print("")  # blank print for formatting
-        outside_4_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_4_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_4_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_4_options == "east":  # if east is entered it will carry out these functions:
             outside_3_scene()
 
         elif outside_4_options == "south":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_4_options == "west":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_4_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -945,10 +966,11 @@ def outside_4_scene():
         # if map is entered and the player has the map it will carry out these functions:
         elif outside_4_options == "map" and got_map is True:
             print(player_map)  # displays the map
+            print("You are on the thin road in the top right.")  # where the player is on the map
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif outside_4_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -959,20 +981,20 @@ def outside_5_scene():
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
-    slow_type(outside_5_description)  # displays the cupboard description
+    slow_type(outside_5_description)  # displays the outside description
     print("")  # blank print for formatting
 
     while True:
 
         print("")  # blank print for formatting
-        outside_5_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_5_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_5_options == "north":  # if south is entered it will carry out these functions:
             outside_9_building_scene()
 
         elif outside_5_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_5_options == "south":  # if south is entered it will carry out these functions:
             outside_1_scene()
@@ -989,10 +1011,12 @@ def outside_5_scene():
         # if map is entered and the player has the map it will carry out these functions:
         elif outside_5_options == "map" and got_map is True:
             print(player_map)  # displays the map
+            # where the player is on the map
+            print("You are at the bend in the path on the left with the thin road going up.")
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif outside_5_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -1003,13 +1027,13 @@ def outside_6_crossroads_scene():
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
-    slow_type(outside_6_crossroads_description)  # displays the cupboard description
+    slow_type(outside_6_crossroads_description)  # displays the outside description
     print("")  # blank print for formatting
 
     while True:
 
         print("")  # blank print for formatting
-        outside_6_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_6_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_6_options == "north":  # if south is entered it will carry out these functions:
@@ -1033,10 +1057,11 @@ def outside_6_crossroads_scene():
         # if map is entered and the player has the map it will carry out these functions:
         elif outside_6_options == "map" and got_map is True:
             print(player_map)  # displays the map
+            print("You are at the crossroads.")  # where the player is on the map
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif outside_6_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -1047,13 +1072,13 @@ def outside_7_t_junction_scene():
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
-    slow_type(outside_7_T_junction_description)  # displays the cupboard description
+    slow_type(outside_7_T_junction_description)  # displays the outside description
     print("")  # blank print for formatting
 
     while True:
 
         print("")  # blank print for formatting
-        outside_7_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_7_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_7_options == "north":  # if south is entered it will carry out these functions:
@@ -1077,10 +1102,11 @@ def outside_7_t_junction_scene():
 
         elif outside_7_options == "map" and got_map is True:
             print(player_map)  # displays the map
+            print("You are at the T junction with the thin path going up.")  # where the player is on the map
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif outside_7_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -1091,26 +1117,26 @@ def outside_8_graveyard_scene():
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
-    slow_type(outside_8_graveyard_description)  # displays the cupboard description
+    slow_type(outside_8_graveyard_description)  # displays the outside description
     print("")  # blank print for formatting
 
     while True:
 
         print("")  # blank print for formatting
-        outside_8_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_8_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_8_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_8_options == "east":  # if east is entered it will carry out these functions:
             outside_7_t_junction_scene()
 
         elif outside_8_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_8_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_8_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1121,10 +1147,11 @@ def outside_8_graveyard_scene():
         # if map is entered and the player has the map it will carry out these functions:
         elif outside_8_options == "map" and got_map is True:
             print(player_map)  # displays the map
+            print("You are on the path on the right side of the map.")  # where the player is on the map
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif outside_8_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -1135,26 +1162,43 @@ def outside_9_building_scene():
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
-    slow_type(outside_9_building_description)  # displays the cupboard description
+    slow_type(outside_9_building_description)  # displays the outside description
     print("")  # blank print for formatting
 
     while True:
 
         print("")  # blank print for formatting
-        outside_9_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_9_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_9_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_9_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
-        elif outside_9_options == "south":  # if west is entered it will carry out these functions:
+        elif outside_9_options == "south":  # if south is entered it will carry out these functions:
             outside_5_scene()
 
-        elif outside_9_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+        elif outside_9_options == "west":  # if west is entered it will carry out these functions:
+            print("You cannot go that way.")  # lets the player know there is no path there
+
+        # if examine shovel is entered it will carry out these functions:
+        elif outside_9_options == "examine shovel" and "shovel" not in inventory:
+            slow_type("The shovel is somewhat new. It has definitely been used. ")  # displays the description
+            shovel = input("Would you like to take it with you? ")  # gets the players input
+            if shovel == "yes":  # if yes is entered it will carry out these functions:
+                inventory.append("shovel")  # adds crowbar to inventory
+
+            elif shovel == "no":  # if no is entered it will carry out these functions:
+                slow_type("You drop the shovel back onto the ground.")  # displays the description
+
+            else:  # if no other option is fitting it will carry out these functions:
+                print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+        # if examine shovel is entered it will carry out these functions:
+        elif outside_9_options == "examine shovel" and "shovel" in inventory:
+            slow_type("You already took the shovel.")  # displays the description
 
         elif outside_9_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1165,10 +1209,11 @@ def outside_9_building_scene():
         # if map is entered and the player has the map it will carry out these functions:
         elif outside_9_options == "map" and got_map is True:
             print(player_map)  # displays the map
+            print("You are at the building at the bottom left.")  # where the player is on the map
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif outside_9_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -1179,20 +1224,20 @@ def outside_10_scene():
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
-    slow_type(outside_10_description)  # displays the cupboard description
+    slow_type(outside_10_description)  # displays the outside description
     print("")  # blank print for formatting
 
     while True:
 
         print("")  # blank print for formatting
-        outside_10_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_10_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_10_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_10_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_10_options == "south":  # if west is entered it will carry out these functions:
             outside_6_crossroads_scene()
@@ -1209,10 +1254,11 @@ def outside_10_scene():
         # if map is entered and the player has the map it will carry out these functions:
         elif outside_10_options == "map" and got_map is True:
             print(player_map)  # displays the map
+            print("You are in the left curve of the split path.")  # where the player is on the map
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif outside_10_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -1223,13 +1269,13 @@ def outside_11_scene():
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
-    slow_type(outside_11_split_path_description)  # displays the cupboard description
+    slow_type(outside_11_split_path_description)  # displays the outside description
     print("")  # blank print for formatting
 
     while True:
 
         print("")  # blank print for formatting
-        outside_11_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_11_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_11_options == "north":  # if south is entered it will carry out these functions:
@@ -1250,13 +1296,14 @@ def outside_11_scene():
         elif outside_11_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
 
-         # if map is entered and the player has the map it will carry out these functions:
+        # if map is entered and the player has the map it will carry out these functions:
         elif outside_11_options == "map" and got_map is True:
             print(player_map)  # displays the map
+            print("You are on the split path.")  # where the player is on the map
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif outside_11_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -1270,33 +1317,33 @@ def outside_12_scene():
     if enemy_3.health >= 1:
 
         print("")  # blank print for formatting
-        slow_type(outside_12_description_with_enemy)  # displays the outside description
+        slow_type(outside_12_description_with_enemy)  # displays the outside description with the enemy
         print("")  # blank print for formatting
 
     # prints out a description based on the amount of health
     elif enemy_3.health < 1:
 
         print("")  # blank print for formatting
-        slow_type(outside_12_description_without_enemy)  # displays the outside description
+        slow_type(outside_12_description_without_enemy)  # displays the outside description without the enemy
         print("")  # blank print for formatting
 
     while True:
 
         print("")  # blank print for formatting
-        outside_12_options = input("What would you like to do? ").lower()  # gets the players input
+        outside_12_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_12_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_12_options == "east":  # if east is entered it will carry out these functions:
             outside_11_scene()
 
         elif outside_12_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_12_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_12_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1307,10 +1354,11 @@ def outside_12_scene():
         # if map is entered and the player has the map it will carry out these functions:
         elif outside_12_options == "map" and got_map is True:
             print(player_map)  # displays the map
+            print("You are on the thin path at the bottom right")  # where the player is on the map
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif outside_12_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -1321,26 +1369,26 @@ def lake_scene():
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
-    slow_type(lake_description)  # displays the cupboard description
+    slow_type(lake_description)  # displays the outside description
     print("")  # blank print for formatting
 
     while True:
 
         print("")  # blank print for formatting
-        lake_options = input("What would you like to do? ").lower()  # gets the players input
+        lake_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if lake_options == "north":  # if south is entered it will carry out these functions:
             print("There is a lake, you are unable to go that way without a boat.")
 
         elif lake_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif lake_options == "south":  # if west is entered it will carry out these functions:
             outside_11_scene()
 
         elif lake_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")
+            print("You cannot go that way.")  # lets the player know there is no path there
 
         elif lake_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1351,10 +1399,12 @@ def lake_scene():
         # if map is entered and the player has the map it will carry out these functions:
         elif lake_options == "map" and got_map is True:
             print(player_map)  # displays the map
+            print("You are at the lake at the bottom.")  # where the player is on the map
 
         # if map is entered and the player doesn't have the map it will carry out these functions:
         elif lake_options == "map" and got_map is False:
-            print("You do not have a map.")  # displays the map
+            print("You do not have a map.")  # does not display the map
+
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
@@ -1368,17 +1418,17 @@ def enemy_1_fight():
             for word in usr_words:
                 if word in inventory:
                     if word == "crowbar":
-                        print("With this you do 5 damage. On we go!")
+                        print("with this you do 5 damage. On we go!")
                         enemy_1.health = enemy_1.health - crowbar_damage
 
                     elif word == "knife":
-                        print("With this you do 3 damage. On we go!")
+                        print("with this you do 3 damage. On we go!")
                         enemy_1.health = enemy_1.health - knife_damage
 
                 else:
                     print("please choose a weapon you actually have")
 
-        elif enemy_1.health <= 1:
+        elif enemy_1.health <= 0:
             print("The monster is dead!")
             exit()
 
@@ -1395,7 +1445,7 @@ def enemy_2_fight():
             for word in usr_words:
                 if word in inventory:
                     if word == "crowbar":
-                        print("With this you do 5 damage. On we go!")
+                        print("with this you do 5 damage. On we go!")
                         enemy_2.health = enemy_2.health - crowbar_damage
 
                     elif word == "knife":
@@ -1405,7 +1455,7 @@ def enemy_2_fight():
                 else:
                     print("please choose a weapon you actually have")
 
-        elif enemy_2.health <= 1:
+        elif enemy_2.health <= 0:
             print("The monster is dead!")
             exit()
 
@@ -1428,13 +1478,13 @@ def enemy_3_fight():
                         enemy_3.health = enemy_3.health - crowbar_damage
 
                     elif word == "knife":
-                        print("With this you do 3 damage. On we go!")
+                        print("with this you do 3 damage. On we go!")
                         enemy_3.health = enemy_3.health - knife_damage
 
                 else:
                     print("please choose a weapon you actually have")
 
-        elif enemy_3.health <= 1:
+        elif enemy_3.health <= 0:
             print("The monster is dead!")
             exit()
 
@@ -1443,5 +1493,7 @@ def enemy_3_fight():
 
 
 print("")  # blank print for formatting
-slow_type(opening_text)  # displays the opening text which is defined earlier
-starting_room_scene()  # starts the starting scene
+#slow_type(opening_text)  # displays the opening text which is defined earlier
+#starting_room_scene()  # starts the starting scene
+
+upstairs_scene()
