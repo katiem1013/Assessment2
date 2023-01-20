@@ -1534,7 +1534,5 @@ def enemy_3_fight():
 
 
 print("")  # blank print for formatting
-#slow_type(opening_text)  # displays the opening text which is defined earlier
-#starting_room_scene()  # starts the starting scene
-
-enemy_1_fight()
+slow_type(opening_text)  # displays the opening text which is defined earlier
+starting_room_scene()  # starts the starting scene
