@@ -3,13 +3,10 @@ import sys
 import time
 
 
-inventory = []  # inventory list
-needed_items = {}  # boat part list
+inventory = ["knife"]  # inventory list
+needed_items = ["motor", "steering wheel", "petrol"]  # boat part list
+weapon_damage = {"knife": 25, "shovel": 35, "crowbar": 30, "ore": 20}
 player_health = 150  # player health
-knife_damage = 25
-shovel_damage = 35
-crowbar_damage = 30
-ore_damage = 30
 got_map = True  # has map
 
 typing_speed = 10000  # amount of words per minute
@@ -1200,6 +1197,15 @@ def outside_9_building_scene():
         elif outside_9_options == "examine shovel" and "shovel" in inventory:
             slow_type("You already took the shovel.")  # displays the description
 
+        elif outside_9_options == "examine building":
+            slow_type("""""")
+
+        elif outside_9_options == "examine door":
+            slow_type("""""")
+
+        elif outside_9_options == "examine path":
+            slow_type("""""")
+
         elif outside_9_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
 
@@ -1409,28 +1415,41 @@ def lake_scene():
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
+# to be put in actual scenes, here for easy access and testing
 def enemy_1_fight():
 
     while True:
         if enemy_1.health >= 1:
-            usr = input("which weapon you want to use: ")
+            usr = input("Which weapon you want to use: ")
             usr_words = usr.split(" ")  # list
             for word in usr_words:
                 if word in inventory:
                     if word == "crowbar":
-                        print("with this you do 5 damage. On we go!")
-                        enemy_1.health = enemy_1.health - crowbar_damage
+                        print("With this you do", weapon_damage["crowbar"], "damage.")
+                        enemy_1.health = enemy_1.health - weapon_damage["crowbar"]
+                        print(enemy_1.health)
 
                     elif word == "knife":
-                        print("with this you do 3 damage. On we go!")
-                        enemy_1.health = enemy_1.health - knife_damage
+                        print("With this you do", weapon_damage["knife"], "damage.")
+                        enemy_1.health = enemy_1.health - weapon_damage["knife"]
+                        print(enemy_1.health)
+
+                    elif word == "shovel":
+                        print("With this you do", weapon_damage["shovel"], "damage.")
+                        enemy_1.health = enemy_1.health - weapon_damage["shovel"]
+                        print(enemy_1.health)
+
+                    elif word == "ore":
+                        print("With this you do", weapon_damage["ore"], "damage.")
+                        enemy_1.health = enemy_1.health - weapon_damage["ore"]
+                        print(enemy_1.health)
 
                 else:
                     print("please choose a weapon you actually have")
 
         elif enemy_1.health <= 0:
             print("The monster is dead!")
-            exit()
+            outside_1_scene()
 
         else:
             print("")
@@ -1440,24 +1459,35 @@ def enemy_2_fight():
 
     while True:
         if enemy_2.health >= 1:
-            usr = input("which weapon you want to use: ")
+            usr = input("Which weapon you want to use: ")
             usr_words = usr.split(" ")  # list
             for word in usr_words:
                 if word in inventory:
                     if word == "crowbar":
-                        print("with this you do 5 damage. On we go!")
-                        enemy_2.health = enemy_2.health - crowbar_damage
+                        print("With this you do", weapon_damage["crowbar"], "damage.")
+                        enemy_2.health = enemy_2.health - weapon_damage["crowbar"]
+                        print(enemy_2.health)
 
                     elif word == "knife":
-                        print("")
-                        enemy_2.health = enemy_2.health - knife_damage
+                        print("With this you do", weapon_damage["knife"], "damage.")
+                        enemy_2.health = enemy_2.health - weapon_damage["knife"]
+                        print(enemy_2.health)
+
+                    elif word == "shovel":
+                        print("With this you do", weapon_damage["shovel"], "damage.")
+                        enemy_2.health = enemy_2.health - weapon_damage["shovel"]
+                        print(enemy_2.health)
+
+                    elif word == "ore":
+                        print("With this you do", weapon_damage["ore"], "damage.")
+                        enemy_2.health = enemy_2.health - weapon_damage["ore"]
+                        print(enemy_2.health)
 
                 else:
                     print("please choose a weapon you actually have")
 
         elif enemy_2.health <= 0:
             print("The monster is dead!")
-            exit()
 
         else:
             print("")
@@ -1469,24 +1499,35 @@ def enemy_3_fight():
 
     while True:
         if enemy_3.health >= 1:
-            usr = input("which weapon you want to use: ")
+            usr = input("Which weapon you want to use: ")
             usr_words = usr.split(" ")  # list
             for word in usr_words:
                 if word in inventory:
                     if word == "crowbar":
-                        print("")
-                        enemy_3.health = enemy_3.health - crowbar_damage
+                        print("With this you do", weapon_damage["crowbar"], "damage.")
+                        enemy_3.health = enemy_3.health - weapon_damage["crowbar"]
+                        print(enemy_3.health)
 
                     elif word == "knife":
-                        print("with this you do 3 damage. On we go!")
-                        enemy_3.health = enemy_3.health - knife_damage
+                        print("With this you do", weapon_damage["knife"], "damage.")
+                        enemy_3.health = enemy_3.health - weapon_damage["knife"]
+                        print(enemy_3.health)
+
+                    elif word == "shovel":
+                        print("With this you do", weapon_damage["shovel"], "damage.")
+                        enemy_3.health = enemy_3.health - weapon_damage["shovel"]
+                        print(enemy_3.health)
+
+                    elif word == "ore":
+                        print("With this you do", weapon_damage["ore"], "damage.")
+                        enemy_3.health = enemy_3.health - weapon_damage["ore"]
+                        print(enemy_3.health)
 
                 else:
                     print("please choose a weapon you actually have")
 
         elif enemy_3.health <= 0:
             print("The monster is dead!")
-            exit()
 
         else:
             print("")
@@ -1496,4 +1537,4 @@ print("")  # blank print for formatting
 #slow_type(opening_text)  # displays the opening text which is defined earlier
 #starting_room_scene()  # starts the starting scene
 
-upstairs_scene()
+enemy_1_fight()
