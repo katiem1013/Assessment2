@@ -3,7 +3,7 @@ import sys
 import time
 
 
-inventory = ["knife"]  # inventory list
+inventory = []  # inventory list
 needed_items = ["motor", "steering wheel", "petrol"]  # boat part list
 weapon_damage = {"knife": 25, "shovel": 35, "crowbar": 30, "ore": 20}
 player_health = 150  # player health
@@ -32,6 +32,7 @@ enemy_1 = Enemy(100, "Monster", "Fangs", random.randrange(0, 30))
 enemy_2 = Enemy(100, "Bugbear", "Tree Log", random.randrange(0, 30))
 enemy_3 = Enemy(150, "Karkinos", "Claws", random.randrange(0, 30))
 
+#variables for outside the house
 
 # variables for inside the house
 door_locked = True  # sets the main door as locked
@@ -92,8 +93,10 @@ bushes on the outskirts of the trees, there is a weird gap in one of the bushes.
 squirrel, has been in it. 
 """
 
-outside_6_crossroads_description = """You come to a crossroad, you can't quite tell where each place goes and there is 
-no sign either. """
+outside_6_crossroads_description = """You come to a crossroad, you can't quite tell where each place goes apart from the 
+shack to the \033[1;92mSouth\033[0;39m. There is no sign in sight telling you where you can go. You think there might've
+been one at some point, however as there is a car crashed into what can only be an old sign post you recon it's going
+to be pretty useless now."""
 
 outside_7_T_junction_description = """"""
 
@@ -1039,11 +1042,52 @@ def outside_6_crossroads_scene():
         elif outside_6_options == "east":  # if east is entered it will carry out these functions:
             outside_5_scene()
 
-        elif outside_6_options == "south":  # if west is entered it will carry out these functions:
+        elif outside_6_options == "south":  # if south is entered it will carry out these functions:
             outside_2_shack_scene()
 
-        elif outside_6_options == "west":  # if south is entered it will carry out these functions:
+        elif outside_6_options == "west":  # if west is entered it will carry out these functions:
             outside_7_t_junction_scene()
+
+        elif outside_6_options == "examine sign" or outside_6_options == "examine signpost":
+            slow_type("""The sign post is pretty much laying flat on the floor, yet the part of it still in the ground
+is keeping it a few centimeters of the ground. At the top there use to be four arrows point in each directions but you 
+can only see three... well two and a half since one has the end snapped off. The wood for them is rotted, only a few 
+letters stick out on each one. Looking around you see what might be the other one in the bush over the other side of the 
+of the path. The pole is rusted and covered in overgrown plants.""")
+
+        elif outside_6_options == "examine bush":
+            slow_type("""The bush is like any other bush, except the wooden sign half stuck out of it. You reach in, 
+thorns pricking your skin as you do, and pull the sign out. It's not as ruined as the others, the words underneath are 
+covered by what you hope is red paint. The 'paint' reads: \033[1;31mGET OUT\033[0;39m \n but the words it covers say: 
+Lake Nene. You put the sign back in the bush. You should get out of here.""")
+
+        elif outside_6_options == "examine car":
+            slow_type("""The front of the car is wrapped around the signpost and the back looks as though another car
+had driven at high speeds into it. The door sticks as you try to open it. While it takes a little force you are able to 
+get in, the door creaks as in its place as you slide into the front seat. You can't get into the backseat, but from what
+you can tell it was empty anyway except a few stray wrappers. The front seems mostly fine, glass litters the seats from
+the front windshield. The steering wheel is missing, though the car couldn't drive anyway. The glove box is closed and 
+the radio is off. There are CDs in the door pockets, whoever owns this car has terrible taste.""")
+
+            while True:
+                print("")  # blank print for formatting
+                car_options = input("what would you like to do? ").lower()  # gets the players input
+                print("")  # blank print for formatting
+
+                if car_options == "exit car":
+                    slow_type("You force the door back open and step out of the car.")
+                    break
+
+                elif car_options == "examine glovebox" or car_options == "examine glove box":
+                    slow_type("""The glove box is a pretty standard glove box and is in pretty good condition 
+considering how the rest of the car looks.""")
+
+                elif car_options == "open glovebox" or car_options == "open glove box":
+                    slow_type("")
+
+                else:  # if no other option is fitting it will carry out these functions:
+                    # asking the player to reenter
+                    print("I do not understand, type help for general instructions. Perhaps try 'exit car'.")
 
         elif outside_6_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
