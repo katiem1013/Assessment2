@@ -28,9 +28,9 @@ class Enemy:
         self.attack = attack
 
 
-enemy_1 = Enemy(100, "Monster", "Fangs", random.randrange(0, 30))
-enemy_2 = Enemy(100, "Bugbear", "Tree Log", random.randrange(0, 30))
-enemy_3 = Enemy(150, "Karkinos", "Claws", random.randrange(0, 30))
+enemy_1 = Enemy(100, "Monster", "Fangs", random.randrange(10, 30))
+enemy_2 = Enemy(100, "Bugbear", "Tree Log", random.randrange(10, 30))
+enemy_3 = Enemy(150, "Karkinos", "Claws", random.randrange(10, 30))
 
 # variables for outside the house
 glove_box_opened = False
@@ -118,13 +118,26 @@ windows all smashed in. The door swings side to side with a quiet creek with eac
 what is inside but the outside has clearly succumbed to the elements over the years. 
 """
 
-outside_10_description = """"""
+outside_10_description = """The area you enter is pretty empty, bushes and trees surrounding the bend in the path. You 
+look around, there are wooden planks buried in the dirt that act as stairs to combat the slope of the ground. One of the
+planks juts out of the ground unnaturally, it's thinner than the rest and you almost trip when you try to step on it. 
+You are glad that you don't because you're pretty sure that there is a patch of stinging nettles next to it."""
 
-outside_11_split_path_description = """"""
+outside_11_split_path_description = """You come to a split in the path. One way goes to the \033[1;92mSouth\033[0;39m
+one to the \033[1;92mEast\033[0;39m and the final way goes down to the \033[1;92mNorth\033[0;39m. As most places you've
+been there are trees and bushes surrounding the path, everywhere in this stupid place looks the same."""
 
-outside_12_description_with_enemy = """"""
+outside_12_description_with_enemy = """A small gap in the trees reveals a dirt path, it hasn't been walked much. Grass 
+threatens to peak through and hide it completely but you decide to walk it anyway. You push your way through and come to 
+an opening no bigger than the room you woke up in. On the far side hidden amongst the trees red eyes glare at you, it's 
+hard to tell what it is exactly but you can see it's crab like claws that are half the size of you. From what you can
+tell it sort of looks like a Karkinos."""
 
-outside_12_description_without_enemy = """"""
+outside_12_description_without_enemy = """A small gap in the trees reveals a dirt path, it hasn't been walked much. 
+Grass threatens to peak through and hide it completely but you decide to walk it anyway. You push your way through and 
+come to an opening no bigger than the room you woke up in. In the center remains the corpse of the Karkinos you killed. 
+
+You're glad it's still dead."""
 
 lake_description = """The path leads you to an opening, a lake is ahead of you. It goes on for miles and you can only 
 see the other side when straining your eyes. Theres no trees there, you recon that's your best shot of getting out of 
@@ -724,93 +737,93 @@ def upstairs_scene():
         upstairs_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-    if upstairs_options == "north":  # if south is entered it will carry out these functions:
-        outside_2_shack_scene()
+        if upstairs_options == "north":  # if south is entered it will carry out these functions:
+            outside_2_shack_scene()
 
-    elif upstairs_options == "east":  # if east is entered it will carry out these functions:
-        print("You cannot go that way.")  # lets the player know there is no path there
+        elif upstairs_options == "east":  # if east is entered it will carry out these functions:
+            print("You cannot go that way.")  # lets the player know there is no path there
 
-    elif upstairs_options == "south":  # if south is entered it will carry out these functions:
-        slow_type(going_down_stairs_description)  # displays the description
-        starting_room_scene()  # goes back to the starting room scene
+        elif upstairs_options == "south":  # if south is entered it will carry out these functions:
+            slow_type(going_down_stairs_description)  # displays the description
+            starting_room_scene()  # goes back to the starting room scene
 
-    elif upstairs_options == "west":  # if west is entered it will carry out these functions:
-        print("You cannot go that way.")  # lets the player know there is no path there
+        elif upstairs_options == "west":  # if west is entered it will carry out these functions:
+            print("You cannot go that way.")  # lets the player know there is no path there
 
-    # if examine crowbar is entered it will carry out these functions:
-    elif upstairs_options == "examine crowbar" and "crowbar" not in inventory:
-        slow_type("""The crowbar is old and rusted but sturdy. You doubt it will break anytime soon and trust it 
+        # if examine crowbar is entered it will carry out these functions:
+        elif upstairs_options == "examine crowbar" and "crowbar" not in inventory:
+            slow_type("""The crowbar is old and rusted but sturdy. You doubt it will break anytime soon and trust it 
 could do some damage. """)  # displays the description
-        crowbar = input("Would you like to take it with you? ")  # gets the players input
-        if crowbar == "yes":  # if yes is entered it will carry out these functions:
-            inventory.append("crowbar")  # adds crowbar to inventory
-            slow_type("You take the crowbar and hang it on your belt.")
+            crowbar = input("Would you like to take it with you? ")  # gets the players input
+            if crowbar == "yes":  # if yes is entered it will carry out these functions:
+                inventory.append("crowbar")  # adds crowbar to inventory
+                slow_type("You take the crowbar and hang it on your belt.")
 
-        elif crowbar == "no":  # if no is entered it will carry out these functions:
-            slow_type("You put the crowbar back where you found it.")  # displays the description
+            elif crowbar == "no":  # if no is entered it will carry out these functions:
+                slow_type("You put the crowbar back where you found it.")  # displays the description
+
+            else:  # if no other option is fitting it will carry out these functions:
+                print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+        elif upstairs_options == "examine crowbar" and "crowbar" in inventory:
+            print("You already have the crowbar")  # displays the description
+
+        elif upstairs_options == "examine campfire" and campfire_lighted is False:
+            slow_type("""The campfire, upon further inspection, has been lit somewhat recently. You hover your hand over 
+it and it feels warm. You looked around, theres still no one here. Weird.""")
+
+        elif upstairs_options == "examine fireplace" and fireplace_lighted is False:
+            slow_type("""The fireplace hasn't been lit for a while. The ash has long gone cold, enough for you to be 
+able to touch it without an issue. You recon theres probably something around here that you could use to light it.""")
+
+        elif upstairs_description == "examine campfire" and campfire_lighted is True:
+            slow_type("The campfire has been lighted recently, though unlike before you know who did it.")
+
+        elif upstairs_options == "examine fireplace" and fireplace_lighted is True:
+            slow_type("The fireplace is warm still, and the soot still reads: dtbcbv on the back wall.")
+
+        elif upstairs_options == "use lighter" and "lighter" in inventory:
+            lighter = input("What would you like to use it on?")
+            if lighter == "fireplace":
+                slow_type("""You reach into the arch of the fireplace with lighter in your hand. It takes a few tries 
+but eventually the flame flickers to a start. You hold it to the kindling until it catches and relish in the warmth. You 
+sit for a few minutes despite the urgency of your situation. 
+    
+    
+You are about to get up and blow out the fire when you notice the soot gathering on the back wall of the fireplace, you
+almost think nothing of it but you see letters start to form where the soot doesn't stick. 
+    
+dtbcbv
+    
+You wonder what that means as you stamp the fire out.""")
+                fireplace_lighted = True
+
+            elif lighter == "campfire":
+                slow_type("You light the campfire it warms you for a minute before it goes out again.")
+                campfire_lighted = True
+
+            else:
+                print("You can not use it on that.")
+
+        elif upstairs_options == "use lighter" and "lighter" not in inventory:
+            print("You do not have a lighter.")
+
+        elif upstairs_options == "help":  # if help is entered it will carry out these functions:
+            print(help_guide)  # displays help guide
+
+        elif upstairs_options == "inventory":  # if inventory is entered ut will carry out these functions:
+            print(inventory)  # displays the inventory guide
+
+        # if map is entered and the player has the map it will carry out these functions:
+        elif upstairs_options == "map" and got_map is True:
+            print(player_map)  # displays the map
+
+        # if map is entered and the player doesn't have the map it will carry out these functions:
+        elif upstairs_options == "map" and got_map is False:
+            print("You do not have a map.")  # does not display the map
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
-
-    elif upstairs_options == "examine crowbar" and "crowbar" in inventory:
-        print("You already have the crowbar")  # displays the description
-
-    elif upstairs_options == "examine campfire" and campfire_lighted is False:
-        slow_type("""The campfire, upon further inspection, has been lit somewhat recently. You hover your hand over 
-it and it feels warm. You looked around, theres still no one here. Weird.""")
-
-    elif upstairs_options == "examine fireplace" and fireplace_lighted is False:
-        slow_type("""The fireplace hasn't been lit for a while. The ash has long gone cold, enough for you to be 
-able to touch it without an issue. You recon theres probably something around here that you could use to light it.""")
-
-    elif upstairs_description == "examine campfire" and campfire_lighted is True:
-        slow_type("The campfire has been lighted recently, though unlike before you know who did it.")
-
-    elif upstairs_options == "examine fireplace" and fireplace_lighted is True:
-        slow_type("The fireplace is warm still, and the soot still reads: dtbcbv on the back wall.")
-
-    elif upstairs_options == "use lighter" and "lighter" in inventory:
-        lighter = input("What would you like to use it on?")
-        if lighter == "fireplace":
-            slow_type("""You reach into the arch of the fireplace with lighter in your hand. It takes a few tries 
-but eventually the flame flickers to a start. You hold it to the kindling until it catches and relish in the warmth. 
-You sit for a few minutes despite the urgency of your situation. 
-
-
-You are about to get up and blow out the fire when you notice the soot gathering on the back wall of the fireplace, you
-almost think nothing of it but you see letters start to form where the soot doesn't stick. 
-
-dtbcbv
-
-You wonder what that means as you stamp the fire out.""")
-            fireplace_lighted = True
-
-        elif lighter == "campfire":
-            slow_type("You light the campfire it warms you for a minute before it goes out again.")
-            campfire_lighted = True
-
-        else:
-            print("You can not use it on that.")
-
-    elif upstairs_options == "use lighter" and "lighter" not in inventory:
-        print("You do not have a lighter.")
-
-    elif upstairs_options == "help":  # if help is entered it will carry out these functions:
-        print(help_guide)  # displays help guide
-
-    elif upstairs_options == "inventory":  # if inventory is entered ut will carry out these functions:
-        print(inventory)  # displays the inventory guide
-
-    # if map is entered and the player has the map it will carry out these functions:
-    elif upstairs_options == "map" and got_map is True:
-        print(player_map)  # displays the map
-
-    # if map is entered and the player doesn't have the map it will carry out these functions:
-    elif upstairs_options == "map" and got_map is False:
-        print("You do not have a map.")  # does not display the map
-
-    else:  # if no other option is fitting it will carry out these functions:
-        print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 # all scenes outside of the building that include the descriptions
@@ -931,7 +944,25 @@ are glad that you survived.""")
             print("You cannot go that way.")  # lets the player know there is no path there
 
         elif enemy_1.health < 1 and outside_1_options == "examine monster":
-            slow_type("Blood pours out of its mouth, eyes open and staring straight into your own.")
+            slow_type("""Blood pours out of its mouth, eyes open and staring straight into your own. You still can't
+tell quite what it is but monster fits it far too well. You are hesitant but still you want to be sure so you kick it 
+gently, then slightly harder when it doesn't move. You hope you can go home soon.""")
+
+        elif outside_1_options == "examine path":
+            slow_type("""The path was not made to be here. Years of people walking here over and over and over. There
+are still footprints imprinted in the mud, someone has been coming here. You dread to think why. If someone came and 
+saw the beast that lays dead but got away or if they've been here for something else... 
+
+Perhaps they were feeding it...
+
+...
+""")
+
+        elif outside_1_options == "examine trees":
+            slow_type("""You aren't quite sure what time of day it is. Just that it's dark out but you fear the trees 
+are making it worse. They loom over you, unnaturally tall. Maybe they were grown to hide the monster. Maybe theres just
+something wrong with this place. An owl hoots from amongst the branches, a hiss slips into the sound and you fear that 
+it's angry too.""")
 
         elif outside_1_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -977,6 +1008,15 @@ def outside_2_shack_scene():
 
         elif outside_2_shack_options == "west":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
+
+        elif outside_2_shack_options == "examine shack":
+            slow_type("""""")
+
+        elif outside_2_shack_options == "examine path":
+            slow_type("""""")
+
+        elif outside_2_shack_options == "examine trees":
+            slow_type("""""")
 
         elif outside_2_shack_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
