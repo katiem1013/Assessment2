@@ -3,7 +3,7 @@ import sys
 import time
 
 
-inventory = ["knife", "bandages"]  # inventory list
+inventory = []  # inventory list
 needed_items = ["motor", "steering wheel", "petrol"]  # boat part list
 weapon_damage = {"knife": 25, "shovel": 35, "crowbar": 30, "ore": 20}
 player_health = 120  # player health
@@ -45,6 +45,8 @@ safe_opened = False  # sets the bathroom safe as closed
 vent_opened = False  # sets the bathroom vent as closed
 stool_in_bathroom = False  # sets the stool in the bathroom as no
 flashlight_with_batteries = False  # sets the flashlight with batteries as no
+fireplace_lighted = False  # sets the fireplace as unlighted
+campfire_lighted = False  # sets the campfire as unlighted
 
 # outside map
 player_map = """ 
@@ -709,6 +711,8 @@ pocket, you're glad you are wearing mens clothes so that this can fit.""")  # di
 def upstairs_scene():
 
     global got_map  # declares the map in the scene
+    global fireplace_lighted  # declares the fireplace lighted in the scene
+    global campfire_lighted  # declares the campfire lighted in the scene
 
     print("")  # blank print for formatting
     slow_type(upstairs_description)  # displays the upstairs description
@@ -720,53 +724,93 @@ def upstairs_scene():
         upstairs_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if upstairs_options == "north":  # if south is entered it will carry out these functions:
-            outside_2_shack_scene()
+    if upstairs_options == "north":  # if south is entered it will carry out these functions:
+        outside_2_shack_scene()
 
-        elif upstairs_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+    elif upstairs_options == "east":  # if east is entered it will carry out these functions:
+        print("You cannot go that way.")  # lets the player know there is no path there
 
-        elif upstairs_options == "south":  # if south is entered it will carry out these functions:
-            slow_type(going_down_stairs_description)  # displays the description
-            starting_room_scene()  # goes back to the starting room scene
+    elif upstairs_options == "south":  # if south is entered it will carry out these functions:
+        slow_type(going_down_stairs_description)  # displays the description
+        starting_room_scene()  # goes back to the starting room scene
 
-        elif upstairs_options == "west":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+    elif upstairs_options == "west":  # if west is entered it will carry out these functions:
+        print("You cannot go that way.")  # lets the player know there is no path there
 
-        # if examine crowbar is entered it will carry out these functions:
-        elif upstairs_options == "examine crowbar" and "crowbar" not in inventory:
-            slow_type("""The crowbar is old and rusted but sturdy. You doubt it will break anytime soon and trust it 
+    # if examine crowbar is entered it will carry out these functions:
+    elif upstairs_options == "examine crowbar" and "crowbar" not in inventory:
+        slow_type("""The crowbar is old and rusted but sturdy. You doubt it will break anytime soon and trust it 
 could do some damage. """)  # displays the description
-            crowbar = input("Would you like to take it with you? ")  # gets the players input
-            if crowbar == "yes":  # if yes is entered it will carry out these functions:
-                inventory.append("crowbar")  # adds crowbar to inventory
-                slow_type("You take the crowbar and hang it on your belt.")
+        crowbar = input("Would you like to take it with you? ")  # gets the players input
+        if crowbar == "yes":  # if yes is entered it will carry out these functions:
+            inventory.append("crowbar")  # adds crowbar to inventory
+            slow_type("You take the crowbar and hang it on your belt.")
 
-            elif crowbar == "no":  # if no is entered it will carry out these functions:
-                slow_type("You put the crowbar back where you found it.")  # displays the description
-
-            else:  # if no other option is fitting it will carry out these functions:
-                print("I do not understand, type help for general instructions.")  # asking the player to reenter
-
-        elif upstairs_options == "examine crowbar" and "crowbar" in inventory:
-            print("You already have the crowbar")  # displays the description
-
-        elif upstairs_options == "help":  # if help is entered it will carry out these functions:
-            print(help_guide)  # displays help guide
-
-        elif upstairs_options == "inventory":  # if inventory is entered ut will carry out these functions:
-            print(inventory)  # displays the inventory guide
-
-        # if map is entered and the player has the map it will carry out these functions:
-        elif upstairs_options == "map" and got_map is True:
-            print(player_map)  # displays the map
-
-        # if map is entered and the player doesn't have the map it will carry out these functions:
-        elif upstairs_options == "map" and got_map is False:
-            print("You do not have a map.")  # does not display the map
+        elif crowbar == "no":  # if no is entered it will carry out these functions:
+            slow_type("You put the crowbar back where you found it.")  # displays the description
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+    elif upstairs_options == "examine crowbar" and "crowbar" in inventory:
+        print("You already have the crowbar")  # displays the description
+
+    elif upstairs_options == "examine campfire" and campfire_lighted is False:
+        slow_type("""The campfire, upon further inspection, has been lit somewhat recently. You hover your hand over 
+it and it feels warm. You looked around, theres still no one here. Weird.""")
+
+    elif upstairs_options == "examine fireplace" and fireplace_lighted is False:
+        slow_type("""The fireplace hasn't been lit for a while. The ash has long gone cold, enough for you to be 
+able to touch it without an issue. You recon theres probably something around here that you could use to light it.""")
+
+    elif upstairs_description == "examine campfire" and campfire_lighted is True:
+        slow_type("The campfire has been lighted recently, though unlike before you know who did it.")
+
+    elif upstairs_options == "examine fireplace" and fireplace_lighted is True:
+        slow_type("The fireplace is warm still, and the soot still reads: dtbcbv on the back wall.")
+
+    elif upstairs_options == "use lighter" and "lighter" in inventory:
+        lighter = input("What would you like to use it on?")
+        if lighter == "fireplace":
+            slow_type("""You reach into the arch of the fireplace with lighter in your hand. It takes a few tries 
+but eventually the flame flickers to a start. You hold it to the kindling until it catches and relish in the warmth. 
+You sit for a few minutes despite the urgency of your situation. 
+
+
+You are about to get up and blow out the fire when you notice the soot gathering on the back wall of the fireplace, you
+almost think nothing of it but you see letters start to form where the soot doesn't stick. 
+
+dtbcbv
+
+You wonder what that means as you stamp the fire out.""")
+            fireplace_lighted = True
+
+        elif lighter == "campfire":
+            slow_type("You light the campfire it warms you for a minute before it goes out again.")
+            campfire_lighted = True
+
+        else:
+            print("You can not use it on that.")
+
+    elif upstairs_options == "use lighter" and "lighter" not in inventory:
+        print("You do not have a lighter.")
+
+    elif upstairs_options == "help":  # if help is entered it will carry out these functions:
+        print(help_guide)  # displays help guide
+
+    elif upstairs_options == "inventory":  # if inventory is entered ut will carry out these functions:
+        print(inventory)  # displays the inventory guide
+
+    # if map is entered and the player has the map it will carry out these functions:
+    elif upstairs_options == "map" and got_map is True:
+        print(player_map)  # displays the map
+
+    # if map is entered and the player doesn't have the map it will carry out these functions:
+    elif upstairs_options == "map" and got_map is False:
+        print("You do not have a map.")  # does not display the map
+
+    else:  # if no other option is fitting it will carry out these functions:
+        print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
 
 # all scenes outside of the building that include the descriptions
@@ -1712,4 +1756,3 @@ def lake_scene():
 print("")  # blank print for formatting
 slow_type(opening_text)  # displays the opening text which is defined earlier
 starting_room_scene()  # starts the starting scene
-
