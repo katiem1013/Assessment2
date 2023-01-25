@@ -1795,13 +1795,16 @@ def lake_scene():
             print("You cannot go that way.")  # lets the player know there is no path there
 
         elif lake_options == "examine path":
-            slow_type("""""")
+            slow_type("""The gravel path tapers out as it gets closer to the lake, eventually it starts to blend into the
+sand of the beach. You hate sand. it's never going to get out of your shoes.""")
 
         elif lake_options == "examine trees" or lake_options == "examine tree":
-            slow_type("""""")
+            slow_type("The trees are no different to the rest of the trees you've seen today. It's nice and creepy.")
 
         elif lake_options == "examine lake":
-            slow_type("""""")
+            slow_type("""The lake spreads out far and wide, going almost further than you can see. There's more land
+just inside of your eye line. A light flashes. Right. You just have to cross this lake and you're out of here. You can't 
+quite see the bottom even a meter out. It's going to be fine, it's not even that bad...""")
 
         elif lake_options == "examine rubbish":
             slow_type("""The rubbish is kind of gross, the smell alone is off putting. You would normally be upset at 
@@ -1869,7 +1872,7 @@ You're sure that someone would just leave those things lying around...""")
 
 
 print("")  # blank print for formatting
-#slow_type(opening_text)  # displays the opening text which is defined earlier
-#starting_room_scene()  # starts the starting scene
+slow_type(opening_text)  # displays the opening text which is defined earlier
+starting_room_scene()  # starts the starting scene
 
-lake_scene()
+
