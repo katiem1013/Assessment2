@@ -3,7 +3,6 @@ import sys
 import time
 
 inventory = []  # inventory list
-needed_items = ["motor", "steering wheel", "petrol"]  # boat part list
 obtained_items = []
 weapon_damage = {"knife": 25, "shovel": 35, "crowbar": 30, "ore": 20}
 player_health = 120  # player health
@@ -190,7 +189,8 @@ You really need to get out of here."""
 
 upstairs_description = """Similar to the stairs the upstairs room is dingy, gross and just a little too empty. Theres an 
 unlit campfire in the corner despite the fireplace directly in the middle of the wall opposite you. Next to the campfire 
-is a crowbar. The door is to the\033[1;92m North\033[0;39m. There is nothing else in the room."""
+is a crowbar. The door is to the\033[1;92m North\033[0;39m. There is a bookshelf with a few books that are all old and 
+dusty. You cannot see anything else in the room."""
 
 # basic help guide of commands that can be written
 # /033[0;31m and /n make the text appear red
@@ -741,6 +741,8 @@ def upstairs_scene():
         print("")  # blank print for formatting
 
         if upstairs_options == "north":  # if south is entered it will carry out these functions:
+            slow_type("""You reach for the handle, take a deep breath and hope you know where you are when you leave. 
+You've never been particularly lucky though.""")
             outside_2_shack_scene()
 
         elif upstairs_options == "east":  # if east is entered it will carry out these functions:
@@ -810,6 +812,17 @@ You wonder what that means as you stamp the fire out.""")
 
         elif upstairs_options == "use lighter" and "lighter" not in inventory:
             print("You do not have a lighter.")
+
+        elif upstairs_options == "examine books" or upstairs_options == "examine bookshelf":
+            slow_type("""The books and the shelves they are on are dusty. Books worn from age and spillages, stained 
+pages make they words on the pages hard to read when you flip through it. You make out what you can:
+
+The forest..... unsafe......monsters.... get out........stay away..... trees...... the lake....only......way......
+...he'll find you. 
+
+ 
+ You slam the book shut and shove it hastily back onto the shelf. You should leave.
+ """)
 
         elif upstairs_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -946,10 +959,33 @@ are glad that you survived.""")
         elif outside_1_options == "west":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
 
-        elif enemy_1.health < 1 and outside_1_options == "examine monster":
+        elif enemy_1.health < 1 and outside_1_options == "examine monster" and "steering wheel" not in inventory:
             slow_type("""Blood pours out of its mouth, eyes open and staring straight into your own. You still can't
 tell quite what it is but monster fits it far too well. You are hesitant but still you want to be sure so you kick it 
-gently, then slightly harder when it doesn't move. You hope you can go home soon.""")
+gently, then slightly harder when it doesn't move. You hope you can go home soon. 
+
+As you go to turn away from it something glints in the cracks of its skin.""")
+            monster = input("Would you like to investigate? ")
+            if monster == "yes":
+                slow_type("""You reach towards the corpse of the monster, hands trembling. God, this is so gross but
+it could be important so you suppose you'll have too. It squelches unpleasantly as your hand makes contact, it's fair 
+wetter than you were expecting. After what feels like an entire lifetime but is barely 3 seconds your hand touches
+something hard. You briefly consider it could be bone, or something like it but it's cold, metal maybe. Still, you yank
+it out. Blood squirts across you as it does, it gets in your eye. 
+
+When you manage to get the blood out you finally look at what's in you hand. A steering wheel. Huh. That's weird.
+
+You tak it with you.""")
+                inventory.append("steering wheel")
+
+            elif monster == "no":
+                slow_type("You leave it on the ground.")
+
+            else:  # if no other option is fitting it will carry out these functions:
+                print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+        elif enemy_1.health < 1 and outside_1_options == "examine monster" and "steering wheel" in inventory:
+            slow_type("The monster remains on the ground where you left it.")
 
         elif outside_1_options == "examine path":
             slow_type("""The path was not made to be here. Years of people walking here over and over and over. There
@@ -961,7 +997,7 @@ Perhaps they were feeding it...
 ...
 """)
 
-        elif outside_1_options == "examine trees"  or outside_1_options == "examine tree":
+        elif outside_1_options == "examine trees" or outside_1_options == "examine tree":
             slow_type("""You aren't quite sure what time of day it is. Just that it's dark out but you fear the trees 
 are making it worse. They loom over you, unnaturally tall. Maybe they were grown to hide the monster. Maybe theres just
 something wrong with this place. An owl hoots from amongst the branches, a hiss slips into the sound and you fear that 
@@ -1012,7 +1048,33 @@ def outside_2_shack_scene():
         elif outside_2_shack_options == "west":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
 
-        elif outside_2_shack_options == "examine shack":
+        elif outside_2_shack_options == "examine shack" and "ore" not in inventory:
+            slow_type("""The shack is badly put together, there are cracks and holes all over the mismatched wood. It's 
+clear that the wear and tear over the years had gotten too much and the wood slats had been replaced one at a time when
+needed. It's smaller than the basement, windows boarded up and glass missing. The roof looks like it could just slide 
+off if a strong enough wind blows through. You are glad to have gotten out sooner rather than later. Leaning against the
+shack is some type of wooden stick.""")
+            ore_1 = input("Would you like to investigate further?")
+            if ore_1 == "yes":
+                slow_type("When you look closer you realise it's an ore.")
+                take_ore = input("Would you like to take it with you?")
+                if take_ore == "yes":
+                    slow_type("You take the ore,  you have no idea how you're going to carry it but you will.")
+                    inventory.append("ore")
+
+                elif take_ore == "no":
+                    slow_type("You leave it where it is")
+
+                else:  # if no other option is fitting it will carry out these functions:
+                    print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+            elif ore_1 == "no":
+                slow_type("The stick stays where it is.")
+
+            else:  # if no other option is fitting it will carry out these functions:
+                print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+        elif outside_2_shack_options == "examine shack" and "ore" in inventory:
             slow_type("""The shack is badly put together, there are cracks and holes all over the mismatched wood. It's 
 clear that the wear and tear over the years had gotten too much and the wood slats had been replaced one at a time when
 needed. It's smaller than the basement, windows boarded up and glass missing. The roof looks like it could just slide 
@@ -1156,14 +1218,15 @@ are glad that you survived.""")
         elif outside_3_options == "west" and enemy_2.health <= 0:
             outside_4_scene()
 
-        elif outside_3_options == "examine bugbear":
+        elif enemy_2.health < 1 and outside_3_options == "examine bugbear":
             slow_type("")
 
         elif outside_3_options == "examine path":
-            slow_type("")
+            slow_type("The path is muddy and gross. You leave footprints with every step you take.")
 
         elif outside_3_options == "examine trees" or outside_3_options == "examine tree":
-            slow_type("")
+            slow_type("""You didn't realise trees could be creepy. Yet here they are anyway. Looming over you 
+unnaturally. You wish someone """)
 
         elif outside_3_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1824,7 +1887,7 @@ be missing... Great... You'll have to find those too.
                 print("")
                 password = input("Please enter that password here: ")
                 if password == boat_code:
-                    slow_type("")
+                    slow_type("You type in the code and the lock clicks open. Hell yeah.")
                     boat_unlocked = True
 
                 else:
@@ -1838,7 +1901,14 @@ be missing... Great... You'll have to find those too.
 
         elif lake_options == "enter boat" and boat_unlocked is True:
             if "motor" and "steering wheel" and "petrol" in inventory:
-                print("test")
+                slow_type("""You click the steering wheel into place, plug the motor in, fill the petrol tank. You 
+aren't sure it's all been done right but it's all you've got at the moment. You really, really want to get out of here. 
+Away from the basement, away from the monsters, away from the creepy trees and the creepy owls back to your house with
+your cat and your own bed.""")
+                print("")
+                final_option = input("Would you like to leave? ")
+                if final_option == "yes":
+                    ending()
 
             else:
                 slow_type("""Now that the door is unlocked you are able to get inside the cabin, it's easier to tell 
@@ -1869,6 +1939,10 @@ You're sure that someone would just leave those things lying around...""")
 
         else:  # if no other option is fitting it will carry out these functions:
             print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+
+def ending():
+    print("")
 
 
 print("")  # blank print for formatting
