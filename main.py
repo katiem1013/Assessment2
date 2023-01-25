@@ -2,7 +2,6 @@ import random
 import sys
 import time
 
-
 inventory = []  # inventory list
 needed_items = ["motor", "steering wheel", "petrol"]  # boat part list
 weapon_damage = {"knife": 25, "shovel": 35, "crowbar": 30, "ore": 20}
@@ -34,6 +33,8 @@ enemy_3 = Enemy(150, "Karkinos", "Claws", random.randrange(10, 30))
 
 # variables for outside the house
 glove_box_opened = False
+boat_unlocked = False
+boat_code = "dtbcbv"
 
 # variables for inside the house
 door_locked = True  # sets the main door as locked
@@ -71,7 +72,7 @@ stumble back, breath catching in your throat."""
 outside_1_description_without_enemy = """The dirt path leads you through some trees, theres not much around as you push 
 the branches out of the way. An opening is presented to you. A circle where trees once would have been but have been 
 cut down and the stumps dug up. A body of the beast you slayed slumped in the middle, you almost feel bad for it.
- 
+
 Almost."""
 
 outside_2_shack_description = """The outside of the shack is as run down as the inside. The wood is all mismatched and 
@@ -788,13 +789,13 @@ able to touch it without an issue. You recon theres probably something around he
                 slow_type("""You reach into the arch of the fireplace with lighter in your hand. It takes a few tries 
 but eventually the flame flickers to a start. You hold it to the kindling until it catches and relish in the warmth. You 
 sit for a few minutes despite the urgency of your situation. 
-    
-    
+
+
 You are about to get up and blow out the fire when you notice the soot gathering on the back wall of the fireplace, you
 almost think nothing of it but you see letters start to form where the soot doesn't stick. 
-    
+
 dtbcbv
-    
+
 You wonder what that means as you stamp the fire out.""")
                 fireplace_lighted = True
 
@@ -958,7 +959,7 @@ Perhaps they were feeding it...
 ...
 """)
 
-        elif outside_1_options == "examine trees":
+        elif outside_1_options == "examine trees"  or outside_1_options == "examine tree":
             slow_type("""You aren't quite sure what time of day it is. Just that it's dark out but you fear the trees 
 are making it worse. They loom over you, unnaturally tall. Maybe they were grown to hide the monster. Maybe theres just
 something wrong with this place. An owl hoots from amongst the branches, a hiss slips into the sound and you fear that 
@@ -1010,13 +1011,18 @@ def outside_2_shack_scene():
             print("You cannot go that way.")  # lets the player know there is no path there
 
         elif outside_2_shack_options == "examine shack":
-            slow_type("""""")
+            slow_type("""The shack is badly put together, there are cracks and holes all over the mismatched wood. It's 
+clear that the wear and tear over the years had gotten too much and the wood slats had been replaced one at a time when
+needed. It's smaller than the basement, windows boarded up and glass missing. The roof looks like it could just slide 
+off if a strong enough wind blows through. You are glad to have gotten out sooner rather than later.""")
 
         elif outside_2_shack_options == "examine path":
-            slow_type("""""")
+            slow_type("""The path looks like most paths, the gravel crunches underneath your feet. You like the sound 
+but it echos against the quiet of the woods. A cricket chirps. At least you aren't alone.""")
 
-        elif outside_2_shack_options == "examine trees":
-            slow_type("""""")
+        elif outside_2_shack_options == "examine trees" or outside_2_shack_options == "examine tree":
+            slow_type("""The trees loom over you, branches swaying against the wind, there is something off about them 
+but you can't put your finger on it.""")
 
         elif outside_2_shack_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1147,6 +1153,15 @@ are glad that you survived.""")
         # if west is entered and the enemy has zero health it will carry out these functions:
         elif outside_3_options == "west" and enemy_2.health <= 0:
             outside_4_scene()
+
+        elif outside_3_options == "examine bugbear":
+            slow_type("")
+
+        elif outside_3_options == "examine path":
+            slow_type("")
+
+        elif outside_3_options == "examine trees" or outside_3_options == "examine tree":
+            slow_type("")
 
         elif outside_3_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1751,6 +1766,8 @@ are glad that you survived.""")
 def lake_scene():
 
     global got_map  # declares the map in the scene
+    global boat_unlocked
+    global boat_code
 
     print("")  # blank print for formatting
     slow_type(lake_description)  # displays the outside description
@@ -1774,6 +1791,25 @@ def lake_scene():
         elif lake_options == "west":  # if west is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
 
+        # the boat needs to be unlocked and have all of the parts to work
+        elif lake_options == "examine boat" and boat_unlocked is False:
+            slow_type("""""")
+            boat_option = input("Would you like to unlock the boat? ")
+            if boat_option == "yes":
+                password = input("Please enter that password here: ")
+                if password == "dtbcbv":
+                    slow_type("")
+                    boat_unlocked = True
+
+                else:
+                    print("That is incorrect.")
+
+            elif boat_option == "no":
+                slow_type("The boat stays locked.")
+
+            else:  # if no other option is fitting it will carry out these functions:
+                print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
         elif lake_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
 
@@ -1794,5 +1830,7 @@ def lake_scene():
 
 
 print("")  # blank print for formatting
-slow_type(opening_text)  # displays the opening text which is defined earlier
-starting_room_scene()  # starts the starting scene
+#slow_type(opening_text)  # displays the opening text which is defined earlier
+#starting_room_scene()  # starts the starting scene
+
+lake_scene()
