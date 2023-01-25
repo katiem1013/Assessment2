@@ -4,6 +4,7 @@ import time
 
 inventory = []  # inventory list
 needed_items = ["motor", "steering wheel", "petrol"]  # boat part list
+obtained_items = []
 weapon_damage = {"knife": 25, "shovel": 35, "crowbar": 30, "ore": 20}
 player_health = 120  # player health
 got_map = True  # has map
@@ -1768,6 +1769,7 @@ def lake_scene():
     global got_map  # declares the map in the scene
     global boat_unlocked
     global boat_code
+    global obtained_items
 
     print("")  # blank print for formatting
     slow_type(lake_description)  # displays the outside description
@@ -1791,10 +1793,28 @@ def lake_scene():
         elif lake_options == "west":  # if west is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
 
+        elif lake_options == "examine path":
+            slow_type("""""")
+
+        elif lake_options == "examine trees" or lake_options == "examine tree":
+            slow_type("""""")
+
+        elif lake_options == "examine lake":
+            slow_type("""""")
+
+        elif lake_options == "examine rubbish":
+            slow_type("""The rubbish is kind of gross, the smell alone is off putting. You would normally be upset at 
+someone littering but at the moment you have bigger issues to deal with considering your recent kidnapping.""")
+
         # the boat needs to be unlocked and have all of the parts to work
         elif lake_options == "examine boat" and boat_unlocked is False:
-            slow_type("""""")
-            boat_option = input("Would you like to unlock the boat? ")
+            slow_type("""The boat is... not great. You definitely think it could work to get it out of here, you don't 
+really have much of a choice otherwise. The boat is chained to a tree going through both the door to get in and some 
+rod sticking out the side. A code base padlock keeping it in place. You'll have to find that code if you want any chance 
+of getting out of here. You try to get a better look through one of the windows to the cabin, you think some parts might
+be missing... Great... You'll have to find those too. 
+""")
+            boat_option = input("Would you like to attempt to unlock the boat? ")
             if boat_option == "yes":
                 password = input("Please enter that password here: ")
                 if password == "dtbcbv":
@@ -1806,6 +1826,32 @@ def lake_scene():
 
             elif boat_option == "no":
                 slow_type("The boat stays locked.")
+
+            else:  # if no other option is fitting it will carry out these functions:
+                print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+        elif lake_options == "examine boat" and boat_unlocked is True:
+            slow_type("""Now that the door is unlocked you are able to get inside the cabin, it's easier to tell whats 
+missing now, the steering wheel is no where to be seen. The petrol gage is a millimeter off of empty and will barely get
+you off of the beach let alone somewhere with other people. The key is in the ignition, small mercies and all that, but
+you turn it and nothing happens. You go to check if everything is fine with the motor, it takes longer than you would 
+hope but you've never been on a boat before and you find... nothing. It's gone. That's... fine. You will find everything
+you need and it'll be fine. 
+
+You're sure that someone would just leave those things lying around...""")
+
+            boat = input("Do you have any of the items needed? ")
+            if boat == "yes":
+                while True:
+                    boat_items = input("What items do you have? Please enter one at a time.")
+                    if boat_items == needed_items:
+                        obtained_items.append(boat_items)
+
+            elif boat == "no":
+                print("")
+
+            elif needed_items in obtained_items:
+                print("test")
 
             else:  # if no other option is fitting it will carry out these functions:
                 print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -1830,7 +1876,6 @@ def lake_scene():
 
 
 print("")  # blank print for formatting
-#slow_type(opening_text)  # displays the opening text which is defined earlier
-#starting_room_scene()  # starts the starting scene
+slow_type(opening_text)  # displays the opening text which is defined earlier
+starting_room_scene()  # starts the starting scene
 
-lake_scene()
