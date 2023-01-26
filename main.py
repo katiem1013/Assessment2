@@ -2,10 +2,10 @@ import random
 import sys
 import time
 
-inventory = []  # inventory list
+inventory = ["ore"]  # inventory list
 obtained_items = []
 weapon_damage = {"knife": 25, "shovel": 35, "crowbar": 30, "ore": 20}
-player_health = 120  # player health
+player_health = 150  # player health
 got_map = True  # has map
 
 typing_speed = 10000  # amount of words per minute
@@ -35,6 +35,7 @@ enemy_3 = Enemy(150, "Karkinos", "Claws", random.randrange(10, 30))
 glove_box_opened = False
 boat_unlocked = True
 boat_code = "dtbcbv"
+grave_dug = False
 
 # variables for inside the house
 door_locked = True  # sets the main door as locked
@@ -895,6 +896,9 @@ You really don't want to die right now.""")
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_1.attack
                                     print("The monster swings back at you. You have ", player_health, " health.")
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "knife":
                                 print("You get close enough to drive your knife into it, it shrieks in pain.")
@@ -902,6 +906,9 @@ You really don't want to die right now.""")
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_1.attack
                                     print("The monster swings back at you. You have ", player_health, " health.")
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "shovel":
                                 print("You lift the shovel into the air and bring it down hard and fast.")
@@ -909,6 +916,9 @@ You really don't want to die right now.""")
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_1.attack
                                     print("The monster swings back at you. You have ", player_health, " health.")
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "ore":
                                 print("You can tell the ore doesn't do much but all the damage you can get helps.")
@@ -916,6 +926,9 @@ You really don't want to die right now.""")
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_1.attack
                                     print("The monster swings back at you. You have ", player_health, " health.")
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "bandages" and player_health < 150:
                                 print("You pull the bandages out of you bag and carefully wrap your wounds.")
@@ -923,6 +936,9 @@ You really don't want to die right now.""")
                                 if player_health > 150:
                                     player_health = 150
                                     print(player_health)
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "bandages" and player_health == 150:
                                 print("You are not injured.")
@@ -1111,6 +1127,7 @@ def outside_3_scene():
 
     global player_health  # declares the players health in the scene
     global got_map  # declares the map in the scene
+    weapons_got = ["ore", "crowbar", "shovel", "knife"]
 
     # prints out a description based on the amount of health
     if enemy_2.health >= 1:
@@ -1154,6 +1171,9 @@ you.""")
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_2.attack
                                     print("The Bugbear swings back at you. You have ", player_health, " health.")
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "knife":
                                 print("You get close enough to drive your knife into it, blood pours out of the cut.")
@@ -1161,6 +1181,9 @@ you.""")
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_2.attack
                                     print("The Bugbear swings back at you. You have ", player_health, " health.")
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "shovel":
                                 print("You heave the shovel up and bring it down onto it even faster.")
@@ -1168,6 +1191,9 @@ you.""")
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_2.attack
                                     print("The Bugbear swings back at you. You have ", player_health, " health.")
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "ore":
                                 print("The ore does not do much damage")
@@ -1175,6 +1201,9 @@ you.""")
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_2.attack
                                     print("The Bugbear swings back at you. You have ", player_health, " health.")
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "bandages" and player_health < 150:
                                 print("You pull the bandages out of you bag and carefully wrap your wounds.")
@@ -1186,15 +1215,20 @@ you.""")
                             elif weapon == "bandages" and player_health == 150:
                                 print("You are not injured.")
 
-                        elif usr == "inventory":  # if inventory is entered ut will carry out these functions:
-                            print(inventory)  # displays the inventory guide
+                            else:  # if no other option is fitting it will carry out these functions:
+                                # asking the player to reenter
+                                print("Please use a weapon you have.")
 
-                        elif weapon not in inventory:
-                            print("You have no weapons, you flee before it can get you.")
+                        elif all(weapons_got) not in inventory:
+                            print("You have no weapons, it''s best if you run.")
                             outside_7_t_junction_scene()
 
-                        else:
-                            print("please choose a weapon you actually have.")
+                        elif usr == "inventory":  # if inventory is entered it will carry out these functions:
+                            print(inventory)  # displays the inventory guide
+
+                        else:  # if no other option is fitting it will carry out these functions:
+                            # asking the player to reenter
+                            print("I do not understand, type help for general instructions.")
 
                 elif enemy_2.health <= 0:
                     slow_type("""The monster collapses to the ground, an ear piercing screech echos around the trees.
@@ -1444,7 +1478,7 @@ def outside_6_crossroads_scene():
         outside_6_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if outside_6_options == "north":  # if south is entered it will carry out these functions:
+        if outside_6_options == "north":  # if north is entered it will carry out these functions:
             outside_10_scene()
 
         elif outside_6_options == "east":  # if east is entered it will carry out these functions:
@@ -1518,6 +1552,17 @@ and slam it shut.""")
                     # asking the player to reenter
                     print("I do not understand, type help for general instructions. Perhaps try 'exit car'.")
 
+        elif outside_6_options == "examine tree" or outside_6_options == "examine trees":
+            slow_type("""The trees are tall, taller than you think is normal. You don't know what type of tree they are
+and to be honest you don't care. Trees, no matter how creepy they may or may not be, are the least of your problems 
+right now.""")
+
+        elif outside_6_options == "examine path":
+            slow_type("""It's like most gravel paths you've seen in your life. Though this one is a crossroads so at 
+least that's different. You read an mythology book once that you can summon a crossroad demon that will give you what
+ever you want in exchange for your soul here. You consider it briefly. You don't have a photo of yourself and you're 
+pretty sure that was important to the summoning.""")
+
         elif outside_6_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
 
@@ -1563,6 +1608,15 @@ def outside_7_t_junction_scene():
         elif outside_7_options == "west":  # if south is entered it will carry out these functions:
             outside_8_graveyard_scene()
 
+        elif outside_7_options == "examine tree" or outside_7_options == "examine trees":
+            slow_type("""Considering how little there is at this T-junction, the fact that you were surprised at how 
+similar the tree here are compared to everywhere else, was surprising in and of itself.""")
+
+        elif outside_7_options == "examine path":
+            slow_type("""The path is gravel, like everywhere else has been too. It's in a T shape though you don't know 
+any demon summoning rituals for this one. There is a dirt path going off the T so one could argue this is a crossroads 
+too, you would be able to do the same ritual then.""")
+
         elif outside_7_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
 
@@ -1585,6 +1639,7 @@ def outside_7_t_junction_scene():
 def outside_8_graveyard_scene():
 
     global got_map  # declares the map in the scene
+    global grave_dug
 
     print("")  # blank print for formatting
     slow_type(outside_8_graveyard_description)  # displays the outside description
@@ -1596,17 +1651,63 @@ def outside_8_graveyard_scene():
         outside_8_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if outside_8_options == "north":  # if south is entered it will carry out these functions:
+        if outside_8_options == "north":  # if north is entered it will carry out these functions:
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_8_options == "east":  # if east is entered it will carry out these functions:
             outside_7_t_junction_scene()
 
-        elif outside_8_options == "south":  # if west is entered it will carry out these functions:
+        elif outside_8_options == "south":  # if south is entered it will carry out these functions:
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
-        elif outside_8_options == "west":  # if south is entered it will carry out these functions:
+        elif outside_8_options == "west":  # if west is entered it will carry out these functions:
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
+
+        elif outside_8_options == "examine headstone" or outside_8_options == "examine headstones":
+            slow_type("""The headstones have all been hand carved. All names of people you don't know. You thought this
+might be a family grave yard but none of the names match. All the graves look pretty similar, well looked after similar
+to the basement and so unlike the shack above. The last grave is nameless though the tools to carve it sit next to the
+headstone.""")
+
+        elif outside_8_options == "examine graves" or outside_8_options == "examine grave":
+            slow_type("""Like the headstone the graves are in excellent condition, each grave it made of straight lines.
+like someone took the time to perfectly measure each one before digging. It seems like a lot of effort.""")
+
+        elif outside_8_options == "examine nameless grave":
+            slow_type("""If you had to guess you recon you would fit in the hole dug perfectly. It sends a shiver 
+straight down your spine. The carving tools next to the headstone look perfectly looked after. None of this feels right
+to you.""")
+
+        elif outside_8_options == "examine path":
+            slow_type("""The path tapers off well before you get to the grave, though a stone from it had been stuck in 
+your shoe for a while now so it's never really gone.""")
+
+        elif outside_8_options == "examine trees" or outside_8_options == "examine tree":
+            slow_type("""Trees that are too tall and too wide and far too intimidating for what they are loom over you.
+it casts a shadow over the graves and makes the whole area scarier than it should be.""")
+
+        elif outside_8_options == "use shovel":
+            shovel = input("What would you like to use the shovel on? ")
+            if shovel == "grave" or shovel == "graves" and grave_dug is False:
+                slow_type("""You dig the shovel into the ground and throw the pile behind you. Wow, this is going to be
+a piece of cake.
+
+...
+
+...
+
+By the time you hit anything you are panting and sweating and just all around having a terrible time. You didn't think
+it would be this hard. Next time you need to dig up a grave, consider not doing that. Still, you finally hit something 
+and it doesn't take much longer before you're able to get it out of the ground. It's heavy and makes your muscles ache
+even more. A motor. Yay.""")
+                inventory.append("motor")
+                grave_dug = True
+
+            elif shovel == "grave" or shovel == "graves" and grave_dug is True:
+                slow_type("The grave has already been dug, you could dig further put there isn't much point.")
+
+            else:  # if no other option is fitting it will carry out these functions:
+                print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
         elif outside_8_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1837,6 +1938,9 @@ Hopefully.
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_3.attack
                                     print("The Karkinos swings back at you. You have ", player_health, " health.")
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "knife":
                                 print("You get close enough to drive your knife into it, it swings it claws aimlessly.")
@@ -1844,6 +1948,9 @@ Hopefully.
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_3.attack
                                     print("The Karkinos swings back at you. You have ", player_health, " health.")
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "shovel":
                                 print("You lift the shovel into the air and bring it down hard and fast.")
@@ -1851,6 +1958,9 @@ Hopefully.
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_3.attack
                                     print("The Karkinos swings back at you. You have ", player_health, " health.")
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "ore":
                                 print("The ore doesn't hurt it much but the creature hisses in pain anyway.")
@@ -1858,6 +1968,9 @@ Hopefully.
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_3.attack
                                     print("The Karkinos swings back at you. You have ", player_health, " health.")
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "bandages" and player_health < 150:
                                 print("You pull the bandages out of you bag and carefully wrap your wounds.")
@@ -1865,6 +1978,9 @@ Hopefully.
                                 if player_health > 150:
                                     player_health = 150
                                     print(player_health)
+                                    if player_health <= 0:
+                                        print("You collapse to the ground, you were so close.")
+                                        quit()
 
                             elif weapon == "bandages" and player_health == 150:
                                 print("You are not injured.")
@@ -2037,7 +2153,8 @@ def ending():
 
 
 print("")  # blank print for formatting
-slow_type(opening_text)  # displays the opening text which is defined earlier
-starting_room_scene()  # starts the starting scene
+#slow_type(opening_text)  # displays the opening text which is defined earlier
+#starting_room_scene()  # starts the starting scene
 
 
+outside_3_scene()
