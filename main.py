@@ -2114,13 +2114,38 @@ are glad that you survived.""")
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
             
         elif outside_12_options == "examine path":
-            slow_type("""""")
+            slow_type("""The dirt path is so muddy, you wish you had wellies but you don't. You make a mental reminder
+to get knew ones when you get out of here.""")
 
         elif outside_12_options == "examine tree" or outside_12_options == "examine trees":
-            slow_type("""""")  
+            slow_type("""Trees much taller than you. Towering over any tree you've seen before. You can't wait to get
+out of this forest. You miss buildings... and people.... and not being kidnapped.""")
             
         elif enemy_3.health < 1 and outside_12_options == "examine karkinos":
-            slow_type("""""")
+            slow_type("""The karkinos corpse is curled up. Claws curled up around itself as though still trying to 
+protect itself from the plethora attacks. The blood seeps around it and is far more blue than it is red. When you 
+step closer there is chain tied around it's back legs that had been broken a few chains down. On the chain is a bag.""")
+            print("")  # blank print for formatting
+            food = input("Would you like to investigate further?")
+            if food == "yes":
+                slow_type("You look closer you and find the bag is full of food..")
+                print("")  # blank print for formatting
+                take_food = input("Would you like to take it with you?")
+                if take_food == "yes":
+                    slow_type("You shove it into you pocket.")
+                    inventory.append("food")
+
+                elif take_food == "no":
+                    slow_type("You leave it where it is.")
+
+                else:  # if no other option is fitting it will carry out these functions:
+                    print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+            elif food == "no":
+                slow_type("The drink stays where it is.")
+
+            else:  # if no other option is fitting it will carry out these functions:
+                print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
         elif outside_12_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -2221,6 +2246,12 @@ your cat and your own bed.""")
                 final_option = input("Would you like to leave? ")
                 if final_option == "yes":
                     ending()
+
+                elif final_option == "no":
+                    slow_type("You step off of the boat.")
+
+                else:  # if no other option is fitting it will carry out these functions:
+                    print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
             else:
                 slow_type("""Now that the door is unlocked you are able to get inside the cabin, it's easier to tell 
