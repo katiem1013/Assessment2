@@ -1062,9 +1062,9 @@ needed. It's smaller than the basement, windows boarded up and glass missing. Th
 off if a strong enough wind blows through. You are glad to have gotten out sooner rather than later. Leaning against the
 shack is some type of wooden stick.""")
             print("")  # blank print for formatting
-            ore_1 = input("Would you like to investigate further?")
+            ore_1 = input("Would you like to investigate further?").lower()  # gets the players input
             if ore_1 == "yes":
-                slow_type("When you look closer you realise it's an ore.").lower()  # gets the players input
+                slow_type("When you look closer you realise it's an ore.")
                 print("")  # blank print for formatting
                 take_ore = input("Would you like to take it with you?").lower()  # gets the players input
                 if take_ore == "yes":
