@@ -88,9 +88,9 @@ outside_3_description_without_enemy = """Up ahead the dirt path splits into two.
 the end but to the right you can't quite see due to the trees blocking it. The body of the monster is crumpled at the 
 end of the path."""
 
-outside_4_description = """A shack sits at the end of the path. As run down as the last, much smaller too. The door is 
-half hanging off so you can see the hole in the ground and can tell that it's supposed to be a toilet. You would not use
-it if your life depended on it."""
+outside_4_description = """An outhouse sits at the end of the path. As run down as the shack, much smaller too. The door 
+is half hanging off so you can see the hole in the ground and can tell that it's supposed to be a toilet. You would not 
+use bit if your life depended on it."""
 
 outside_5_description = """The path continues on to the north but to the south there is a dirt path that heads off into 
 the trees. The gap isn’t big enough for you to see through it but big enough for you to walk through. There are some 
@@ -951,13 +951,13 @@ are glad that you survived.""")
             outside_5_scene()
 
         elif outside_1_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
-        elif outside_1_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+        elif outside_1_options == "south":  # if south is entered it will carry out these functions:
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
-        elif outside_1_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+        elif outside_1_options == "west":  # if west is entered it will carry out these functions:
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif enemy_1.health < 1 and outside_1_options == "examine monster" and "steering wheel" not in inventory:
             slow_type("""Blood pours out of its mouth, eyes open and staring straight into your own. You still can't
@@ -1040,13 +1040,13 @@ def outside_2_shack_scene():
             outside_6_crossroads_scene()
 
         elif outside_2_shack_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_2_shack_options == "south":  # if west is entered it will carry out these functions:
             upstairs_scene()  # lets the player know there is no path there
 
         elif outside_2_shack_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_2_shack_options == "examine shack" and "ore" not in inventory:
             slow_type("""The shack is badly put together, there are cracks and holes all over the mismatched wood. It's 
@@ -1209,24 +1209,51 @@ are glad that you survived.""")
             outside_7_t_junction_scene()
 
         elif outside_3_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_3_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         # if west is entered and the enemy has zero health it will carry out these functions:
         elif outside_3_options == "west" and enemy_2.health <= 0:
             outside_4_scene()
 
         elif enemy_2.health < 1 and outside_3_options == "examine bugbear":
-            slow_type("")
+            slow_type("""The bugbear is dead, thankfully. It looks just as intimidating as it did when it was alive. 
+Except you aren't at as much risk of imminent death as you were before you killed it. You're glad. You hate this 
+place with a passion. When you get out of here no ones ever going to believe you beat this thing... Or that it was real
+in the first place.""")
 
         elif outside_3_options == "examine path":
             slow_type("The path is muddy and gross. You leave footprints with every step you take.")
 
-        elif outside_3_options == "examine trees" or outside_3_options == "examine tree":
+        elif outside_3_options == "examine trees" or outside_3_options == "examine tree" and "drink" not in inventory:
             slow_type("""You didn't realise trees could be creepy. Yet here they are anyway. Looming over you 
-unnaturally. You wish someone """)
+unnaturally. You wish someone would cut them all down. There something hidden amongst the moss at the bottom.""")
+
+            drink = input("Would you like to investigate further?")
+            if drink == "yes":
+                slow_type("You look closer you and find it's a bottle of water.")
+                take_drink = input("Would you like to take it with you?")
+                if take_drink == "yes":
+                    slow_type("You shove it into you pocket.")
+                    inventory.append("water")
+
+                elif take_drink == "no":
+                    slow_type("You leave it where it is.")
+
+                else:  # if no other option is fitting it will carry out these functions:
+                    print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+            elif drink == "no":
+                slow_type("The drink stays where it is.")
+
+            else:  # if no other option is fitting it will carry out these functions:
+                print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+        elif outside_3_options == "examine trees" or outside_3_options == "examine tree" and "drink" in inventory:
+            slow_type("""You didn't realise trees could be creepy. Yet here they are anyway. Looming over you 
+unnaturally. You wish someone would cut them all down.""")
 
         elif outside_3_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1262,16 +1289,48 @@ def outside_4_scene():
         print("")  # blank print for formatting
 
         if outside_4_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_4_options == "east":  # if east is entered it will carry out these functions:
             outside_3_scene()
 
         elif outside_4_options == "south":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_4_options == "west":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
+
+        elif outside_4_options == "examine outhouse" and "petrol" not in inventory:
+            slow_type("""The outhouse is small, you can fit in but its a tight squeeze. The door doesn't move from its
+place even if you try and force it. You don't know how it's staying so still considering how little of it is actually 
+attached to anything. There something shinning in the toilet, you dread to think what it could be and why it would be 
+kept here of all places.""")
+            outhouse = input("Would you like to investigate? ")
+            if outhouse == "yes":
+                slow_type("""Out all the things you thought you would spend your day doing after being kidnapped, 
+putting your hand down a obviously well used toilet in an outhouse in the middle of nowhere was not it. Yet here you are
+It's uncomfortably wet, you're scared to know what it is but considering where your hand is you don't really need to 
+guess. When your hand wraps around something metal and cold you pull it out, shake your hand off, then question who the
+thought putting a canister of petrol in the toilet was a good idea? At least you have it now.""")
+                inventory.append("petrol")
+
+            elif outhouse == "no":
+                slow_type("You leave it where it is.")
+
+            else:  # if no other option is fitting it will carry out these functions:
+                print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+        elif outside_4_options == "examine outhouse" and "petrol" in inventory:
+
+            slow_type("""The outhouse is small, you can fit in but its a tight squeeze. The door doesn't move from its
+place even if you try and force it. You don't know how it's staying so still considering how little of it is actually 
+attached to anything.""")
+
+        elif outside_4_options == "examine path":
+            slow_type("The path is just as muddy and gross as the rest. Your shoes are never going to be the same.")
+
+        elif outside_4_options == "examine trees" or outside_4_options == "examine tree":
+            slow_type("You're beginning to hate the sight of these trees. They all look the same.")
 
         elif outside_4_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1295,6 +1354,7 @@ def outside_4_scene():
 def outside_5_scene():
 
     global got_map  # declares the map in the scene
+    global player_health
 
     print("")  # blank print for formatting
     slow_type(outside_5_description)  # displays the outside description
@@ -1310,13 +1370,44 @@ def outside_5_scene():
             outside_9_building_scene()
 
         elif outside_5_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_5_options == "south":  # if south is entered it will carry out these functions:
             outside_1_scene()
 
         elif outside_5_options == "west":  # if west is entered it will carry out these functions:
             outside_6_crossroads_scene()
+
+        elif outside_5_options == "examine bushes" or outside_5_options == "examine bush":
+            slow_type("""The bush is small, leaves mainly green with yellowing edges. There is a weird gap within the
+leaves. You lean towards it. You still can't tell what it is.""")
+            knife = input("Would you like to investigate further?")
+            if knife == "yes":
+                slow_type("You stick your hand in and find it's a knife, it cuts your hand.")
+                player_health = player_health - 5
+                take_knife = input("Would you like to take it with you?")
+                if take_knife == "yes":
+                    slow_type("You carefully place it into you pocket.")
+                    inventory.append("knife")
+
+                elif take_knife == "no":
+                    slow_type("The knife stays where it is.")
+
+                else:  # if no other option is fitting it will carry out these functions:
+                    print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+            elif knife == "no":
+                slow_type("The knife stays where it is.")
+
+            else:  # if no other option is fitting it will carry out these functions:
+                print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+        elif outside_5_options == "examine path":
+            slow_type("""The main path is gravel, rocks crunching underneath your feet as you walk. There dirt path 
+that comes off it has some of the stones scatter within it. A pretty standard path if you were asked.""")
+
+        elif outside_5_options == "trees" or outside_5_options == "examine tree":
+            slow_type("The trees continue to be the same as all the other trees you've seen.")
 
         elif outside_5_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1506,16 +1597,16 @@ def outside_8_graveyard_scene():
         print("")  # blank print for formatting
 
         if outside_8_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_8_options == "east":  # if east is entered it will carry out these functions:
             outside_7_t_junction_scene()
 
         elif outside_8_options == "south":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_8_options == "west":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_8_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1551,16 +1642,16 @@ def outside_9_building_scene():
         print("")  # blank print for formatting
 
         if outside_9_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_9_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_9_options == "south":  # if south is entered it will carry out these functions:
             outside_5_scene()
 
         elif outside_9_options == "west":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         # if examine shovel is entered it will carry out these functions:
         elif outside_9_options == "examine shovel" and "shovel" not in inventory:
@@ -1622,10 +1713,10 @@ def outside_10_scene():
         print("")  # blank print for formatting
 
         if outside_10_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_10_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_10_options == "south":  # if west is entered it will carry out these functions:
             outside_6_crossroads_scene()
@@ -1798,16 +1889,16 @@ are glad that you survived.""")
                     print("")
 
         elif outside_12_options == "north":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_12_options == "east":  # if east is entered it will carry out these functions:
             outside_11_scene()
 
         elif outside_12_options == "south":  # if south is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_12_options == "west":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_12_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1849,13 +1940,13 @@ def lake_scene():
             print("There is a lake, you are unable to go that way without a boat.")
 
         elif lake_options == "east":  # if east is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif lake_options == "south":  # if south is entered it will carry out these functions:
             outside_11_scene()
 
         elif lake_options == "west":  # if west is entered it will carry out these functions:
-            print("You cannot go that way.")  # lets the player know there is no path there
+            print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif lake_options == "examine path":
             slow_type("""The gravel path tapers out as it gets closer to the lake, eventually it starts to blend into the
