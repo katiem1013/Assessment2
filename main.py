@@ -2,8 +2,9 @@ import random
 import sys
 import time
 
-inventory = ["ore"]  # inventory list
+inventory = ["knife"]  # inventory list
 obtained_items = []
+weapons_avaliable = ["knife", "shovel", "crowbar", "ore"]
 weapon_damage = {"knife": 25, "shovel": 35, "crowbar": 30, "ore": 20}
 player_health = 150  # player health
 got_map = True  # has map
@@ -36,6 +37,7 @@ glove_box_opened = False
 boat_unlocked = True
 boat_code = "dtbcbv"
 grave_dug = False
+check = any(item in inventory for item in weapons_avaliable)
 
 # variables for inside the house
 door_locked = True  # sets the main door as locked
@@ -359,7 +361,6 @@ into your pocket and shut the draws.""")  # displays the description
 
 
 def kitchen_scene():
-
     print("")  # blank print for formatting
     slow_type(kitchen_description)  # displays the kitchen description
     print("")  # blank print for formatting
@@ -459,7 +460,6 @@ pocket for later use.""")  # displays the description
 
 
 def bathroom_scene():
-
     print("")  # blank print for formatting
     slow_type(bathroom_description)  # displays the bathroom description
     print("")  # blank print for formatting
@@ -726,7 +726,6 @@ pocket, you're glad you are wearing mens clothes so that this can fit.""")  # di
 
 
 def upstairs_scene():
-
     global got_map  # declares the map in the scene
     global fireplace_lighted  # declares the fireplace lighted in the scene
     global campfire_lighted  # declares the campfire lighted in the scene
@@ -821,7 +820,7 @@ pages make they words on the pages hard to read when you flip through it. You ma
 The forest..... unsafe......monsters.... get out........stay away..... trees...... the lake....only......way......
 ...he'll find you. 
 
- 
+
  You slam the book shut and shove it hastily back onto the shelf. You should leave.
  """)
 
@@ -845,7 +844,6 @@ The forest..... unsafe......monsters.... get out........stay away..... trees....
 
 # all scenes outside of the building that include the descriptions
 def outside_1_scene():
-
     global got_map  # declares the map in the scene
     global player_health  # declares the player health variable in the scene
 
@@ -946,12 +944,16 @@ You really don't want to die right now.""")
                         elif usr == "inventory":  # if inventory is entered ut will carry out these functions:
                             print(inventory)  # displays the inventory guide
 
-                        elif weapon not in inventory:
+                        elif check is False:
                             print("You have no weapons, you flee before it can get you.")
                             outside_5_scene()
 
-                        else:
-                            print("please choose a weapon you actually have.")
+                        elif weapon not in inventory:
+                            print("Please use a weapon you actually have.")
+
+                        else:  # if no other option is fitting it will carry out these functions:
+                            # asking the player to reenter
+                            print("I do not understand, type help for general instructions.")
 
                 elif enemy_1.health <= 0:
                     print("")
@@ -960,8 +962,9 @@ They sway with the vibrations. You worry that the sound will alert anyone... or 
 are glad that you survived.""")
                     break
 
-                else:
-                    print("")
+
+                else:  # if no other option is fitting it will carry out these functions:
+                    print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
         elif outside_1_options == "north":  # if south is entered it will carry out these functions:
             outside_5_scene()
@@ -1039,7 +1042,6 @@ it's angry too.""")
 
 
 def outside_2_shack_scene():
-
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
@@ -1124,7 +1126,6 @@ but you can't put your finger on it.""")
 
 
 def outside_3_scene():
-
     global player_health  # declares the players health in the scene
     global got_map  # declares the map in the scene
     weapons_got = ["ore", "crowbar", "shovel", "knife"]
@@ -1219,12 +1220,12 @@ you.""")
                                 # asking the player to reenter
                                 print("Please use a weapon you have.")
 
-                        elif all(weapons_got) not in inventory:
-                            print("You have no weapons, it''s best if you run.")
+                        elif check is False:
+                            print("You have no weapons, you flee before it can get you.")
                             outside_7_t_junction_scene()
 
-                        elif usr == "inventory":  # if inventory is entered it will carry out these functions:
-                            print(inventory)  # displays the inventory guide
+                        elif weapon not in inventory:
+                            print("Please use a weapon you actually have.")
 
                         else:  # if no other option is fitting it will carry out these functions:
                             # asking the player to reenter
@@ -1309,7 +1310,6 @@ unnaturally. You wish someone would cut them all down.""")
 
 
 def outside_4_scene():
-
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
@@ -1386,7 +1386,6 @@ attached to anything.""")
 
 
 def outside_5_scene():
-
     global got_map  # declares the map in the scene
     global player_health
 
@@ -1464,7 +1463,6 @@ that comes off it has some of the stones scatter within it. A pretty standard pa
 
 
 def outside_6_crossroads_scene():
-
     global got_map  # declares the map in the scene
     global glove_box_opened  # declares the glove box opened variable in scene.
 
@@ -1583,7 +1581,6 @@ pretty sure that was important to the summoning.""")
 
 
 def outside_7_t_junction_scene():
-
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
@@ -1637,7 +1634,6 @@ too, you would be able to do the same ritual then.""")
 
 
 def outside_8_graveyard_scene():
-
     global got_map  # declares the map in the scene
     global grave_dug
 
@@ -1729,7 +1725,6 @@ even more. A motor. Yay.""")
 
 
 def outside_9_building_scene():
-
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
@@ -1780,6 +1775,12 @@ def outside_9_building_scene():
         elif outside_9_options == "examine path":
             slow_type("""""")
 
+        elif outside_9_options == "examine tree" or outside_9_options == "examine trees":
+            slow_type("""""")  
+            
+        elif outside_9_options == "use flashlight":
+            slow_type("""""")
+            
         elif outside_9_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
 
@@ -1800,7 +1801,6 @@ def outside_9_building_scene():
 
 
 def outside_10_scene():
-
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
@@ -1813,18 +1813,56 @@ def outside_10_scene():
         outside_10_options = input("what would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if outside_10_options == "north":  # if south is entered it will carry out these functions:
+        if outside_10_options == "north":  # if north is entered it will carry out these functions:
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_10_options == "east":  # if east is entered it will carry out these functions:
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
-        elif outside_10_options == "south":  # if west is entered it will carry out these functions:
+        elif outside_10_options == "south":  # if south is entered it will carry out these functions:
             outside_6_crossroads_scene()
 
-        elif outside_10_options == "west":  # if south is entered it will carry out these functions:
+        elif outside_10_options == "west":  # if west is entered it will carry out these functions:
             outside_11_scene()
+            
+        elif outside_10_options == "examine path":
+            slow_type("""""")
 
+        elif outside_10_options == "examine tree" or outside_10_options == "examine trees":
+            slow_type("""""")  
+            
+       
+        elif outside_10_options == "examine bush" or outside_10_options == "examine bushes":
+            slow_type("""""")
+            
+         elif outside_10_options == "examine plank" or outside_10_options == "examine planks" and "ore 2" not in inventory:
+            slow_type("""""")
+            ore_2 = input("Would you like to investigate further?")
+            if ore_2 == "yes":
+                slow_type("When you look closer you realise it's an ore.")
+                take_ore = input("Would you like to take it with you?")
+                if take_ore == "yes":
+                    slow_type("You take the ore, you have no idea how you're going to carry it but you will.")
+                    inventory.append("ore")
+
+                elif take_ore == "no":
+                    slow_type("You leave it where it is")
+
+                else:  # if no other option is fitting it will carry out these functions:
+                    print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+            elif ore_1 == "no":
+                slow_type("The stick stays where it is.")
+
+            else:  # if no other option is fitting it will carry out these functions:
+                print("I do not understand, type help for general instructions.")  # asking the player to reenter
+
+        elif outside_10_options == "examine plank" or outside_10_options == "examine planks" and "ore 2" in inventory:
+            slow_type("""""")
+            
+        elif outside_9_options == "examine stinging nettles":
+            slow_type("""""")     
+       
         elif outside_10_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
 
@@ -1845,7 +1883,6 @@ def outside_10_scene():
 
 
 def outside_11_scene():
-
     global got_map  # declares the map in the scene
 
     print("")  # blank print for formatting
@@ -1872,6 +1909,15 @@ def outside_11_scene():
 
         elif outside_11_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
+            
+        elif outside_11_options == "examine path":
+            slow_type("""""")
+
+        elif outside_11_options == "examine tree" or outside_11_options == "examine trees":
+            slow_type("""""")  
+            
+        elif outside_11_options == "examine bush" or outside_11_options == "examine bushes":
+            slow_type("""""")
 
         elif outside_11_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
@@ -1890,7 +1936,6 @@ def outside_11_scene():
 
 
 def outside_12_scene():
-
     global got_map  # declares the map in the scene
     global player_health  # declares the player health variable in the scene
 
@@ -1988,12 +2033,16 @@ Hopefully.
                         elif usr == "inventory":  # if inventory is entered ut will carry out these functions:
                             print(inventory)  # displays the inventory guide
 
-                        elif weapon not in inventory:
+                        elif check is False:
                             print("You have no weapons, you flee before it can get you.")
-                            outside_5_scene()
+                            outside_12_scene()
 
-                        else:
-                            print("please choose a weapon you actually have.")
+                        elif weapon not in inventory:
+                            print("Please use a weapon you actually have.")
+
+                        else:  # if no other option is fitting it will carry out these functions:
+                            # asking the player to reenter
+                            print("I do not understand, type help for general instructions.")
 
                 elif enemy_3.health <= 0:
                     slow_type("""The monster collapses to the ground, an ear piercing screech echos around the trees.
@@ -2015,6 +2064,15 @@ are glad that you survived.""")
 
         elif outside_12_options == "west":  # if west is entered it will carry out these functions:
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
+            
+        elif outside_12_options == "examine path":
+            slow_type("""""")
+
+        elif outside_12_options == "examine tree" or outside_10_options == "examine trees":
+            slow_type("""""")  
+            
+        elif enemy_3.health < 1 and outside_12_options == "examine karkinos":
+            slow_type("""""")
 
         elif outside_12_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -2036,7 +2094,6 @@ are glad that you survived.""")
 
 
 def lake_scene():
-
     global got_map  # declares the map in the scene
     global boat_unlocked
     global boat_code
@@ -2153,8 +2210,5 @@ def ending():
 
 
 print("")  # blank print for formatting
-#slow_type(opening_text)  # displays the opening text which is defined earlier
-#starting_room_scene()  # starts the starting scene
-
-
-outside_1_scene()
+slow_type(opening_text)  # displays the opening text which is defined earlier
+starting_room_scene()  # starts the starting scene
