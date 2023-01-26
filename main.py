@@ -246,7 +246,7 @@ def starting_room_scene():  # defining the point in which players return to afte
 
                 while True:  # will happen while
                     print("")  # blank print for formatting
-                    key = input("would you like to use it? ")
+                    key = input("would you like to use it? ").lower()  # gets the players input
                     print("")  # blank print for formatting
 
                     if key == "yes":
@@ -318,7 +318,7 @@ into your pocket and shut the draws.""")  # displays the description
 
         elif starting_room_options == "use key" and "key" in inventory:
             print("")  # blank print for formatting
-            key = input("what would you like to use it on? ")
+            key = input("what would you like to use it on? ").lower()  # gets the players input
             print("")  # blank print for formatting
 
             if key == "door":
@@ -587,7 +587,7 @@ def bathroom_stool_scene():  # the scene for the bathroom but the player is stoo
     while True:
 
         print("")  # blank print for formatting
-        stool_options = input("what would you like to do?")  # gets the players input
+        stool_options = input("what would you like to do?").lower()  # gets the players input
         print("")  # blank print for formatting
 
         # if use screwdriver is entered and it is in the inventory it will carry out these functions:
@@ -609,7 +609,8 @@ weird.""")  # displays the description
 
         # if open vent is entered, and it has not been opened it will carry out these functions:
         elif stool_options == "open vent" and vent_opened is False:
-            open_vent = input("The vent is screwed shut, what would you like to use to open it? ")
+            # gets the players input
+            open_vent = input("The vent is screwed shut, what would you like to use to open it? ").lower()
             if open_vent == "screwdriver" and "screwdriver" in inventory:
                 slow_type("You unscrew the vent")  # displays the description
                 bathroom_stool_scene()  # goes back to the beginning of the scene
@@ -868,7 +869,7 @@ You really don't want to die right now.""")
                 if enemy_1.health >= 1:
 
                     print("")
-                    usr = input("What would you like to use: ")
+                    usr = input("What would you like to use: ").lower()  # gets the players input
                     print("")
                     usr_words = usr.split(" ")  # list
                     enemy_attack = random.randrange(1, 4)
@@ -972,7 +973,7 @@ gently, then slightly harder when it doesn't move. You hope you can go home soon
 
 As you go to turn away from it something glints in the cracks of its skin.""")
             print("")  # blank print for formatting
-            monster = input("Would you like to investigate? ")
+            monster = input("Would you like to investigate? ").lower()  # gets the players input
             if monster == "yes":
                 slow_type("""You reach towards the corpse of the monster, hands trembling. God, this is so gross but
 it could be important so you suppose you'll have too. It squelches unpleasantly as your hand makes contact, it's fair 
@@ -1063,9 +1064,9 @@ shack is some type of wooden stick.""")
             print("")  # blank print for formatting
             ore_1 = input("Would you like to investigate further?")
             if ore_1 == "yes":
-                slow_type("When you look closer you realise it's an ore.")
+                slow_type("When you look closer you realise it's an ore.").lower()  # gets the players input
                 print("")  # blank print for formatting
-                take_ore = input("Would you like to take it with you?")
+                take_ore = input("Would you like to take it with you?").lower()  # gets the players input
                 if take_ore == "yes":
                     slow_type("You take the ore,  you have no idea how you're going to carry it but you will.")
                     inventory.append("ore")
@@ -1149,7 +1150,7 @@ you.""")
                 if enemy_2.health >= 1:
 
                     print("")
-                    usr = input("What would you like to use: ")
+                    usr = input("What would you like to use: ").lower()  # gets the players input
                     print("")
                     usr_words = usr.split(" ")  # list
                     enemy_attack = random.randrange(1, 4)
@@ -1257,11 +1258,11 @@ in the first place.""")
             slow_type("""You didn't realise trees could be creepy. Yet here they are anyway. Looming over you 
 unnaturally. You wish someone would cut them all down. There something hidden amongst the moss at the bottom.""")
             print("")  # blank print for formatting
-            drink = input("Would you like to investigate further?")
+            drink = input("Would you like to investigate further?").lower()  # gets the players input
             if drink == "yes":
                 slow_type("You look closer you and find it's a bottle of water.")
                 print("")  # blank print for formatting
-                take_drink = input("Would you like to take it with you?")
+                take_drink = input("Would you like to take it with you?").lower()  # gets the players input
                 if take_drink == "yes":
                     slow_type("You shove it into you pocket.")
                     inventory.append("water")
@@ -1332,7 +1333,7 @@ place even if you try and force it. You don't know how it's staying so still con
 attached to anything. There something shinning in the toilet, you dread to think what it could be and why it would be 
 kept here of all places.""")
             print("")  # blank print for formatting
-            outhouse = input("Would you like to investigate? ")
+            outhouse = input("Would you like to investigate? ").lower()  # gets the players input
             if outhouse == "yes":
                 slow_type("""Out all the things you thought you would spend your day doing after being kidnapped, 
 putting your hand down a obviously well used toilet in an outhouse in the middle of nowhere was not it. Yet here you are
@@ -1408,12 +1409,12 @@ def outside_5_scene():
             slow_type("""The bush is small, leaves mainly green with yellowing edges. There is a weird gap within the
 leaves. You lean towards it. You still can't tell what it is.""")
             print("")  # blank print for formatting
-            knife = input("Would you like to investigate further?")
+            knife = input("Would you like to investigate further?").lower()  # gets the players input
             if knife == "yes":
                 slow_type("You stick your hand in and find it's a knife, it cuts your hand.")
                 player_health = player_health - 5
                 print("")  # blank print for formatting
-                take_knife = input("Would you like to take it with you?")
+                take_knife = input("Would you like to take it with you?").lower()  # gets the players input
                 if take_knife == "yes":
                     slow_type("You carefully place it into you pocket.")
                     inventory.append("knife")
@@ -1680,7 +1681,7 @@ it casts a shadow over the graves and makes the whole area scarier than it shoul
 
         elif outside_8_options == "use shovel":
             print("")  # blank print for formatting
-            shovel = input("What would you like to use the shovel on? ")
+            shovel = input("What would you like to use the shovel on? ").lower()  # gets the players input
             if shovel == "grave" or shovel == "graves" and grave_dug is False:
                 slow_type("""You dig the shovel into the ground and throw the pile behind you. Wow, this is going to be
 a piece of cake.
@@ -1758,7 +1759,7 @@ def outside_9_building_scene():
         elif outside_9_options == "examine shovel" and "shovel" not in inventory:
             slow_type("The shovel is somewhat new. It has definitely been used. ")  # displays the description
             print("")  # blank print for formatting
-            shovel = input("Would you like to take it with you? ")  # gets the players input
+            shovel = input("Would you like to take it with you? ").lower()  # gets the players input
             if shovel == "yes":  # if yes is entered it will carry out these functions:
                 inventory.append("shovel")  # adds crowbar to inventory
 
@@ -1795,11 +1796,11 @@ way too creepy for trees.""")
 looks as bad as the outside does. There is rubble everywhere as if some attempted to pull the building down but gave 
 up halfway through. There is some paper flapping in the wind on the far side. You can't tell what it is from here.""")
             print("")  # blank print for formatting
-            map_pickup = input("Would you like to investigate further?")
+            map_pickup = input("Would you like to investigate further?").lower()  # gets the players input
             if map_pickup == "yes":
                 slow_type("You look closer and find a map.")
                 print("")  # blank print for formatting
-                take_map = input("Would you like to take it with you?")
+                take_map = input("Would you like to take it with you?").lower()  # gets the players input
                 if take_map == "yes":
                     slow_type("You carefully place it into you pocket.")
                     got_map = True
@@ -1878,11 +1879,11 @@ is taken up by the path thanks to these bushes. There are a few berries within t
             slow_type("""The planks all looks the same. Years of people walking over them wearing down where chucks of  
 them are missing. One of the planks seems out of place. Much skinner and sticking out the ground unnaturally""")
             print("")  # blank print for formatting
-            ore_2 = input("Would you like to investigate further? ")
+            ore_2 = input("Would you like to investigate further? ").lower()  # gets the players input
             if ore_2 == "yes":
                 slow_type("When you look closer you realise it's an ore. ")
                 print("")  # blank print for formatting
-                take_ore = input("Would you like to take it with you? ")
+                take_ore = input("Would you like to take it with you? ").lower()  # gets the players input
                 if take_ore == "yes":
                     slow_type("You take the ore, you have no idea how you're going to carry it but you will.")
                     inventory.append("ore2")
@@ -2018,7 +2019,7 @@ Hopefully.
                 if enemy_3.health >= 1:
 
                     print("")
-                    usr = input("What would you like to use: ")
+                    usr = input("What would you like to use: ").lower()  # gets the players input
                     print("")
                     usr_words = usr.split(" ")  # list
                     enemy_attack = random.randrange(1, 4)
@@ -2130,7 +2131,7 @@ step closer there is chain tied around it's back legs that had been broken a few
             if food == "yes":
                 slow_type("You look closer you and find the bag is full of food..")
                 print("")  # blank print for formatting
-                take_food = input("Would you like to take it with you?")
+                take_food = input("Would you like to take it with you?").lower()  # gets the players input
                 if take_food == "yes":
                     slow_type("You shove it into you pocket.")
                     inventory.append("food")
@@ -2218,10 +2219,10 @@ of getting out of here. You try to get a better look through one of the windows 
 be missing... Great... You'll have to find those too. 
 """)
             print("")
-            boat_option = input("Would you like to attempt to unlock the boat? ")
+            boat_option = input("Would you like to attempt to unlock the boat? ").lower()  # gets the players input
             if boat_option == "yes":
                 print("")
-                password = input("Please enter that password here: ")
+                password = input("Please enter that password here: ").lower()  # gets the players input
                 if password == boat_code:
                     slow_type("You type in the code and the lock clicks open. Hell yeah.")
                     boat_unlocked = True
@@ -2242,7 +2243,7 @@ aren't sure it's all been done right but it's all you've got at the moment. You 
 Away from the basement, away from the monsters, away from the creepy trees and the creepy owls back to your house with
 your cat and your own bed.""")
                 print("")
-                final_option = input("Would you like to leave? ")
+                final_option = input("Would you like to leave? ").lower()  # gets the players input
                 if final_option == "yes":
                     inventory.remove("motor")
                     inventory.remove("steering wheel")
@@ -2288,70 +2289,94 @@ You're sure that someone would just leave those things lying around...""")
 
 def ending():
 
-    slow_type("""""")
-    probability_survival = 7 / len(inventory)
+    slow_type("""It's a bit touch and go in the beginning. Trying to get the boat off the beach and into the water is 
+difficult but you manage it. Once it's on the lake it's rocky and still better than the basement. You glance back at the 
+beach to find a figure stood there staring right at you. Even without being able to make out any features it looks very
+angry. You are too far away for it to do anything. You're glad for it.
+
+...
+
+...
+
+...
+""")
+    probability_survival = 7 / len(inventory)  # finds the probability based on how many items in inventory
     if probability_survival == 1:
         survival = random.randrange(1, 100)
         if survival > 10:
             slow_type("You make it back home, you are so glad to be out of there.")
+            quit()
 
         else:
             slow_type("""You had everything you could possibly need to survive, the kraken hiding beneath the water was 
 unexpected at best and the cause of your downfall at worst. You really thought you would get out of there.""")
+            quit()
 
     elif probability_survival == 2:
         survival = random.randrange(1, 85)
         if survival > 10:
             slow_type("You make it back home, you are so glad to be out of there.")
+            quit()
 
         else:
             slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
 journey back. You were so close.""")
+            quit()
 
     elif probability_survival == 3:
         survival = random.randrange(1, 70)
         if survival > 10:
             slow_type("You make it back home, you are so glad to be out of there.")
+            quit()
 
         else:
             slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
 journey back. You were so close.""")
+            quit()
 
     elif probability_survival == 4:
         survival = random.randrange(1, 55)
         if survival > 10:
             slow_type("You make it back home, you are so glad to be out of there.")
+            quit()
 
         else:
             slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
 journey back. You were so close.""")
+            quit()
 
     elif probability_survival == 5:
         survival = random.randrange(1, 40)
         if survival > 10:
             slow_type("You make it back home, you are so glad to be out of there.")
+            quit()
     
         else:
             slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
 journey back. You were so close.""")
+            quit()
 
     elif probability_survival == 6:
         survival = random.randrange(1, 25)
         if survival > 10:
             slow_type("You make it back home, you are so glad to be out of there.")
+            quit()
 
         else:
             slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
 journey back. You were so close.""")
+            quit()
 
     elif probability_survival == 7:
         survival = random.randrange(1, 15)
         if survival > 10:
             slow_type("You make it back home, you are so glad to be out of there.")
+            quit()
 
         else:
             slow_type("""How you ever thought you'd get back without any supplies genuinely shocking, it's unclear 
 whether it was the weather, the kraken hidden beneath the lake or starvation that got you.""")
+            quit()
 
 
 print("")  # blank print for formatting
