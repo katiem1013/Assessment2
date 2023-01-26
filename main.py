@@ -2157,4 +2157,4 @@ print("")  # blank print for formatting
 #starting_room_scene()  # starts the starting scene
 
 
-outside_3_scene()
+outside_1_scene()
