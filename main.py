@@ -2,8 +2,8 @@ import random
 import sys
 import time
 
-inventory = ["knife"]  # inventory list
-obtained_items = []
+inventory = []  # inventory list
+
 weapons_available = ["knife", "shovel", "crowbar", "ore"]
 weapon_damage = {"knife": 25, "shovel": 35, "crowbar": 30, "ore": 20}
 player_health = 150  # player health
@@ -1985,7 +1985,7 @@ closer in, a squirrel rushes out, knocking you backwards. That was scary.""")
 def outside_12_scene():
     global got_map  # declares the map in the scene
     global player_health  # declares the player health variable in the scene
-    global amount_of_bandages # declares the amount of bandages in the scene
+    global amount_of_bandages  # declares the amount of bandages in the scene
 
     # prints out a description based on the amount of health
     if enemy_3.health >= 1:
@@ -2098,7 +2098,7 @@ They sway with the vibrations. You worry that the sound will alert anyone... or 
 are glad that you survived.""")
                     break
 
-                else: # if no other option is fitting it will carry out these functions:
+                else:  # if no other option is fitting it will carry out these functions:
                     print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
         elif outside_12_options == "north":  # if south is entered it will carry out these functions:
@@ -2170,7 +2170,6 @@ def lake_scene():
     global got_map  # declares the map in the scene
     global boat_unlocked
     global boat_code
-    global obtained_items
 
     print("")  # blank print for formatting
     slow_type(lake_description)  # displays the outside description
@@ -2245,6 +2244,9 @@ your cat and your own bed.""")
                 print("")
                 final_option = input("Would you like to leave? ")
                 if final_option == "yes":
+                    inventory.remove("motor")
+                    inventory.remove("steering wheel")
+                    inventory.remove("petrol")
                     ending()
 
                 elif final_option == "no":
@@ -2285,7 +2287,71 @@ You're sure that someone would just leave those things lying around...""")
 
 
 def ending():
-    print("")
+
+    slow_type("""""")
+    probability_survival = 7 / len(inventory)
+    if probability_survival == 1:
+        survival = random.randrange(1, 100)
+        if survival > 10:
+            slow_type("You make it back home, you are so glad to be out of there.")
+
+        else:
+            slow_type("""You had everything you could possibly need to survive, the kraken hiding beneath the water was 
+unexpected at best and the cause of your downfall at worst. You really thought you would get out of there.""")
+
+    elif probability_survival == 2:
+        survival = random.randrange(1, 85)
+        if survival > 10:
+            slow_type("You make it back home, you are so glad to be out of there.")
+
+        else:
+            slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
+journey back. You were so close.""")
+
+    elif probability_survival == 3:
+        survival = random.randrange(1, 70)
+        if survival > 10:
+            slow_type("You make it back home, you are so glad to be out of there.")
+
+        else:
+            slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
+journey back. You were so close.""")
+
+    elif probability_survival == 4:
+        survival = random.randrange(1, 55)
+        if survival > 10:
+            slow_type("You make it back home, you are so glad to be out of there.")
+
+        else:
+            slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
+journey back. You were so close.""")
+
+    elif probability_survival == 5:
+        survival = random.randrange(1, 40)
+        if survival > 10:
+            slow_type("You make it back home, you are so glad to be out of there.")
+    
+        else:
+            slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
+journey back. You were so close.""")
+
+    elif probability_survival == 6:
+        survival = random.randrange(1, 25)
+        if survival > 10:
+            slow_type("You make it back home, you are so glad to be out of there.")
+
+        else:
+            slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
+journey back. You were so close.""")
+
+    elif probability_survival == 7:
+        survival = random.randrange(1, 15)
+        if survival > 10:
+            slow_type("You make it back home, you are so glad to be out of there.")
+
+        else:
+            slow_type("""How you ever thought you'd get back without any supplies genuinely shocking, it's unclear 
+whether it was the weather, the kraken hidden beneath the lake or starvation that got you.""")
 
 
 print("")  # blank print for formatting
