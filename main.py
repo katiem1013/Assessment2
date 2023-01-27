@@ -210,7 +210,8 @@ Basic commands:
 - inventory to open your inventory.
 - map to see your map.
 
-If no directions are mentioned it is likely you can only go back the way you came.
+If no directions are mentioned it is likely you can only go back the way you came. If you are feeling stuck: back 
+track, you might not have looked at something as carefully as you should have.
 \n \033[0;39m \n"""  # \033[0;39m \n turns it back to white
 
 
