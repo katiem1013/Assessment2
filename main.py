@@ -121,7 +121,8 @@ grave, from what you can tell, has been dug up again and again though you are no
 
 outside_9_building_description = """At the end of the path there is a building. The walls and roof are half missing, 
 windows all smashed in. The door swings side to side with a quiet creak with each swish of the wind. You cannot tell 
-what is inside but the outside has clearly succumbed to the elements over the years. 
+what is inside but the outside has clearly succumbed to the elements over the years. Against the side of the building 
+there is shovel leaning on it. 
 """
 
 outside_10_description = """The area you enter is pretty empty, bushes and trees surrounding the bend in the path. You 
