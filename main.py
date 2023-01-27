@@ -9,7 +9,7 @@ weapon_damage = {"knife": 25, "shovel": 35, "crowbar": 30, "ore": 20}
 player_health = 150  # player health
 got_map = False  # has map
 
-typing_speed = 10000  # amount of words per minute
+typing_speed = 10000  # amount of letters per minute
 
 
 def slow_type(text):  # defining text typing out slowly
@@ -34,7 +34,7 @@ enemy_3 = Enemy(150, "Karkinos", "Claws", random.randrange(10, 30))
 
 # variables for outside the house
 glove_box_opened = False
-boat_unlocked = True
+boat_unlocked = False
 boat_code = "dtbcbv"
 grave_dug = False
 check = any(item in inventory for item in weapons_available)
@@ -81,25 +81,26 @@ Almost."""
 
 outside_2_shack_description = """The outside of the shack is as run down as the inside. The wood is all mismatched and 
 half broken from repairs over the year. The basement you were in is not what you would think was inside. The complete
-contrast makes the whole building creepier. You really should get out of here."""
+contrast makes the whole building creepier. You really should get out of here, the only way you can go is 
+\033[1;92mNorth\033[0;39m."""
 
 outside_3_description_with_enemy = """Up ahead the dirt path splits into two. If you continued forward you can see the 
-end but to the right you can't quite see due to the trees blocking it. Theres a... monster, or maybe a rabid animal, or
-something up ahead. It looks not quite human and  not quite animal and not quite right either. You remember a monster 
-from a book you read as a kid... it sort of looks like a Bugbear"""
+end but \033[1;92mWest\033[0;39m you can't quite see due to the trees blocking it. Theres a... monster, or maybe a rabid 
+animal, or something up ahead. It looks not quite human and  not quite animal and not quite right either. You remember a 
+monster from a book you read as a kid... it sort of looks like a Bugbear"""
 
 outside_3_description_without_enemy = """Up ahead the dirt path splits into two. If you continued forward you can see 
-the end but to the right you can't quite see due to the trees blocking it. The body of the monster is crumpled at the 
-end of the path."""
+the end but to the \033[1;92mWest\033[0;39m you can't quite see due to the trees blocking it. The body of the monster is 
+crumpled at the end of the path."""
 
 outside_4_description = """An outhouse sits at the end of the path. As run down as the shack, much smaller too. The door 
 is half hanging off so you can see the hole in the ground and can tell that it's supposed to be a toilet. You would not 
 use bit if your life depended on it."""
 
-outside_5_description = """The path continues on to the north but to the south there is a dirt path that heads off into 
-the trees. The gap isn’t big enough for you to see through it but big enough for you to walk through. There are some 
-bushes on the outskirts of the trees, there is a weird gap in one of the bushes. Almost as if something, maybe a 
-squirrel, has been in it. 
+outside_5_description = """The path continues on to the \033[1;92mNorth\033[0;39m but to the \033[1;92mSouth\033[0;39m 
+there is a dirt path that heads off into the trees. The gap isn’t big enough for you to see through it but big enough 
+for you to walk through. There are some bushes on the outskirts of the trees, there is a weird gap in one of the bushes.
+Almost as if something, maybe a squirrel, has been in it. 
 """
 
 outside_6_crossroads_description = """You come to a crossroad, you can't quite tell where each place goes apart from the 
@@ -119,14 +120,15 @@ grave, from what you can tell, has been dug up again and again though you are no
 """
 
 outside_9_building_description = """At the end of the path there is a building. The walls and roof are half missing, 
-windows all smashed in. The door swings side to side with a quiet creek with each swish of the wind. You cannot tell 
+windows all smashed in. The door swings side to side with a quiet creak with each swish of the wind. You cannot tell 
 what is inside but the outside has clearly succumbed to the elements over the years. 
 """
 
 outside_10_description = """The area you enter is pretty empty, bushes and trees surrounding the bend in the path. You 
 look around, there are wooden planks buried in the dirt that act as stairs to combat the slope of the ground. One of the
 planks juts out of the ground unnaturally, it's thinner than the rest and you almost trip when you try to step on it. 
-You are glad that you don't because you're pretty sure that there is a patch of stinging nettles next to it."""
+You are glad that you don't because you're pretty sure that there is a patch of stinging nettles next to it.
+You can only go to the \033[1;92mWest\033[0;39m and \033[1;92mSouth\033[0;39m without running into the trees."""
 
 outside_11_split_path_description = """You come to a split in the path. One way goes to the \033[1;92mSouth\033[0;39m
 one to the \033[1;92mEast\033[0;39m and the final way goes down to the \033[1;92mNorth\033[0;39m. As most places you've
@@ -161,7 +163,7 @@ asleep.
 # \033[1;92m turns the text green \033[0;39m turns it back.
 starting_room_description = """The room is dim but you can make out a door on each wall that lead to different rooms.
 There are no windows. To the\033[1;92m South\033[0;39m is the kitchen, if the counters and fridge you can see are 
-anything to go off of. The door to the\033[1;92m East\033[0;39m is a cupboard, and the\033[1;92m west\033[0;39m is the 
+anything to go off of. There is a door to the\033[1;92m East\033[0;39m, and to the\033[1;92m west\033[0;39m is the 
 bathroom.The door to the\033[1;92m North\033[0;39m seems to be the main door, there is a padlock keeping it locked shut. 
 You are on the bed, it is perfectly made apart from where you've moved it as you got up. There are two
 bedside tables, one contains a lamp both have draws that are currently shut."""
@@ -174,7 +176,7 @@ need to stand on a chair in order to see through it.
 """
 
 bathroom_description = """The room is barely big enough for two people and contains a shower, toilet and sink sit within
-the room. In the top right corner on the wall with the door there is vent. On the sink there is pot with four 
+the room. In the top right corner on the wall with the door there is a vent. On the sink there is pot with four 
 toothbrushes. They seem to be brand new. The mat on the floor also looks to be brand new. 
 """
 
@@ -199,13 +201,16 @@ dusty. You cannot see anything else in the room."""
 # basic help guide of commands that can be written
 # /033[0;31m and /n make the text appear red
 help_guide = """\033[1;31m
-- Basic commands: 
+Basic commands: 
 - 'north', 'south', 'east', 'west' to move around the rooms. 
-- use [item] to use something.
-- examine [object] to get a closer look.
+- use [item] to use something. This can be used instead of pick up or move.
+- examine [object] to get a closer look. Almost everything can be examined.
 - enter [place] to enter places. most places will use direction to enter however this is also used in specific cases.
 - inventory to open your inventory.
-- map to see your map.\n \033[0;39m \n"""  # \033[0;39m \n turns it back to white
+- map to see your map.
+
+If no directions are mentioned it is likely you can only go back the way you came.
+\n \033[0;39m \n"""  # \033[0;39m \n turns it back to white
 
 
 # the point in scenes the player will go back to when an action is completed
@@ -225,11 +230,11 @@ def starting_room_scene():  # defining the point in which players return to afte
     while True:
 
         print("")  # blank print for formatting
-        starting_room_options = input("what would you like to do? ").lower()  # gets the players input
+        starting_room_options = input("What would you like to do? ").lower()  # gets the players input
         # . lower() changes anything entered to lowercase
         print("")  # blank print for formatting
 
-        if starting_room_options == "east":  # if south is entered it will carry out these functions:
+        if starting_room_options == "east":  # if east is entered it will carry out these functions:
             cupboard_scene()  # starts the cupboard scene
 
         elif starting_room_options == "south":  # if south is entered it will carry out these functions:
@@ -357,19 +362,19 @@ def kitchen_scene():
     while True:
 
         print("")  # blank print for formatting
-        kitchen_options = input("what would you like to do? ").lower()  # gets the players input
+        kitchen_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if kitchen_options == "north":  # if south is entered it will carry out these functions:
+        if kitchen_options == "north":  # if north is entered it will carry out these functions:
             starting_room_scene()  # will return the player to the starting room
 
         elif kitchen_options == "east":  # if east is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
 
-        elif kitchen_options == "south":  # if west is entered it will carry out these functions:
+        elif kitchen_options == "south":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
 
-        elif kitchen_options == "west":  # if south is entered it will carry out these functions:
+        elif kitchen_options == "west":  # if west is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
 
         elif box is False and kitchen_options == "examine box":  # checks if the box has been opened
@@ -457,19 +462,19 @@ def bathroom_scene():
     while True:
 
         print("")  # blank print for formatting
-        bathroom_options = input("what would you like to do? ").lower()  # gets the players input
+        bathroom_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if bathroom_options == "north":  # if south is entered it will carry out these functions:
+        if bathroom_options == "north":  # if north is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
 
         elif bathroom_options == "east":  # if east is entered it will carry out these functions:
             starting_room_scene()  # will return the player to the starting room
 
-        elif bathroom_options == "south":  # if west is entered it will carry out these functions:
+        elif bathroom_options == "south":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
 
-        elif bathroom_options == "west":  # if south is entered it will carry out these functions:
+        elif bathroom_options == "west":  # if west is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
 
         elif bathroom_options == "examine shower":  # if examine shower is entered it will carry out these functions:
@@ -499,9 +504,9 @@ from use. It's bone dry, well dead bone dry, alive bones are actually wet. You d
 it looks as though there is something underneath.""")  # displays the description
 
         # if examine use mat or move mat is entered will carry out these functions:
-        elif bathroom_options == "use mat" or bathroom_options == "move mat":
-            slow_type("""when you move the mat theres a safe underneath, you aren't sure what the code is but theres 
-tree notes on the bottom of the mat it read:""")  # displays the description
+        elif bathroom_options == "use mat" or bathroom_options == "move mat" or bathroom_options == "pick up mat":
+            slow_type("""When you move the mat theres a safe underneath, you aren't sure what the code is but theres 
+a note on the bottom of the mat it read:""")  # displays the description
 
             if safe_opened is False:  # if safe has not been opened carry out these functions:
                 global safe_code  # declares the global safe code variable within this scene
@@ -513,14 +518,19 @@ tree notes on the bottom of the mat it read:""")  # displays the description
 
                     # while the number of successful attempts is less than three the code will repeat
                     while codes_cracked < len(safe_code):
+                        print("")  # blank print for formatting
                         # tells the player what to do
-                        slow_type("you must enter a pair of numbers that divide to %d." % code)
+                        slow_type("You must enter a pair of numbers that divide to %d." % code)
                         try:  # catches errors, instead of stopping the code it reruns
-                            player_number_1 = float(input("Enter number: "))  # asking the player to enter a number
-                            player_number_2 = float(input("Enter number: "))  # asking the player to enter a number
+                            print("")  # blank print for formatting
+                            player_number_1 = float(input("Enter 1st number: "))  # asking the player to enter a number
+                            print("")  # blank print for formatting
+                            player_number_2 = float(input("Enter 2nd number: "))  # asking the player to enter a number
+                            print("")  # blank print for formatting
                             result = player_number_1 // player_number_2  # divides the numbers given
                             if result == code:  # if the result is the same as the code these functions will happen:
                                 slow_type("Correct.")  # confirms the guess was correct
+                                print("")  # blank print for formatting
                                 codes_cracked += 1  # adds 1 to the amount of successful attempts
 
                         except ValueError:  # if the player enters anything but a number these functions will happen:
@@ -548,12 +558,12 @@ what does that mean?
 
         elif "stool" in inventory and (bathroom_options == "use stool" or bathroom_options == "stand on stool"):
             slow_type("""You stand on the stool, there isn't much else to see apart from what you could 
-    already see but you can now reach the vent.""")
+already see but you can now reach the vent.""")
             bathroom_stool_scene()  # goes back to the beginning of the scene
 
         elif stool_in_bathroom is True and (bathroom_options == "use stool" or bathroom_options == "stand on stool"):
             slow_type("""You stand on the stool, there isn't much else to see apart from what you could 
-    already see but you can now reach the vent.""")
+already see but you can now reach the vent.""")
             bathroom_stool_scene()  # goes back to the beginning of the scene
 
         elif "stool" not in inventory and (bathroom_options == "use stool" or bathroom_options == "stand on stool"):
@@ -587,7 +597,7 @@ def bathroom_stool_scene():  # the scene for the bathroom but the player is stoo
     while True:
 
         print("")  # blank print for formatting
-        stool_options = input("what would you like to do?").lower()  # gets the players input
+        stool_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         # if use screwdriver is entered and it is in the inventory it will carry out these functions:
@@ -613,17 +623,16 @@ weird.""")  # displays the description
             open_vent = input("The vent is screwed shut, what would you like to use to open it? ").lower()
             if open_vent == "screwdriver" and "screwdriver" in inventory:
                 slow_type("You unscrew the vent")  # displays the description
-                bathroom_stool_scene()  # goes back to the beginning of the scene
 
         # if open vent is entered, and it has been opened it will carry out these functions:
         elif stool_options == "open vent" and vent_opened is True:
             slow_type("The vent is already open.")  # displays the description
-            bathroom_stool_scene()  # goes back to the beginning of the scene
 
         elif stool_options == "get off stool":  # if 'get off stool' is entered it will carry out these functions:
             slow_type("""You step off of the stool. It wobbles as you do causing you to almost fall, you're glad no one 
 was here to see that. You leave the stool here.""")  # displays the description
             inventory.remove("stool")  # removes the stool from the inventory
+            bathroom_scene()
 
         elif stool_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -656,7 +665,7 @@ def cupboard_scene():  # defining the point in which players return to after com
     while True:
 
         print("")  # blank print for formatting
-        cupboard_options = input("what would you like to do? ").lower()  # gets the players input
+        cupboard_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if cupboard_options == "north":  # if south is entered it will carry out these functions:
@@ -855,7 +864,7 @@ def outside_1_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_1_options = input("what would you like to do? ").lower()  # gets the players input
+        outside_1_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if enemy_1.health >= 1:
@@ -983,7 +992,7 @@ it out. Blood squirts across you as it does, it gets in your eye.
 
 When you manage to get the blood out you finally look at what's in you hand. A steering wheel. Huh. That's weird.
 
-You tak it with you.""")
+You take it with you.""")
                 inventory.append("steering wheel")
 
             elif monster == "no":
@@ -1040,7 +1049,7 @@ def outside_2_shack_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_2_shack_options = input("what would you like to do? ").lower()  # gets the players input
+        outside_2_shack_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_2_shack_options == "north":  # if south is entered it will carry out these functions:
@@ -1138,7 +1147,7 @@ def outside_3_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_3_options = input("what would you like to do? ").lower()  # gets the players input
+        outside_3_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if enemy_2.health >= 1:
@@ -1312,7 +1321,7 @@ def outside_4_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_4_options = input("what would you like to do? ").lower()  # gets the players input
+        outside_4_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_4_options == "north":  # if south is entered it will carry out these functions:
@@ -1390,7 +1399,7 @@ def outside_5_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_5_options = input("what would you like to do? ").lower()  # gets the players input
+        outside_5_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_5_options == "north":  # if south is entered it will carry out these functions:
@@ -1469,7 +1478,7 @@ def outside_6_crossroads_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_6_options = input("what would you like to do? ").lower()  # gets the players input
+        outside_6_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_6_options == "north":  # if north is entered it will carry out these functions:
@@ -1507,7 +1516,7 @@ the radio is off. There are CDs in the door pockets, whoever owns this car has t
 
             while True:
                 print("")  # blank print for formatting
-                car_options = input("what would you like to do? ").lower()  # gets the players input
+                car_options = input("What would you like to do? ").lower()  # gets the players input
                 print("")  # blank print for formatting
 
                 if car_options == "exit car":
@@ -1586,7 +1595,7 @@ def outside_7_t_junction_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_7_options = input("what would you like to do? ").lower()  # gets the players input
+        outside_7_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_7_options == "north":  # if south is entered it will carry out these functions:
@@ -1641,7 +1650,7 @@ def outside_8_graveyard_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_8_options = input("what would you like to do? ").lower()  # gets the players input
+        outside_8_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_8_options == "north":  # if north is entered it will carry out these functions:
@@ -1740,7 +1749,7 @@ def outside_9_building_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_9_options = input("what would you like to do? ").lower()  # gets the players input
+        outside_9_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_9_options == "north":  # if south is entered it will carry out these functions:
@@ -1846,7 +1855,7 @@ def outside_10_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_10_options = input("what would you like to do? ").lower()  # gets the players input
+        outside_10_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_10_options == "north":  # if north is entered it will carry out these functions:
@@ -1937,7 +1946,7 @@ def outside_11_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_11_options = input("what would you like to do? ").lower()  # gets the players input
+        outside_11_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if outside_11_options == "north":  # if north is entered it will carry out these functions:
@@ -2005,7 +2014,7 @@ def outside_12_scene():
     while True:
 
         print("")  # blank print for formatting
-        outside_12_options = input("what would you like to do? ").lower()  # gets the players input
+        outside_12_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if enemy_3.health >= 1:
@@ -2179,7 +2188,7 @@ def lake_scene():
     while True:
 
         print("")  # blank print for formatting
-        lake_options = input("what would you like to do? ").lower()  # gets the players input
+        lake_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
         if lake_options == "north":  # if south is entered it will carry out these functions:
@@ -2291,8 +2300,8 @@ def ending():
 
     slow_type("""It's a bit touch and go in the beginning. Trying to get the boat off the beach and into the water is 
 difficult but you manage it. Once it's on the lake it's rocky and still better than the basement. You glance back at the 
-beach to find a figure stood there staring right at you. Even without being able to make out any features it looks very
-angry. You are too far away for it to do anything. You're glad for it.
+beach to find a figure stood on the shore staring right at you. Even without being able to make out any features it 
+looks very angry. You blink and it's gone. You are too far away for it to do anything. You're glad for it.
 
 ...
 
@@ -2380,5 +2389,7 @@ whether it was the weather, the kraken hidden beneath the lake or starvation tha
 
 
 print("")  # blank print for formatting
-slow_type(opening_text)  # displays the opening text which is defined earlier
-starting_room_scene()  # starts the starting scene
+#slow_type(opening_text)  # displays the opening text which is defined earlier
+#starting_room_scene()  # starts the starting scene
+
+bathroom_scene()
