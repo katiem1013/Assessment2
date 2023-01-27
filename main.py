@@ -2390,7 +2390,5 @@ whether it was the weather, the kraken hidden beneath the lake or starvation tha
 
 
 print("")  # blank print for formatting
-#slow_type(opening_text)  # displays the opening text which is defined earlier
-#starting_room_scene()  # starts the starting scene
-
-bathroom_scene()
+slow_type(opening_text)  # displays the opening text which is defined earlier
+starting_room_scene()  # starts the starting scene
