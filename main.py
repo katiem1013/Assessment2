@@ -901,7 +901,7 @@ You really don't want to die right now.""")  # displays the description
 
                     print("")  # blank print for formatting
                     usr = input("What would you like to use: ").lower()  # gets the players input
-                    print("") # blank print for formatting
+                    print("")  # blank print for formatting
                     usr_words = usr.split(" ")  # list
                     enemy_attack = random.randrange(1, 4)  # random chance for if the enemy attacks
 
