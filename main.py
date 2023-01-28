@@ -28,6 +28,7 @@ class Enemy:
         self.attack = attack
 
 
+# sets up the three enemies health, name, weapon and attack
 enemy_1 = Enemy(100, "Monster", "Fangs", random.randrange(10, 30))
 enemy_2 = Enemy(100, "Bugbear", "Tree Log", random.randrange(10, 30))
 enemy_3 = Enemy(150, "Karkinos", "Claws", random.randrange(10, 30))
@@ -218,7 +219,7 @@ track, you might not have looked at something as carefully as you should have.
 # the point in scenes the player will go back to when an action is completed
 # in order to stop them from having to read the descriptions each time
 # all of theses are for inside the house
-def starting_room_scene():  # defining the point in which players return to after completing an action
+def starting_room_scene():
 
     print("")  # blank print for formatting
     slow_type(starting_room_description)  # displays the starting room description
@@ -229,7 +230,7 @@ def starting_room_scene():  # defining the point in which players return to afte
     global door_locked  # declares the global door locked variable within this scene
     global got_map  # declares the map in the scene
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         starting_room_options = input("What would you like to do? ").lower()  # gets the players input
@@ -247,31 +248,32 @@ def starting_room_scene():  # defining the point in which players return to afte
 
         # if north is entered and the door is locked it will carry out these functions:
         elif starting_room_options == "north" and door_locked is True:
-            if "key" in inventory:
+            if "key" in inventory:  # if the key is in inventory it will carry out these functions:
+                # displays the description:
                 slow_type("The door is padlocked shut, you pull at the handle. It doesn't move.You have a key on you")
                 print("")  # blank print for formatting
 
-                while True:  # will happen while
+                while True:  # will loop these interactions until the loop is broken
                     print("")  # blank print for formatting
                     key = input("would you like to use it? ").lower()  # gets the players input
                     print("")  # blank print for formatting
 
-                    if key == "yes":
+                    if key == "yes":  # if yes is entered it will carry out these functions:
                         # displays the description:
                         slow_type("The lock clicks open and you are able to pull it off and open the door.")
-                        inventory.remove("key")
-                        door_locked = False
-                        break
+                        inventory.remove("key")  # removes key from inventory
+                        door_locked = False  # sets door locked to false
+                        break  # breaks the while True loop
 
-                    elif key == "no":
+                    elif key == "no":  # if no is entered it will carry out these functions:
                         slow_type("The lock stays locked.")  # displays the description
-                        break
+                        break  # breaks the while True loop
 
                     else:  # if no other option is fitting it will carry out these functions:
                         # asking the player to reenter
                         print("I do not understand, type help for general instructions.")
 
-            else:
+            else:  # if no other option is fitting it will carry out these functions::
                 # displays the description:
                 slow_type("The door is padlocked shut, you pull at the handle. It doesn't move.")
 
@@ -317,23 +319,25 @@ into your pocket and shut the draws.""")  # displays the description
                 flashlight_with_batteries = True  # sets the flashlight with batteries variable as true
 
             else:  # if no other option is fitting it will carry out these functions:
-                print("")
+                print("")  # blank print so nothing happens
 
         # if the beside draw has been opened it will carry out these functions:
         elif (starting_room_options == "use draw" or starting_room_options == "open draw") and bedside_draw is True:
             slow_type("when you open the draws they are both empty.")  # displays the description
 
+        # if use key is entered and key is in inventory:
         elif starting_room_options == "use key" and "key" in inventory:
             print("")  # blank print for formatting
             key = input("what would you like to use it on? ").lower()  # gets the players input
             print("")  # blank print for formatting
 
-            if key == "door":
+            if key == "door":  # if door is enter it will carry out these functions:
+                # displays the description:
                 slow_type("The lock clicks open and you are able to pull it off and open the door.")
-                inventory.remove("key")
+                inventory.remove("key")  # removes key from inventory
 
-            else:
-                print("You can not use the key there.")
+            else:  # if no other option is fitting it will carry out these functions::
+                print("You can not use the key there.")  # informs the player they cannot use the key there
 
         elif starting_room_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays the help guide
@@ -361,7 +365,7 @@ def kitchen_scene():
     global box  # declares the global box variable within this scene
     global got_map  # declares the map in the scene
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         kitchen_options = input("What would you like to do? ").lower()  # gets the players input
@@ -461,7 +465,7 @@ def bathroom_scene():
     global stool_in_bathroom  # declares the global stool in bathroom variable within this scene
     global got_map  # declares the map in the scene
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         bathroom_options = input("What would you like to do? ").lower()  # gets the players input
@@ -558,18 +562,21 @@ what does that mean?
             else:  # if no other option is fitting it will carry out these functions:
                 print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
+        # if stool is in inventory and use stool or stand on is enter it will carry out these functions:
         elif "stool" in inventory and (bathroom_options == "use stool" or bathroom_options == "stand on stool"):
             slow_type("""You stand on the stool, there isn't much else to see apart from what you could 
-already see but you can now reach the vent.""")
+already see but you can now reach the vent.""")  # displays the description
             bathroom_stool_scene()  # goes back to the beginning of the scene
 
+        # if stool in bathroom is true and use stool or stand on is enter it will carry out these functions:
         elif stool_in_bathroom is True and (bathroom_options == "use stool" or bathroom_options == "stand on stool"):
             slow_type("""You stand on the stool, there isn't much else to see apart from what you could 
-already see but you can now reach the vent.""")
+already see but you can now reach the vent.""")  # displays the description
             bathroom_stool_scene()  # goes back to the beginning of the scene
 
+        # if stool is not in inventory and use stool or stand on is enter it will carry out these functions:
         elif "stool" not in inventory and (bathroom_options == "use stool" or bathroom_options == "stand on stool"):
-            slow_type("You do not have a stool.")
+            slow_type("You do not have a stool.")  # displays the description
 
         elif bathroom_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -596,7 +603,7 @@ def bathroom_stool_scene():  # the scene for the bathroom but the player is stoo
     global got_map  # declares the map in the scene
     stool_in_bathroom = True  # sets the stool in bathroom variable as true
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         stool_options = input("What would you like to do? ").lower()  # gets the players input
@@ -623,6 +630,7 @@ weird.""")  # displays the description
         elif stool_options == "open vent" and vent_opened is False:
             # gets the players input
             open_vent = input("The vent is screwed shut, what would you like to use to open it? ").lower()
+            # if screwdriver is enter and it is in inventory it will carry out these functions:
             if open_vent == "screwdriver" and "screwdriver" in inventory:
                 slow_type("You unscrew the vent")  # displays the description
 
@@ -634,7 +642,7 @@ weird.""")  # displays the description
             slow_type("""You step off of the stool. It wobbles as you do causing you to almost fall, you're glad no one 
 was here to see that. You leave the stool here.""")  # displays the description
             inventory.remove("stool")  # removes the stool from the inventory
-            bathroom_scene()
+            bathroom_scene()  # starts the bathroom scene
 
         elif stool_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -655,7 +663,7 @@ was here to see that. You leave the stool here.""")  # displays the description
             slow_type("Perhaps try 'get off stool' if you are really stuck")  # giving a hint to get off the stool
 
 
-def cupboard_scene():  # defining the point in which players return to after completing an action
+def cupboard_scene():
 
     print("")  # blank print for formatting
     slow_type(cupboard_description)  # displays the cupboard description
@@ -664,19 +672,19 @@ def cupboard_scene():  # defining the point in which players return to after com
     global flashlight_with_batteries  # declares the global flashlight with batteries variable within this scene
     global got_map  # declares the map in the scene
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         cupboard_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if cupboard_options == "north":  # if south is entered it will carry out these functions:
+        if cupboard_options == "north":  # if north is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
 
         elif cupboard_options == "east":  # if east is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
 
-        elif cupboard_options == "south":  # if west is entered it will carry out these functions:
+        elif cupboard_options == "south":  # if south is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
 
         elif cupboard_options == "west":  # if west is entered it will carry out these functions:
@@ -703,7 +711,7 @@ pocket, you're glad you are wearing mens clothes so that this can fit.""")  # di
                 flashlight_with_batteries = True  # sets the flashlight with batteries variable as true
 
             else:  # if no other option is fitting it will carry out these functions:
-                print("")
+                print("")  # blank print for formatting
 
         elif cupboard_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -732,16 +740,16 @@ def upstairs_scene():
     slow_type(upstairs_description)  # displays the upstairs description
     print("")  # blank print for formatting
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         upstairs_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if upstairs_options == "north":  # if south is entered it will carry out these functions:
+        if upstairs_options == "north":  # if north is entered it will carry out these functions:
             slow_type("""You reach for the handle, take a deep breath and hope you know where you are when you leave. 
-You've never been particularly lucky though.""")
-            outside_2_shack_scene()
+You've never been particularly lucky though.""")  # displays the description
+            outside_2_shack_scene()  # starts the outside 2 scene
 
         elif upstairs_options == "east":  # if east is entered it will carry out these functions:
             print("You cannot go that way.")  # lets the player know there is no path there
@@ -760,7 +768,7 @@ could do some damage. """)  # displays the description
             crowbar = input("Would you like to take it with you? ")  # gets the players input
             if crowbar == "yes":  # if yes is entered it will carry out these functions:
                 inventory.append("crowbar")  # adds crowbar to inventory
-                slow_type("You take the crowbar and hang it on your belt.")
+                slow_type("You take the crowbar and hang it on your belt.")  # displays the description
 
             elif crowbar == "no":  # if no is entered it will carry out these functions:
                 slow_type("You put the crowbar back where you found it.")  # displays the description
@@ -768,26 +776,35 @@ could do some damage. """)  # displays the description
             else:  # if no other option is fitting it will carry out these functions:
                 print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
+        # if examine crowbar is entered and crowbar is in inventory it will carry out these functions:
         elif upstairs_options == "examine crowbar" and "crowbar" in inventory:
             print("You already have the crowbar")  # displays the description
 
+        # if examine campfire is entered and campfire lighted is False it will carry out these functions:
         elif upstairs_options == "examine campfire" and campfire_lighted is False:
             slow_type("""The campfire, upon further inspection, has been lit somewhat recently. You hover your hand over 
-it and it feels warm. You looked around, theres still no one here. Weird.""")
+it and it feels warm. You looked around, theres still no one here. Weird.""")  # displays the description
 
+        # if examine fireplace is entered and fireplace lighted is False it will carry out these functions:
         elif upstairs_options == "examine fireplace" and fireplace_lighted is False:
+            # displays the description
             slow_type("""The fireplace hasn't been lit for a while. The ash has long gone cold, enough for you to be 
 able to touch it without an issue. You recon theres probably something around here that you could use to light it.""")
 
+        # if examine campfire is entered and campfire lighted is True it will carry out these functions:
         elif upstairs_description == "examine campfire" and campfire_lighted is True:
+            # displays the description
             slow_type("The campfire has been lighted recently, though unlike before you know who did it.")
 
+        # if examine fireplace is entered and fireplace lighted is True it will carry out these functions:
         elif upstairs_options == "examine fireplace" and fireplace_lighted is True:
+            # displays the description
             slow_type("The fireplace is warm still, and the soot still reads: dtbcbv on the back wall.")
 
+        # if use lighter is entered and lighter is in inventory it will carry out these functions:
         elif upstairs_options == "use lighter" and "lighter" in inventory:
-            lighter = input("What would you like to use it on?")
-            if lighter == "fireplace":
+            lighter = input("What would you like to use it on?")  # gets the players input
+            if lighter == "fireplace":  # if fireplace is enter it will carry out these functions:
                 slow_type("""You reach into the arch of the fireplace with lighter in your hand. It takes a few tries 
 but eventually the flame flickers to a start. You hold it to the kindling until it catches and relish in the warmth. You 
 sit for a few minutes despite the urgency of your situation. 
@@ -798,19 +815,22 @@ almost think nothing of it but you see letters start to form where the soot does
 
 dtbcbv
 
-You wonder what that means as you stamp the fire out.""")
-                fireplace_lighted = True
+You wonder what that means as you stamp the fire out.""")  # displays the description
+                fireplace_lighted = True  # changes fireplace lighted to True
 
-            elif lighter == "campfire":
+            elif lighter == "campfire":  # if campfire is enter it will carry out these functions:
+                # displays the description
                 slow_type("You light the campfire it warms you for a minute before it goes out again.")
-                campfire_lighted = True
+                campfire_lighted = True  # changes campfire lighted to True
 
-            else:
-                print("You can not use it on that.")
+            else:  # if no other option is fitting it will carry out these functions:
+                print("You can not use it on that.")  # displays the description
 
+        # if use lighter is entered and lighter is not in inventory it will carry out these functions:
         elif upstairs_options == "use lighter" and "lighter" not in inventory:
-            print("You do not have a lighter.")
+            print("You do not have a lighter.")  # displays the description
 
+        # if examine books or bookshelf is entered it will carry out these functions:
         elif upstairs_options == "examine books" or upstairs_options == "examine bookshelf":
             slow_type("""The books and the shelves they are on are dusty. Books worn from age and spillages, stained 
 pages make they words on the pages hard to read when you flip through it. You make out what you can:
@@ -820,7 +840,7 @@ The forest..... unsafe......monsters.... get out........stay away..... trees....
 
 
  You slam the book shut and shove it hastily back onto the shelf. You should leave.
- """)
+ """)  # displays the description
 
         elif upstairs_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -860,113 +880,123 @@ def outside_1_scene():
         slow_type(outside_1_description_without_enemy)  # displays the outside description without the enemy
         print("")  # blank print for formatting
 
-    else:
+    else:  # if no other option is fitting it will carry out these functions:
         print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         outside_1_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if enemy_1.health >= 1:
+        if enemy_1.health >= 1:  # checks the enemy is alive
             slow_type("""Before you can even attempt to move the monster bares it's yellowing fangs at you, deep
 growl once again rattling through your body. Your eyes lock and you know that their is no escaping, you have to either 
 fight it or die. 
 
-You really don't want to die right now.""")
+You really don't want to die right now.""")  # displays the description
 
-            while True:
-                if enemy_1.health >= 1:
+            while True:  # will loop these interactions until the loop is broken
+                if enemy_1.health >= 1:  # checks the enemy is alive
 
-                    print("")
+                    print("")  # blank print for formatting
                     usr = input("What would you like to use: ").lower()  # gets the players input
-                    print("")
+                    print("") # blank print for formatting
                     usr_words = usr.split(" ")  # list
-                    enemy_attack = random.randrange(1, 4)
+                    enemy_attack = random.randrange(1, 4)  # random chance for if the enemy attacks
 
-                    for weapon in usr_words:
-                        if weapon in inventory:
-                            if weapon == "crowbar":
+                    for weapon in usr_words:  # when player types in a weapon it will loop this
+                        if weapon in inventory:  # makes sure weapon is in inventory
+                            if weapon == "crowbar":  # if player enters crowbar:
+                                # displays the description
                                 print("You lift the crowbar up and smack it down onto the ", enemy_1.name, ".")
-                                enemy_1.health = enemy_1.health - weapon_damage["crowbar"]
-                                if enemy_attack == 3:
-                                    player_health = player_health - enemy_1.attack
+                                enemy_1.health = enemy_1.health - weapon_damage["crowbar"]  # calculates damage
+                                if enemy_attack == 3:  # if enemy attack is 3:
+                                    player_health = player_health - enemy_1.attack  # calculates enemy damage
+                                    # displays the description
                                     print("The monster swings back at you. You have ", player_health, " health.")
-                                    if player_health <= 0:
+                                    if player_health <= 0:  # if player health is equal to or less than 0
+                                        # displays the description
                                         print("You collapse to the ground, you were so close.")
-                                        quit()
+                                        quit()  # exits the game
 
-                            elif weapon == "knife":
+                            elif weapon == "knife":  # if player enters knife:
+                                # displays the description
                                 print("You get close enough to drive your knife into it, it shrieks in pain.")
-                                enemy_1.health = enemy_1.health - weapon_damage["knife"]
-                                if enemy_attack == 3:
-                                    player_health = player_health - enemy_1.attack
+                                enemy_1.health = enemy_1.health - weapon_damage["knife"]  # calculates damage
+                                if enemy_attack == 3:  # if enemy attack is 3:
+                                    player_health = player_health - enemy_1.attack  # calculates enemy damage
+                                    # displays the description
                                     print("The monster swings back at you. You have ", player_health, " health.")
-                                    if player_health <= 0:
+                                    if player_health <= 0:  # if player health is equal to or less than 0
+                                        # displays the description
                                         print("You collapse to the ground, you were so close.")
-                                        quit()
+                                        quit()  # exits the game
 
-                            elif weapon == "shovel":
+                            elif weapon == "shovel":  # if player enters shovel:
+                                # displays the description
                                 print("You lift the shovel into the air and bring it down hard and fast.")
-                                enemy_1.health = enemy_1.health - weapon_damage["shovel"]
-                                if enemy_attack == 3:
-                                    player_health = player_health - enemy_1.attack
+                                enemy_1.health = enemy_1.health - weapon_damage["shovel"]  # calculates damage
+                                if enemy_attack == 3:  # if enemy attack is 3:
+                                    player_health = player_health - enemy_1.attack  # calculates enemy damage
+                                    # displays the description
                                     print("The monster swings back at you. You have ", player_health, " health.")
-                                    if player_health <= 0:
+                                    if player_health <= 0:  # if player health is equal to or less than 0
+                                        # displays the description
                                         print("You collapse to the ground, you were so close.")
-                                        quit()
+                                        quit()  # exits the game
 
-                            elif weapon == "ore":
+                            elif weapon == "ore":  # if player enters ore:
+                                # displays the description
                                 print("You can tell the ore doesn't do much but all the damage you can get helps.")
-                                enemy_1.health = enemy_1.health - weapon_damage["ore"]
-                                if enemy_attack == 3:
-                                    player_health = player_health - enemy_1.attack
+                                enemy_1.health = enemy_1.health - weapon_damage["ore"]  # calculates damage
+                                if enemy_attack == 3:  # if enemy attack is 3:
+                                    player_health = player_health - enemy_1.attack  # calculates enemy damage
                                     print("The monster swings back at you. You have ", player_health, " health.")
-                                    if player_health <= 0:
+                                    if player_health <= 0:  # if player health is equal to or less than 0
+                                        # displays the description
                                         print("You collapse to the ground, you were so close.")
-                                        quit()
+                                        quit()  # exits the game
 
+                            # if player enters bandages and health is lower than 150
                             elif weapon == "bandages" and player_health < 150:
+                                # displays the description
                                 print("You pull the bandages out of you bag and carefully wrap your wounds.")
-                                player_health = player_health + 50
-                                if player_health > 150:
-                                    player_health = 150
-                                    print(player_health)
-                                    amount_of_bandages = amount_of_bandages - 1
-                                    if player_health <= 0:
-                                        print("You collapse to the ground, you were so close.")
-                                        quit()
+                                player_health = player_health + 50  # calculates health
+                                amount_of_bandages = amount_of_bandages - 1  # removes 1 bandage
+                                if player_health > 150:  # if the player health goes over 150:
+                                    player_health = 150  # sets health back to 150
 
-                            elif weapon == "bandages" and player_health == 150 and amount_of_bandages > 0:
-                                print("You are not injured.")
+                            # players enter bandages and their health is 150:
+                            elif weapon == "bandages" and player_health:
+                                print("You are not injured.")  # displays the description
 
                         elif usr == "inventory":  # if inventory is entered ut will carry out these functions:
                             print(inventory)  # displays the inventory guide
 
-                        elif check is False:
-                            print("You have no weapons, you flee before it can get you.")
-                            outside_5_scene()
+                        elif check is False:  # if check is false:
+                            print("You have no weapons, you flee before it can get you.")  # displays the description
+                            outside_5_scene()  # starts scene outside 5
 
-                        elif weapon not in inventory:
-                            print("Please use a weapon you actually have.")
+                        elif weapon not in inventory:  # if weapon is not in inventory.
+                            print("Please use a weapon you actually have.")  # asking the player to reenter
 
                         else:  # if no other option is fitting it will carry out these functions:
                             # asking the player to reenter
                             print("I do not understand, type help for general instructions.")
 
-                elif enemy_1.health <= 0:
-                    print("")
+                elif enemy_1.health <= 0:  # if enemy health is 0 or less
+                    print("")  # blank print for formatting
                     slow_type("""The monster collapses to the ground, an ear piercing screech echos around the trees.
 They sway with the vibrations. You worry that the sound will alert anyone... or anything around that you are here. You
-are glad that you survived.""")
-                    break
+are glad that you survived.""")  # displays the description
+                    break  # breaks the while True loop
 
                 else:  # if no other option is fitting it will carry out these functions:
                     print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
-        elif outside_1_options == "north":  # if south is entered it will carry out these functions:
-            outside_5_scene()
+        elif outside_1_options == "north":  # if north is entered it will carry out these functions:
+            outside_5_scene()  # starts scene outside 5
 
         elif outside_1_options == "east":  # if east is entered it will carry out these functions:
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
@@ -977,15 +1007,16 @@ are glad that you survived.""")
         elif outside_1_options == "west":  # if west is entered it will carry out these functions:
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
+        # if enemy health is less than 1 and examine monster is enter and steering wheel is not in inventory
         elif enemy_1.health < 1 and outside_1_options == "examine monster" and "steering wheel" not in inventory:
             slow_type("""Blood pours out of its mouth, eyes open and staring straight into your own. You still can't
 tell quite what it is but monster fits it far too well. You are hesitant but still you want to be sure so you kick it 
 gently, then slightly harder when it doesn't move. You hope you can go home soon. 
 
-As you go to turn away from it something glints in the cracks of its skin.""")
+As you go to turn away from it something glints in the cracks of its skin.""")  # displays the description
             print("")  # blank print for formatting
             monster = input("Would you like to investigate? ").lower()  # gets the players input
-            if monster == "yes":
+            if monster == "yes":  # if yes:
                 slow_type("""You reach towards the corpse of the monster, hands trembling. God, this is so gross but
 it could be important so you suppose you'll have too. It squelches unpleasantly as your hand makes contact, it's fair 
 wetter than you were expecting. After what feels like an entire lifetime but is barely 3 seconds your hand touches
@@ -994,18 +1025,20 @@ it out. Blood squirts across you as it does, it gets in your eye.
 
 When you manage to get the blood out you finally look at what's in you hand. A steering wheel. Huh. That's weird.
 
-You take it with you.""")
-                inventory.append("steering wheel")
+You take it with you.""")  # displays the description
+                inventory.append("steering wheel")  # adds steering to inventory
 
-            elif monster == "no":
-                slow_type("You leave it on the ground.")
+            elif monster == "no":  # if no:
+                slow_type("You leave it on the ground.")  # displays the description
 
             else:  # if no other option is fitting it will carry out these functions:
                 print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
+        # if enemy health is less than 1 and examine monster is enter and steering wheel is in inventory:
         elif enemy_1.health < 1 and outside_1_options == "examine monster" and "steering wheel" in inventory:
-            slow_type("The monster remains on the ground where you left it.")
+            slow_type("The monster remains on the ground where you left it.")  # displays the description
 
+        # if examine path is entered:
         elif outside_1_options == "examine path":
             slow_type("""The path was not made to be here. Years of people walking here over and over and over. There
 are still footprints imprinted in the mud, someone has been coming here. You dread to think why. If someone came and 
@@ -1014,13 +1047,14 @@ saw the beast that lays dead but got away or if they've been here for something 
 Perhaps they were feeding it...
 
 ...
-""")
+""")  # displays the description
 
+        # if examine trees or examine tree is entered it will carry out these functions:
         elif outside_1_options == "examine trees" or outside_1_options == "examine tree":
             slow_type("""You aren't quite sure what time of day it is. Just that it's dark out but you fear the trees 
 are making it worse. They loom over you, unnaturally tall. Maybe they were grown to hide the monster. Maybe theres just
 something wrong with this place. An owl hoots from amongst the branches, a hiss slips into the sound and you fear that 
-it's angry too.""")
+it's angry too.""")  # displays the description
 
         elif outside_1_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1048,22 +1082,22 @@ def outside_2_shack_scene():
     slow_type(outside_2_shack_description)  # displays the outside description
     print("")  # blank print for formatting
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         outside_2_shack_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if outside_2_shack_options == "north":  # if south is entered it will carry out these functions:
-            outside_6_crossroads_scene()
+        if outside_2_shack_options == "north":  # if north is entered it will carry out these functions:
+            outside_6_crossroads_scene()  # starts outside 6 scene
 
         elif outside_2_shack_options == "east":  # if east is entered it will carry out these functions:
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
-        elif outside_2_shack_options == "south":  # if west is entered it will carry out these functions:
+        elif outside_2_shack_options == "south":  # if south is entered it will carry out these functions:
             upstairs_scene()  # lets the player know there is no path there
 
-        elif outside_2_shack_options == "west":  # if south is entered it will carry out these functions:
+        elif outside_2_shack_options == "west":  # if west is entered it will carry out these functions:
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_2_shack_options == "examine shack" and "ore" not in inventory:
@@ -1071,42 +1105,48 @@ def outside_2_shack_scene():
 clear that the wear and tear over the years had gotten too much and the wood slats had been replaced one at a time when
 needed. It's smaller than the basement, windows boarded up and glass missing. The roof looks like it could just slide 
 off if a strong enough wind blows through. You are glad to have gotten out sooner rather than later. Leaning against the
-shack is some type of wooden stick.""")
+shack is some type of wooden stick.""")  # displays the description
             print("")  # blank print for formatting
             ore_1 = input("Would you like to investigate further?").lower()  # gets the players input
-            if ore_1 == "yes":
-                slow_type("When you look closer you realise it's an ore.")
+            if ore_1 == "yes":  # if yes:
+                slow_type("When you look closer you realise it's an ore.")  # displays the description
                 print("")  # blank print for formatting
                 take_ore = input("Would you like to take it with you?").lower()  # gets the players input
-                if take_ore == "yes":
+                if take_ore == "yes":  # if yes:
+                    # displays the description
                     slow_type("You take the ore,  you have no idea how you're going to carry it but you will.")
-                    inventory.append("ore")
+                    inventory.append("ore")  # add ore to inventory
 
-                elif take_ore == "no":
-                    slow_type("You leave it where it is")
+                elif take_ore == "no":  # if no:
+                    slow_type("You leave it where it is")  # displays the description
 
                 else:  # if no other option is fitting it will carry out these functions:
                     print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
-            elif ore_1 == "no":
-                slow_type("The stick stays where it is.")
+            elif ore_1 == "no":  # if no:
+                slow_type("The stick stays where it is.")  # displays the description
 
             else:  # if no other option is fitting it will carry out these functions:
                 print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
+        # if examine shack is entered and ore is in the inventory it will carry out these functions:
         elif outside_2_shack_options == "examine shack" and "ore" in inventory:
+            # displays the description
             slow_type("""The shack is badly put together, there are cracks and holes all over the mismatched wood. It's 
 clear that the wear and tear over the years had gotten too much and the wood slats had been replaced one at a time when
 needed. It's smaller than the basement, windows boarded up and glass missing. The roof looks like it could just slide 
 off if a strong enough wind blows through. You are glad to have gotten out sooner rather than later.""")
 
+        # if examine path is entered it will carry out these functions:
         elif outside_2_shack_options == "examine path":
+            # displays the description
             slow_type("""The path looks like most paths, the gravel crunches underneath your feet. You like the sound 
 but it echos against the quiet of the woods. A cricket chirps. At least you aren't alone.""")
 
+        # if examine trees or examine tree is entered it will carry out these functions:
         elif outside_2_shack_options == "examine trees" or outside_2_shack_options == "examine tree":
             slow_type("""The trees loom over you, branches swaying against the wind, there is something off about them 
-but you can't put your finger on it.""")
+but you can't put your finger on it.""")  # displays the description
 
         elif outside_2_shack_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1146,7 +1186,7 @@ def outside_3_scene():
         slow_type(outside_3_description_without_enemy)  # displays the outside description without the enemy
         print("")  # blank print for formatting
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         outside_3_options = input("What would you like to do? ").lower()  # gets the players input
@@ -1155,96 +1195,108 @@ def outside_3_scene():
         if enemy_2.health >= 1:
             slow_type("""You try to move but the bugbear see you before you can. It roars as it's eyes track every move
 you make. You don't really have a choice on what you have to do now... It's you or it, and you'd really rather it wasn't
-you.""")
+you.""")  # displays the description
 
-            while True:
-                if enemy_2.health >= 1:
+            while True:  # will loop these interactions until the loop is broken
+                if enemy_2.health >= 1:  # if enemy has health:
 
-                    print("")
+                    print("")  # blank print for formatting
                     usr = input("What would you like to use: ").lower()  # gets the players input
-                    print("")
+                    print("")  # blank print for formatting
                     usr_words = usr.split(" ")  # list
-                    enemy_attack = random.randrange(1, 4)
+                    enemy_attack = random.randrange(1, 4)  # random chance for if the enemy attacks
 
-                    for weapon in usr_words:
-                        if weapon in inventory:
-                            if weapon == "crowbar":
+                    for weapon in usr_words:  # when player types in a weapon it will loop this
+                        if weapon in inventory:  # makes sure weapon is in inventory
+                            if weapon == "crowbar":  # if player enters crowbar:
+                                # displays the description
                                 print("You lift the crowbar up and smack it down onto the ", enemy_2.name, ".")
-                                enemy_2.health = enemy_2.health - weapon_damage["crowbar"]
-                                if enemy_attack == 3:
-                                    player_health = player_health - enemy_2.attack
+                                enemy_2.health = enemy_2.health - weapon_damage["crowbar"]  # calculates damage
+                                if enemy_attack == 3:  # if enemy attack is 3:
+                                    player_health = player_health - enemy_2.attack  # calculates enemy damage
+                                    # displays the description
                                     print("The Bugbear swings back at you. You have ", player_health, " health.")
-                                    if player_health <= 0:
+                                    if player_health <= 0:  # if player health is equal to or less than 0
+                                        # displays the description
                                         print("You collapse to the ground, you were so close.")
-                                        quit()
+                                        quit()  # exits the game
 
-                            elif weapon == "knife":
+                            elif weapon == "knife":  # if player enters knife:
+                                # displays the description
                                 print("You get close enough to drive your knife into it, blood pours out of the cut.")
-                                enemy_2.health = enemy_2.health - weapon_damage["knife"]
-                                if enemy_attack == 3:
-                                    player_health = player_health - enemy_2.attack
+                                enemy_2.health = enemy_2.health - weapon_damage["knife"]  # calculates damage
+                                if enemy_attack == 3:  # if enemy attack is 3:
+                                    player_health = player_health - enemy_2.attack  # calculates enemy damage
+                                    # displays the description
                                     print("The Bugbear swings back at you. You have ", player_health, " health.")
-                                    if player_health <= 0:
+                                    if player_health <= 0:  # if player health is equal to or less than 0
+                                        # displays the description
                                         print("You collapse to the ground, you were so close.")
-                                        quit()
+                                        quit()  # exits the game
 
-                            elif weapon == "shovel":
+                            elif weapon == "shovel":  # if player enters shovel:
+                                # displays the description
                                 print("You heave the shovel up and bring it down onto it even faster.")
-                                enemy_2.health = enemy_2.health - weapon_damage["shovel"]
-                                if enemy_attack == 3:
-                                    player_health = player_health - enemy_2.attack
+                                enemy_2.health = enemy_2.health - weapon_damage["shovel"]  # calculates damage
+                                if enemy_attack == 3:  # if enemy attack is 3:
+                                    player_health = player_health - enemy_2.attack  # calculates enemy damage
+                                    # displays the description
                                     print("The Bugbear swings back at you. You have ", player_health, " health.")
-                                    if player_health <= 0:
+                                    if player_health <= 0:  # if player health is equal to or less than 0
+                                        # displays the description
                                         print("You collapse to the ground, you were so close.")
-                                        quit()
+                                        quit()  # exits the game
 
-                            elif weapon == "ore":
+                            elif weapon == "ore":  # if player enters ore:
+                                # displays the description
                                 print("The ore does not do much damage")
-                                enemy_2.health = enemy_2.health - weapon_damage["ore"]
-                                if enemy_attack == 3:
-                                    player_health = player_health - enemy_2.attack
+                                enemy_2.health = enemy_2.health - weapon_damage["ore"]  # calculates damage
+                                if enemy_attack == 3:  # if enemy attack is 3:
+                                    player_health = player_health - enemy_2.attack  # calculates enemy damage
+                                    # displays the description
                                     print("The Bugbear swings back at you. You have ", player_health, " health.")
-                                    if player_health <= 0:
+                                    if player_health <= 0:  # if player health is equal to or less than 0
+                                        # displays the description
                                         print("You collapse to the ground, you were so close.")
-                                        quit()
+                                        quit()  # exits the game
 
                             elif weapon == "bandages" and player_health < 150 and amount_of_bandages > 0:
+                                # displays the description
                                 print("You pull the bandages out of you bag and carefully wrap your wounds.")
-                                player_health = player_health + 50
-                                amount_of_bandages = amount_of_bandages - 1
-                                if player_health > 150:
-                                    player_health = 150
-                                    print(player_health)
+                                player_health = player_health + 50  # calculates health
+                                amount_of_bandages = amount_of_bandages - 1  # removes 1 bandage
+                                if player_health > 150:  # if the player health goes over 150:
+                                    player_health = 150  # sets health back to 150
+                                    amount_of_bandages = amount_of_bandages - 1  # takes 1 away from amount of bandages
 
                             elif weapon == "bandages" and player_health == 150:
-                                print("You are not injured.")
+                                print("You are not injured.")  # displays the description
 
                             else:  # if no other option is fitting it will carry out these functions:
-                                # asking the player to reenter
-                                print("Please use a weapon you have.")
+                                print("Please use a weapon you have.")  # asks player to reenter
 
-                        elif check is False:
-                            print("You have no weapons, you flee before it can get you.")
-                            outside_7_t_junction_scene()
+                        elif check is False:  # if check is false
+                            print("You have no weapons, you flee before it can get you.")  # displays the description
+                            outside_7_t_junction_scene()  # starts outside 7 scene
 
-                        elif weapon not in inventory:
-                            print("Please use a weapon you actually have.")
+                        elif weapon not in inventory:  # if weapon not in inventory
+                            print("Please use a weapon you actually have.")  # asking the player to reenter
 
                         else:  # if no other option is fitting it will carry out these functions:
                             # asking the player to reenter
                             print("I do not understand, type help for general instructions.")
 
-                elif enemy_2.health <= 0:
+                elif enemy_2.health <= 0:  # if enemies health is 0:
                     slow_type("""The monster collapses to the ground, an ear piercing screech echos around the trees.
 They sway with the vibrations. You worry that the sound will alert anyone... or anything around that you are here. You
-are glad that you survived.""")
-                    break
+are glad that you survived.""")  # displays the description
+                    break  # breaks the while loop
 
-                else:
-                    print("")
+                else:  # if no other option is fitting it will carry out these functions:
+                    print("")   # blank print so nothing happens
 
-        elif outside_3_options == "north":  # if south is entered it will carry out these functions:
-            outside_7_t_junction_scene()
+        elif outside_3_options == "north":  # if north is entered it will carry out these functions:
+            outside_7_t_junction_scene()  # starts outside 7 scene
 
         elif outside_3_options == "east":  # if east is entered it will carry out these functions:
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
@@ -1254,45 +1306,51 @@ are glad that you survived.""")
 
         # if west is entered and the enemy has zero health it will carry out these functions:
         elif outside_3_options == "west" and enemy_2.health <= 0:
-            outside_4_scene()
+            outside_4_scene()  # starts outside 4 scene
 
+        # if enemy health is less than 1 and examine bugbear is entered it will carry out these functions:
         elif enemy_2.health < 1 and outside_3_options == "examine bugbear":
             slow_type("""The bugbear is dead, thankfully. It looks just as intimidating as it did when it was alive. 
 Except you aren't at as much risk of imminent death as you were before you killed it. You're glad. You hate this 
 place with a passion. When you get out of here no ones ever going to believe you beat this thing... Or that it was real
-in the first place.""")
+in the first place.""")  # displays the description
 
+        # if examine path is entered it will carry out these functions:
         elif outside_3_options == "examine path":
+            # displays the description
             slow_type("The path is muddy and gross. You leave footprints with every step you take.")
 
+        # if examine trees or examine tree is entered it will carry out these functions:
         elif outside_3_options == "examine trees" or outside_3_options == "examine tree" and "drink" not in inventory:
+            # displays the description
             slow_type("""You didn't realise trees could be creepy. Yet here they are anyway. Looming over you 
 unnaturally. You wish someone would cut them all down. There something hidden amongst the moss at the bottom.""")
             print("")  # blank print for formatting
             drink = input("Would you like to investigate further?").lower()  # gets the players input
-            if drink == "yes":
-                slow_type("You look closer you and find it's a bottle of water.")
+            if drink == "yes":  # if yes:
+                slow_type("You look closer you and find it's a bottle of water.")  # displays the description
                 print("")  # blank print for formatting
                 take_drink = input("Would you like to take it with you?").lower()  # gets the players input
-                if take_drink == "yes":
-                    slow_type("You shove it into you pocket.")
-                    inventory.append("water")
+                if take_drink == "yes":  # if yes:
+                    slow_type("You shove it into you pocket.")  # displays the description
+                    inventory.append("water")  # adds water to inventory
 
-                elif take_drink == "no":
-                    slow_type("You leave it where it is.")
+                elif take_drink == "no":  # if no:
+                    slow_type("You leave it where it is.")  # displays the description
 
                 else:  # if no other option is fitting it will carry out these functions:
                     print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
-            elif drink == "no":
-                slow_type("The drink stays where it is.")
+            elif drink == "no":  # if no:
+                slow_type("The drink stays where it is.")  # displays the description
 
             else:  # if no other option is fitting it will carry out these functions:
                 print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
+        # if examine trees or examine tree is entered and drink is in inventory it will carry out these functions:
         elif outside_3_options == "examine trees" or outside_3_options == "examine tree" and "drink" in inventory:
             slow_type("""You didn't realise trees could be creepy. Yet here they are anyway. Looming over you 
-unnaturally. You wish someone would cut them all down.""")
+unnaturally. You wish someone would cut them all down.""")  # displays the description
 
         elif outside_3_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1320,13 +1378,13 @@ def outside_4_scene():
     slow_type(outside_4_description)  # displays the outside description
     print("")  # blank print for formatting
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         outside_4_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if outside_4_options == "north":  # if south is entered it will carry out these functions:
+        if outside_4_options == "north":  # if north is entered it will carry out these functions:
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
 
         elif outside_4_options == "east":  # if east is entered it will carry out these functions:
@@ -1342,10 +1400,11 @@ def outside_4_scene():
             slow_type("""The outhouse is small, you can fit in but its a tight squeeze. The door doesn't move from its
 place even if you try and force it. You don't know how it's staying so still considering how little of it is actually 
 attached to anything. There something shinning in the toilet, you dread to think what it could be and why it would be 
-kept here of all places.""")
+kept here of all places.""")  # displays the description
             print("")  # blank print for formatting
             outhouse = input("Would you like to investigate? ").lower()  # gets the players input
             if outhouse == "yes":
+                # displays the description
                 slow_type("""Out all the things you thought you would spend your day doing after being kidnapped, 
 putting your hand down a obviously well used toilet in an outhouse in the middle of nowhere was not it. Yet here you are
 It's uncomfortably wet, you're scared to know what it is but considering where your hand is you don't really need to 
@@ -1354,21 +1413,22 @@ thought putting a canister of petrol in the toilet was a good idea? At least you
                 inventory.append("petrol")
 
             elif outhouse == "no":
-                slow_type("You leave it where it is.")
+                slow_type("You leave it where it is.")  # displays the description
 
             else:  # if no other option is fitting it will carry out these functions:
                 print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
         elif outside_4_options == "examine outhouse" and "petrol" in inventory:
-
             slow_type("""The outhouse is small, you can fit in but its a tight squeeze. The door doesn't move from its
 place even if you try and force it. You don't know how it's staying so still considering how little of it is actually 
-attached to anything.""")
+attached to anything.""")  # displays the description
 
         elif outside_4_options == "examine path":
+            # displays the description
             slow_type("The path is just as muddy and gross as the rest. Your shoes are never going to be the same.")
 
         elif outside_4_options == "examine trees" or outside_4_options == "examine tree":
+            # displays the description
             slow_type("You're beginning to hate the sight of these trees. They all look the same.")
 
         elif outside_4_options == "help":  # if help is entered it will carry out these functions:
@@ -1398,13 +1458,13 @@ def outside_5_scene():
     slow_type(outside_5_description)  # displays the outside description
     print("")  # blank print for formatting
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         outside_5_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if outside_5_options == "north":  # if south is entered it will carry out these functions:
+        if outside_5_options == "north":  # if north is entered it will carry out these functions:
             outside_9_building_scene()
 
         elif outside_5_options == "east":  # if east is entered it will carry out these functions:
@@ -1418,35 +1478,39 @@ def outside_5_scene():
 
         elif outside_5_options == "examine bushes" or outside_5_options == "examine bush":
             slow_type("""The bush is small, leaves mainly green with yellowing edges. There is a weird gap within the
-leaves. You lean towards it. You still can't tell what it is.""")
+leaves. You lean towards it. You still can't tell what it is.""")  # displays the description
+
             print("")  # blank print for formatting
             knife = input("Would you like to investigate further?").lower()  # gets the players input
             if knife == "yes":
+                # displays the description
                 slow_type("You stick your hand in and find it's a knife, it cuts your hand.")
                 player_health = player_health - 5
                 print("")  # blank print for formatting
                 take_knife = input("Would you like to take it with you?").lower()  # gets the players input
                 if take_knife == "yes":
-                    slow_type("You carefully place it into you pocket.")
+                    slow_type("You carefully place it into you pocket.")  # displays the description
                     inventory.append("knife")
 
                 elif take_knife == "no":
-                    slow_type("The knife stays where it is.")
+                    slow_type("The knife stays where it is.")  # displays the description
 
                 else:  # if no other option is fitting it will carry out these functions:
                     print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
             elif knife == "no":
-                slow_type("The knife stays where it is.")
+                slow_type("The knife stays where it is.")  # displays the description
 
             else:  # if no other option is fitting it will carry out these functions:
                 print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
         elif outside_5_options == "examine path":
+            # displays the description
             slow_type("""The main path is gravel, rocks crunching underneath your feet as you walk. There dirt path 
 that comes off it has some of the stones scatter within it. A pretty standard path if you were asked.""")
 
         elif outside_5_options == "trees" or outside_5_options == "examine tree":
+            # displays the description
             slow_type("The trees continue to be the same as all the other trees you've seen.")
 
         elif outside_5_options == "help":  # if help is entered it will carry out these functions:
@@ -1477,7 +1541,7 @@ def outside_6_crossroads_scene():
     slow_type(outside_6_crossroads_description)  # displays the outside description
     print("")  # blank print for formatting
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         outside_6_options = input("What would you like to do? ").lower()  # gets the players input
@@ -1500,13 +1564,13 @@ def outside_6_crossroads_scene():
 is keeping it a few centimeters of the ground. At the top there use to be four arrows point in each directions but you 
 can only see three... well two and a half since one has the end snapped off. The wood for them is rotted, only a few 
 letters stick out on each one. Looking around you see what might be the other one in the bush over the other side of the 
-of the path. The pole is rusted and covered in overgrown plants.""")
+of the path. The pole is rusted and covered in overgrown plants.""")  # displays the description
 
         elif outside_6_options == "examine bush":
             slow_type("""The bush is like any other bush, except the wooden sign half stuck out of it. You reach in, 
 thorns pricking your skin as you do, and pull the sign out. It's not as ruined as the others, the words underneath are 
 covered by what you hope is red paint. The 'paint' reads: \033[1;31mGET OUT\033[0;39m \n but the words it covers say: 
-Lake Nene. You put the sign back in the bush. You should get out of here.""")
+Lake Nene. You put the sign back in the bush. You should get out of here.""")  # displays the description
 
         elif outside_6_options == "examine car":
             slow_type("""The front of the car is wrapped around the signpost and the back looks as though another car
@@ -1515,43 +1579,44 @@ get in, the door creaks as in its place as you slide into the front seat. You ca
 you can tell it was empty anyway except a few stray wrappers. The front seems mostly fine, glass litters the seats from
 the front windshield. The steering wheel is missing, though the car couldn't drive anyway. The glove box is closed and 
 the radio is off. There are CDs in the door pockets, whoever owns this car has terrible taste.""")
+# displays the description
 
-            while True:
+            while True:  # will loop these interactions until the loop is broken
                 print("")  # blank print for formatting
                 car_options = input("What would you like to do? ").lower()  # gets the players input
                 print("")  # blank print for formatting
 
                 if car_options == "exit car":
-                    slow_type("You force the door back open and step out of the car.")
+                    slow_type("You force the door back open and step out of the car.")  # displays the description
                     break
 
                 elif car_options == "examine glovebox" or car_options == "examine glove box":
                     if glove_box_opened is False:
                         slow_type("""The glove box is a pretty standard glove box and is in pretty good condition 
-considering how the rest of the car looks.""")
+considering how the rest of the car looks.""")  # displays the description
 
                     elif glove_box_opened is True:
-                        slow_type("The glove box is the same as it was last time.")
+                        slow_type("The glove box is the same as it was last time.")  # displays the description
 
-                    else:
-                        print("")
+                    else:  # if no other option is fitting it will carry out these functions:
+                        print("")  # blank print so nothing happens
 
                 elif car_options == "open glovebox" or car_options == "open glove box":
                     if glove_box_opened is False:
                         slow_type("""The glove box clicks open, CDs fall out. Clattering onto the ground before you can 
 stop them. You push everything in there around, you think there is nothing of note in there at first but eventually you
 find a lighter hidden in the back. You grab it, slide it into your pocket. You go to close the glove box and decide last 
-second to put all the CDs back in.""")
+second to put all the CDs back in.""")  # displays the description
                         inventory.append("lighter")
                         glove_box_opened = True
 
                     elif glove_box_opened is True:
                         slow_type("""You open the glove box, once again all the CDs fall out onto the ground. You sigh. 
 Typical. There's nothing new since the last time you checked, that would be worrying, so you force all the CDs back in 
-and slam it shut.""")
+and slam it shut.""")  # displays the description
 
-                    else:
-                        print("")
+                    else:  # if no other option is fitting it will carry out these functions:
+                        print("")  # blank print so nothing happens
 
                 else:  # if no other option is fitting it will carry out these functions:
                     # asking the player to reenter
@@ -1560,13 +1625,13 @@ and slam it shut.""")
         elif outside_6_options == "examine tree" or outside_6_options == "examine trees":
             slow_type("""The trees are tall, taller than you think is normal. You don't know what type of tree they are
 and to be honest you don't care. Trees, no matter how creepy they may or may not be, are the least of your problems 
-right now.""")
+right now.""")  # displays the description
 
         elif outside_6_options == "examine path":
             slow_type("""It's like most gravel paths you've seen in your life. Though this one is a crossroads so at 
 least that's different. You read an mythology book once that you can summon a crossroad demon that will give you what
 ever you want in exchange for your soul here. You consider it briefly. You don't have a photo of yourself and you're 
-pretty sure that was important to the summoning.""")
+pretty sure that was important to the summoning.""")  # displays the description
 
         elif outside_6_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1594,32 +1659,32 @@ def outside_7_t_junction_scene():
     slow_type(outside_7_T_junction_description)  # displays the outside description
     print("")  # blank print for formatting
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         outside_7_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if outside_7_options == "north":  # if south is entered it will carry out these functions:
+        if outside_7_options == "north":  # if north is entered it will carry out these functions:
             outside_11_scene()
 
         elif outside_7_options == "east":  # if east is entered it will carry out these functions:
             outside_6_crossroads_scene()
 
-        elif outside_7_options == "south":  # if west is entered it will carry out these functions:
+        elif outside_7_options == "south":  # if south is entered it will carry out these functions:
             outside_3_scene()
 
-        elif outside_7_options == "west":  # if south is entered it will carry out these functions:
+        elif outside_7_options == "west":  # if west is entered it will carry out these functions:
             outside_8_graveyard_scene()
 
         elif outside_7_options == "examine tree" or outside_7_options == "examine trees":
             slow_type("""Considering how little there is at this T-junction, the fact that you were surprised at how 
-similar the tree here are compared to everywhere else, was surprising in and of itself.""")
+similar the tree here are compared to everywhere else, was surprising in and of itself.""")  # displays the description
 
         elif outside_7_options == "examine path":
             slow_type("""The path is gravel, like everywhere else has been too. It's in a T shape though you don't know 
 any demon summoning rituals for this one. There is a dirt path going off the T so one could argue this is a crossroads 
-too, you would be able to do the same ritual then.""")
+too, you would be able to do the same ritual then.""")  # displays the description
 
         elif outside_7_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1649,7 +1714,7 @@ def outside_8_graveyard_scene():
     slow_type(outside_8_graveyard_description)  # displays the outside description
     print("")  # blank print for formatting
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         outside_8_options = input("What would you like to do? ").lower()  # gets the players input
@@ -1671,24 +1736,25 @@ def outside_8_graveyard_scene():
             slow_type("""The headstones have all been hand carved. All names of people you don't know. You thought this
 might be a family grave yard but none of the names match. All the graves look pretty similar, well looked after similar
 to the basement and so unlike the shack above. The last grave is nameless though the tools to carve it sit next to the
-headstone.""")
+headstone.""")  # displays the description
 
         elif outside_8_options == "examine graves" or outside_8_options == "examine grave":
             slow_type("""Like the headstone the graves are in excellent condition, each grave it made of straight lines.
 like someone took the time to perfectly measure each one before digging. It seems like a lot of effort.""")
+            # displays the description
 
         elif outside_8_options == "examine nameless grave":
             slow_type("""If you had to guess you recon you would fit in the hole dug perfectly. It sends a shiver 
 straight down your spine. The carving tools next to the headstone look perfectly looked after. None of this feels right
-to you.""")
+to you.""")  # displays the description
 
         elif outside_8_options == "examine path":
             slow_type("""The path tapers off well before you get to the grave, though a stone from it had been stuck in 
-your shoe for a while now so it's never really gone.""")
+your shoe for a while now so it's never really gone.""")  # displays the description
 
         elif outside_8_options == "examine trees" or outside_8_options == "examine tree":
             slow_type("""Trees that are too tall and too wide and far too intimidating for what they are loom over you.
-it casts a shadow over the graves and makes the whole area scarier than it should be.""")
+it casts a shadow over the graves and makes the whole area scarier than it should be.""")  # displays the description
 
         elif outside_8_options == "use shovel":
             print("")  # blank print for formatting
@@ -1704,11 +1770,12 @@ a piece of cake.
 By the time you hit anything you are panting and sweating and just all around having a terrible time. You didn't think
 it would be this hard. Next time you need to dig up a grave, consider not doing that. Still, you finally hit something 
 and it doesn't take much longer before you're able to get it out of the ground. It's heavy and makes your muscles ache
-even more. A motor. Yay.""")
+even more. A motor. Yay.""")  # displays the description
                 inventory.append("motor")
                 grave_dug = True
 
             elif shovel == "grave" or shovel == "graves" and grave_dug is True:
+                # displays the description
                 slow_type("The grave has already been dug, you could dig further put there isn't much point.")
 
             else:  # if no other option is fitting it will carry out these functions:
@@ -1718,7 +1785,7 @@ even more. A motor. Yay.""")
             slow_type("""You pull the flashlight out of your pocket and flick it on. Everything around you looks the 
 same though the grass is greener than you thought it would be. You decide to take a closer look at the nameless grave
 there's light pencil marks on it as if they were planning the name going on it. It's your name, you hope that is a 
-coincidence. Something in you tells you it isn't.""")
+coincidence. Something in you tells you it isn't.""")  # displays the description
 
         elif outside_8_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -1748,7 +1815,7 @@ def outside_9_building_scene():
     slow_type(outside_9_building_description)  # displays the outside description
     print("")  # blank print for formatting
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         outside_9_options = input("What would you like to do? ").lower()  # gets the players input
@@ -1786,48 +1853,51 @@ def outside_9_building_scene():
 
         elif outside_9_options == "examine building":
             slow_type("""You look at the building, walls torn down and at the mercy of the elements. It's too dark to be
-able to see inside. If only you had something that you could use to light it up.""")
+able to see inside. If only you had something that you could use to light it up.""")  # displays the description
 
         elif outside_9_options == "examine door":
+            # displays the description
             slow_type("The door is a few slats of wood shoddily stuck together. The creaking is annoy.")
 
         elif outside_9_options == "examine path":
             slow_type("""You've probably spent more time looking at this path than you have anything else at this point
-it looks the same. Though you suppose some of the stones are different.""")
+it looks the same. Though you suppose some of the stones are different.""")  # displays the description
 
         elif outside_9_options == "examine tree" or outside_9_options == "examine trees":
             slow_type("""There aren't as many trees here as there has been anywhere else, you are kind of glad. They are 
-way too creepy for trees.""")
+way too creepy for trees.""")  # displays the description
 
         elif outside_9_options == "use lighter" and "lighter" in inventory:
+            # displays the description
             slow_type("You flick the lighter on. It doesn't help while looking around the building. You flick it off.")
-            
+
         elif outside_9_options == "use flashlight" and flashlight_with_batteries is True:
             slow_type("""You turn the flashlight on, there isn't much in the building as you look around. The inside 
 looks as bad as the outside does. There is rubble everywhere as if some attempted to pull the building down but gave 
 up halfway through. There is some paper flapping in the wind on the far side. You can't tell what it is from here.""")
+# displays the description
             print("")  # blank print for formatting
             map_pickup = input("Would you like to investigate further?").lower()  # gets the players input
             if map_pickup == "yes":
-                slow_type("You look closer and find a map.")
+                slow_type("You look closer and find a map.")  # displays the description
                 print("")  # blank print for formatting
                 take_map = input("Would you like to take it with you?").lower()  # gets the players input
                 if take_map == "yes":
-                    slow_type("You carefully place it into you pocket.")
+                    slow_type("You carefully place it into you pocket.")  # displays the description
                     got_map = True
 
                 elif take_map == "no":
-                    slow_type("The map stays where it is.")
+                    slow_type("The map stays where it is.")  # displays the description
 
                 else:  # if no other option is fitting it will carry out these functions:
                     print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
             elif map_pickup == "no":
-                slow_type("The map stays where it is.")
+                slow_type("The map stays where it is.")  # displays the description
 
             else:  # if no other option is fitting it will carry out these functions:
                 print("I do not understand, type help for general instructions.")  # asking the player to reenter
-            
+
         elif outside_9_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
 
@@ -1854,7 +1924,7 @@ def outside_10_scene():
     slow_type(outside_10_description)  # displays the outside description
     print("")  # blank print for formatting
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         outside_10_options = input("What would you like to do? ").lower()  # gets the players input
@@ -1871,54 +1941,56 @@ def outside_10_scene():
 
         elif outside_10_options == "west":  # if west is entered it will carry out these functions:
             outside_11_scene()
-            
+
         elif outside_10_options == "examine path":
             slow_type("""The path goes right up to the house. The path isn't as neat here as it is everywhere else. As 
-though it has suffered due to the stepping planks hidden with them.""")
+though it has suffered due to the stepping planks hidden with them.""")  # displays the description
 
         elif outside_10_options == "examine tree" or outside_10_options == "examine trees":
             slow_type("""Out of everywhere you've been the trees have looked the least intimidating here. The bushes and
-nettles help it blend in more than anywhere else. It's almost peaceful here.""")
+nettles help it blend in more than anywhere else. It's almost peaceful here.""")  # displays the description
 
         elif outside_10_options == "examine bush" or outside_10_options == "examine bushes":
             slow_type("""The bush makes the entire area fill full, there is no grass around because all the free space
 is taken up by the path thanks to these bushes. There are a few berries within the leaves. You aren't going to try them.
-""")
+""")  # displays the description
 
         elif (outside_10_options == "examine plank" or outside_10_options == "examine planks"
               and "ore2" not in inventory):
+            # displays the description
             slow_type("""The planks all looks the same. Years of people walking over them wearing down where chucks of  
 them are missing. One of the planks seems out of place. Much skinner and sticking out the ground unnaturally""")
             print("")  # blank print for formatting
             ore_2 = input("Would you like to investigate further? ").lower()  # gets the players input
             if ore_2 == "yes":
-                slow_type("When you look closer you realise it's an ore. ")
+                slow_type("When you look closer you realise it's an ore. ")  # displays the description
                 print("")  # blank print for formatting
                 take_ore = input("Would you like to take it with you? ").lower()  # gets the players input
                 if take_ore == "yes":
+                    # displays the description
                     slow_type("You take the ore, you have no idea how you're going to carry it but you will.")
                     inventory.append("ore2")
 
                 elif take_ore == "no":
-                    slow_type("You leave it where it is")
+                    slow_type("You leave it where it is")  # displays the description
 
                 else:  # if no other option is fitting it will carry out these functions:
                     print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
             elif ore_2 == "no":
-                slow_type("The stick stays where it is.")
+                slow_type("The stick stays where it is.")  # displays the description
 
             else:  # if no other option is fitting it will carry out these functions:
                 print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
         elif outside_10_options == "examine plank" or outside_10_options == "examine planks" and "ore2" in inventory:
             slow_type("""The planks all looks the same. Years of people walking over them wearing down where chucks of  
-them are missing. There's an odd gap from where you took the ore.""")
-            
+them are missing. There's an odd gap from where you took the ore.""")  # displays the description
+
         elif outside_10_options == "examine stinging nettles":
             slow_type("""You remember falling into a patch of stinging nettles as a kid. It hurt a lot. You take a step
-away from them.""")
-       
+away from them.""")  # displays the description
+
         elif outside_10_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
 
@@ -1945,7 +2017,7 @@ def outside_11_scene():
     slow_type(outside_11_split_path_description)  # displays the outside description
     print("")  # blank print for formatting
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         outside_11_options = input("What would you like to do? ").lower()  # gets the players input
@@ -1965,18 +2037,20 @@ def outside_11_scene():
 
         elif outside_11_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
-            
+
         elif outside_11_options == "examine path":
+            # displays the description
             slow_type("""The path splits in the middle. It looks sort of like a Y, there are stone from the gravel all
 throughout the gap in the middle like people continuously cut across instead of following.""")
 
         elif outside_11_options == "examine tree" or outside_11_options == "examine trees":
+            # displays the description
             slow_type("""You realise that the trees all look the same. Every thought you could have about them you've
 already had and yet you take a minute to stare at them anyway. Good thing you aren't in a rush or anything.""")
-            
+
         elif outside_11_options == "examine bush" or outside_11_options == "examine bushes":
             slow_type("""You look at the bush closely. It rustles, oh god, theres something in there. You lean even 
-closer in, a squirrel rushes out, knocking you backwards. That was scary.""")
+closer in, a squirrel rushes out, knocking you backwards. That was scary.""")  # displays the description
 
         elif outside_11_options == "inventory":  # if inventory is entered ut will carry out these functions:
             print(inventory)  # displays the inventory guide
@@ -2013,7 +2087,7 @@ def outside_12_scene():
         slow_type(outside_12_description_without_enemy)  # displays the outside description without the enemy
         print("")  # blank print for formatting
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         outside_12_options = input("What would you like to do? ").lower()  # gets the players input
@@ -2025,58 +2099,71 @@ have much of a choice and you will have to fight it one way or another. It might
 sure you can survive.
 
 Hopefully.
-""")
-            while True:
+""")  # displays the description
+            while True:  # will loop these interactions until the loop is broken
                 if enemy_3.health >= 1:
 
-                    print("")
+                    print("")  # blank print for formatting
                     usr = input("What would you like to use: ").lower()  # gets the players input
-                    print("")
+                    print("")  # blank print for formatting
                     usr_words = usr.split(" ")  # list
                     enemy_attack = random.randrange(1, 4)
                     for weapon in usr_words:
                         if weapon in inventory:
                             if weapon == "crowbar":
+                                # displays the description
                                 print("You swing the crowbar in the Karkinos, it howls in pain.")
                                 enemy_3.health = enemy_3.health - weapon_damage["crowbar"]
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_3.attack
+                                    # displays the description
                                     print("The Karkinos swings back at you. You have ", player_health, " health.")
                                     if player_health <= 0:
+                                        # displays the description
                                         print("You collapse to the ground, you were so close.")
                                         quit()
 
                             elif weapon == "knife":
+                                # displays the description
                                 print("You get close enough to drive your knife into it, it swings it claws aimlessly.")
                                 enemy_3.health = enemy_3.health - weapon_damage["knife"]
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_3.attack
+                                    # displays the description
                                     print("The Karkinos swings back at you. You have ", player_health, " health.")
                                     if player_health <= 0:
+                                        # displays the description
                                         print("You collapse to the ground, you were so close.")
                                         quit()
 
                             elif weapon == "shovel":
+                                # displays the description
                                 print("You lift the shovel into the air and bring it down hard and fast.")
                                 enemy_3.health = enemy_3.health - weapon_damage["shovel"]
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_3.attack
+                                    # displays the description
                                     print("The Karkinos swings back at you. You have ", player_health, " health.")
                                     if player_health <= 0:
+                                        # displays the description
                                         print("You collapse to the ground, you were so close.")
                                         quit()
 
                             elif weapon == "ore":
+                                # displays the description
                                 print("The ore doesn't hurt it much but the creature hisses in pain anyway.")
                                 enemy_3.health = enemy_3.health - weapon_damage["ore"]
                                 if enemy_attack == 3:
                                     player_health = player_health - enemy_3.attack
+                                    # displays the description
                                     print("The Karkinos swings back at you. You have ", player_health, " health.")
                                     if player_health <= 0:
+                                        # displays the description
                                         print("You collapse to the ground, you were so close.")
                                         quit()
 
                             elif weapon == "bandages" and player_health < 150 and amount_of_bandages > 0:
+                                # displays the description
                                 print("You pull the bandages out of you bag and carefully wrap your wounds.")
                                 player_health = player_health + 50
                                 if player_health > 150:
@@ -2084,21 +2171,22 @@ Hopefully.
                                     amount_of_bandages = amount_of_bandages - 1
                                     print(player_health)
                                     if player_health <= 0:
+                                        # displays the description
                                         print("You collapse to the ground, you were so close.")
                                         quit()
 
                             elif weapon == "bandages" and player_health == 150:
-                                print("You are not injured.")
+                                print("You are not injured.")  # displays the description
 
                         elif usr == "inventory":  # if inventory is entered ut will carry out these functions:
                             print(inventory)  # displays the inventory guide
 
                         elif check is False:
-                            print("You have no weapons, you flee before it can get you.")
+                            print("You have no weapons, you flee before it can get you.")  # displays the description
                             outside_12_scene()
 
                         elif weapon not in inventory:
-                            print("Please use a weapon you actually have.")
+                            print("Please use a weapon you actually have.")  # asks the player to renter
 
                         else:  # if no other option is fitting it will carry out these functions:
                             # asking the player to reenter
@@ -2107,7 +2195,7 @@ Hopefully.
                 elif enemy_3.health <= 0:
                     slow_type("""The monster collapses to the ground, an ear piercing screech echos around the trees.
 They sway with the vibrations. You worry that the sound will alert anyone... or anything around that you are here. You
-are glad that you survived.""")
+are glad that you survived.""")  # displays the description
                     break
 
                 else:  # if no other option is fitting it will carry out these functions:
@@ -2124,27 +2212,28 @@ are glad that you survived.""")
 
         elif outside_12_options == "west":  # if west is entered it will carry out these functions:
             print("You cannot go that way, you will get lost in the woods.")  # tells the player they can't go that way
-            
+
         elif outside_12_options == "examine path":
             slow_type("""The dirt path is so muddy, you wish you had wellies but you don't. You make a mental reminder
-to get knew ones when you get out of here.""")
+to get knew ones when you get out of here.""")  # displays the description
 
         elif outside_12_options == "examine tree" or outside_12_options == "examine trees":
             slow_type("""Trees much taller than you. Towering over any tree you've seen before. You can't wait to get
-out of this forest. You miss buildings... and people.... and not being kidnapped.""")
-            
+out of this forest. You miss buildings... and people.... and not being kidnapped.""")  # displays the description
+
         elif enemy_3.health < 1 and outside_12_options == "examine karkinos":
+            # displays the description
             slow_type("""The karkinos corpse is curled up. Claws curled up around itself as though still trying to 
 protect itself from the plethora attacks. The blood seeps around it and is far more blue than it is red. When you 
 step closer there is chain tied around it's back legs that had been broken a few chains down. On the chain is a bag.""")
             print("")  # blank print for formatting
-            food = input("Would you like to investigate further?")
+            food = input("Would you like to investigate further?")  # gets the players input
             if food == "yes":
-                slow_type("You look closer you and find the bag is full of food..")
+                slow_type("You look closer you and find the bag is full of food..")  # displays the description
                 print("")  # blank print for formatting
                 take_food = input("Would you like to take it with you?").lower()  # gets the players input
                 if take_food == "yes":
-                    slow_type("You shove it into you pocket.")
+                    slow_type("You shove it into you pocket.")  # displays the description
                     inventory.append("food")
 
                 elif take_food == "no":
@@ -2154,7 +2243,7 @@ step closer there is chain tied around it's back legs that had been broken a few
                     print("I do not understand, type help for general instructions.")  # asking the player to reenter
 
             elif food == "no":
-                slow_type("The drink stays where it is.")
+                slow_type("The drink stays where it is.")  # displays the description
 
             else:  # if no other option is fitting it will carry out these functions:
                 print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -2187,13 +2276,13 @@ def lake_scene():
     slow_type(lake_description)  # displays the outside description
     print("")  # blank print for formatting
 
-    while True:
+    while True:  # will loop these interactions until the loop is broken
 
         print("")  # blank print for formatting
         lake_options = input("What would you like to do? ").lower()  # gets the players input
         print("")  # blank print for formatting
 
-        if lake_options == "north":  # if south is entered it will carry out these functions:
+        if lake_options == "north":  # if north is entered it will carry out these functions:
             print("There is a lake, you are unable to go that way without a boat.")
 
         elif lake_options == "east":  # if east is entered it will carry out these functions:
@@ -2207,17 +2296,19 @@ def lake_scene():
 
         elif lake_options == "examine path":
             slow_type("""The gravel path tapers out as it gets closer to the lake, eventually it starts to blend into 
-the sand of the beach. You hate sand. it's never going to get out of your shoes.""")
+the sand of the beach. You hate sand. it's never going to get out of your shoes.""")  # displays the description
 
         elif lake_options == "examine trees" or lake_options == "examine tree":
+            # displays the description
             slow_type("The trees are no different to the rest of the trees you've seen today. It's nice and creepy.")
 
         elif lake_options == "examine lake":
             slow_type("""The lake spreads out far and wide, going almost further than you can see. There's more land
 just inside of your eye line. A light flashes. Right. You just have to cross this lake and you're out of here. You can't 
-quite see the bottom even a meter out. It's going to be fine, it's not even that bad...""")
+quite see the bottom even a meter out. It's going to be fine, it's not even that bad...""")  # displays the description
 
         elif lake_options == "examine rubbish":
+            # displays the description
             slow_type("""The rubbish is kind of gross, the smell alone is off putting. You would normally be upset at 
 someone littering but at the moment you have bigger issues to deal with considering your recent kidnapping.""")
 
@@ -2228,21 +2319,21 @@ really have much of a choice otherwise. The boat is chained to a tree going thro
 rod sticking out the side. A code base padlock keeping it in place. You'll have to find that code if you want any chance 
 of getting out of here. You try to get a better look through one of the windows to the cabin, you think some parts might
 be missing... Great... You'll have to find those too. 
-""")
-            print("")
+""")  # displays the description
+            print("")  # blank print for formatting
             boat_option = input("Would you like to attempt to unlock the boat? ").lower()  # gets the players input
             if boat_option == "yes":
-                print("")
+                print("")  # blank print for formatting
                 password = input("Please enter that password here: ").lower()  # gets the players input
                 if password == boat_code:
-                    slow_type("You type in the code and the lock clicks open. Hell yeah.")
+                    slow_type("You type in the code and the lock clicks open. Hell yeah.")  # displays the description
                     boat_unlocked = True
 
                 else:
-                    print("That is incorrect.")
+                    print("That is incorrect.")  # displays the description
 
             elif boat_option == "no":
-                slow_type("The boat stays locked.")
+                slow_type("The boat stays locked.")  # displays the description
 
             else:  # if no other option is fitting it will carry out these functions:
                 print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -2252,8 +2343,8 @@ be missing... Great... You'll have to find those too.
                 slow_type("""You click the steering wheel into place, plug the motor in, fill the petrol tank. You 
 aren't sure it's all been done right but it's all you've got at the moment. You really, really want to get out of here. 
 Away from the basement, away from the monsters, away from the creepy trees and the creepy owls back to your house with
-your cat and your own bed.""")
-                print("")
+your cat and your own bed.""")  # displays the description
+                print("")  # blank print for formatting
                 final_option = input("Would you like to leave? ").lower()  # gets the players input
                 if final_option == "yes":
                     inventory.remove("motor")
@@ -2262,7 +2353,7 @@ your cat and your own bed.""")
                     ending()
 
                 elif final_option == "no":
-                    slow_type("You step off of the boat.")
+                    slow_type("You step off of the boat.")  # displays the description
 
                 else:  # if no other option is fitting it will carry out these functions:
                     print("I do not understand, type help for general instructions.")  # asking the player to reenter
@@ -2275,9 +2366,8 @@ that, but you turn it and nothing happens. You go to check if everything is fine
 you would hope but you've never been on a boat before and you find... nothing. It's gone. That's... fine. You will find 
 everything you need and it'll be fine. 
 
-You're sure that someone would just leave those things lying around...""")
-
-            print("")
+You're sure that someone would just leave those things lying around...""")  # displays the description
+            print("")  # blank print for formatting
 
         elif lake_options == "help":  # if help is entered it will carry out these functions:
             print(help_guide)  # displays help guide
@@ -2310,7 +2400,7 @@ looks very angry. You blink and it's gone. You are too far away for it to do any
 ...
 
 ...
-""")
+""")  # displays the description
     probability_survival = 7 / len(inventory)  # finds the probability based on how many items in inventory
     if probability_survival == 1:
         survival = random.randrange(1, 100)
@@ -2318,7 +2408,8 @@ looks very angry. You blink and it's gone. You are too far away for it to do any
             slow_type("You make it back home, you are so glad to be out of there.")
             quit()
 
-        else:
+        else:  # if no other option is fitting it will carry out these functions:
+            # displays the description
             slow_type("""You had everything you could possibly need to survive, the kraken hiding beneath the water was 
 unexpected at best and the cause of your downfall at worst. You really thought you would get out of there.""")
             quit()
@@ -2326,70 +2417,73 @@ unexpected at best and the cause of your downfall at worst. You really thought y
     elif probability_survival == 2:
         survival = random.randrange(1, 85)
         if survival > 10:
-            slow_type("You make it back home, you are so glad to be out of there.")
+            slow_type("You make it back home, you are so glad to be out of there.")  # displays the description
             quit()
 
-        else:
+        else:  # if no other option is fitting it will carry out these functions:
             slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
-journey back. You were so close.""")
+journey back. You were so close.""")  # displays the description
             quit()
 
     elif probability_survival == 3:
         survival = random.randrange(1, 70)
         if survival > 10:
-            slow_type("You make it back home, you are so glad to be out of there.")
+            slow_type("You make it back home, you are so glad to be out of there.")  # displays the description
             quit()
 
-        else:
+        else:  # if no other option is fitting it will carry out these functions:
             slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
-journey back. You were so close.""")
+journey back. You were so close.""")  # displays the description
             quit()
 
     elif probability_survival == 4:
         survival = random.randrange(1, 55)
         if survival > 10:
-            slow_type("You make it back home, you are so glad to be out of there.")
+            slow_type("You make it back home, you are so glad to be out of there.")  # displays the description
             quit()
 
-        else:
+        else:  # if no other option is fitting it will carry out these functions:
             slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
-journey back. You were so close.""")
+journey back. You were so close.""")  # displays the description
             quit()
 
     elif probability_survival == 5:
         survival = random.randrange(1, 40)
         if survival > 10:
-            slow_type("You make it back home, you are so glad to be out of there.")
+            slow_type("You make it back home, you are so glad to be out of there.")  # displays the description
             quit()
     
-        else:
+        else:  # if no other option is fitting it will carry out these functions:
             slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
-journey back. You were so close.""")
+journey back. You were so close.""")  # displays the description
             quit()
 
     elif probability_survival == 6:
         survival = random.randrange(1, 25)
         if survival > 10:
-            slow_type("You make it back home, you are so glad to be out of there.")
+            slow_type("You make it back home, you are so glad to be out of there.")  # displays the description
             quit()
 
-        else:
+        else:  # if no other option is fitting it will carry out these functions:
             slow_type("""Despite all your work to get out of there you did not have enough supplies to survive the boat 
-journey back. You were so close.""")
+journey back. You were so close.""")  # displays the description
             quit()
 
     elif probability_survival == 7:
         survival = random.randrange(1, 15)
         if survival > 10:
-            slow_type("You make it back home, you are so glad to be out of there.")
+            slow_type("You make it back home, you are so glad to be out of there.")  # displays the description
             quit()
 
-        else:
+        else:  # if no other option is fitting it will carry out these functions:
+            # displays the description
             slow_type("""How you ever thought you'd get back without any supplies genuinely shocking, it's unclear 
-whether it was the weather, the kraken hidden beneath the lake or starvation that got you.""")
+whether it was the weather, the kraken hidden beneath the lake or starvation that got you.""")  
             quit()
 
 
+print("")  # blank print for formatting
+slow_type("Type help at any point for general instructions.")  # informing the player to the help guide
 print("")  # blank print for formatting
 slow_type(opening_text)  # displays the opening text which is defined earlier
 starting_room_scene()  # starts the starting scene
