@@ -2,14 +2,14 @@ import random
 import sys
 import time
 
-inventory = ["knife"]  # inventory list
+inventory = []  # inventory list
 
 weapons_available = ["knife", "shovel", "crowbar", "ore"]  # weapons available
 weapon_damage = {"knife": 25, "shovel": 35, "crowbar": 30, "ore": 20}  # how much damage each weapon does
 player_health = 150  # player health
 got_map = False  # has map
 
-typing_speed = 10000  # amount of letters per minute
+typing_speed = 100000  # amount of letters per minute
 
 
 def slow_type(text):  # defining text typing out slowly
@@ -157,7 +157,7 @@ what little of the beach there is."""
 # opening descriptions
 opening_text = """You awaken in a room that you do not recognise with no memories on how you got here, you remember most 
 of yesterday but after leaving work in the evening it all goes blank. You should probably get out of here, your cat will 
-be hungry if you don't get home soon. when you think about it you're not sure what time it is nor how long you've been 
+be hungry if you don't get home soon. When you think about it you're not sure what time it is nor how long you've been 
 asleep.  
 """
 
@@ -165,27 +165,24 @@ asleep.
 # \033[1;92m turns the text green \033[0;39m turns it back.
 starting_room_description = """The room is dim but you can make out a door on each wall that lead to different rooms.
 There are no windows. To the\033[1;92m South\033[0;39m is the kitchen, if the counters and fridge you can see are 
-anything to go off of. There is a door to the\033[1;92m East\033[0;39m, and to the\033[1;92m west\033[0;39m is the 
-bathroom.The door to the\033[1;92m North\033[0;39m seems to be the main door, there is a padlock keeping it locked shut. 
-You are on the bed, it is perfectly made apart from where you've moved it as you got up. There are two
+anything to go off of. There is a door to the\033[1;92m East\033[0;39m, and to the\033[1;92m West\033[0;39m is the 
+bathroom. The door to the\033[1;92m North\033[0;39m seems to be the main door, there is a padlock keeping it locked 
+shut. You are on the bed, it is perfectly made apart from where you've moved it as you got up. There are two
 bedside tables, one contains a lamp both have draws that are currently shut."""
 
 kitchen_description = """The room you enter is a kitchen, the oven and fridge are old and run down. You can tell from 
 here they barely work. The cupboards are stocked well enough from what you can see, generic store brand version of all 
 the items. In the corner of the room theres a table, one chair due to the small size of the room and a box sits in the 
 middle. Above the table there is a small window right at the top of the wall, you could not fit through it and would
-need to stand on a chair in order to see through it.
-"""
+need to stand on a chair in order to see through it."""
 
 bathroom_description = """The room is barely big enough for two people and contains a shower, toilet and sink sit within
 the room. In the top right corner on the wall with the door there is a vent. On the sink there is pot with four 
-toothbrushes. They seem to be brand new. The mat on the floor also looks to be brand new. 
-"""
+toothbrushes. They seem to be brand new. The mat on the floor also looks to be brand new. """
 
 cupboard_description = """The room turns out to not be a room but is in fact a cupboard. There is a string attached to 
 the light but when you pull it it fails to turn on. You cannot tell what is on the shelves in this light but they seem
-to be stocked well. There are multiple boxes in the corner on the floor with a stool tucked behind them. 
-"""
+to be stocked well. There are multiple boxes in the corner on the floor with a stack of stools tucked behind them. """
 
 going_up_stairs_description = """The stairs, unlike everything you've seen so far, are extremely run down and dirty. 
 They creek awfully when you go up and ring in your ear against the complete silence otherwise. Each step feels like a 
@@ -255,7 +252,7 @@ def starting_room_scene():
 
                 while True:  # will loop these interactions until the loop is broken
                     print("")  # blank print for formatting
-                    key = input("would you like to use it? ").lower()  # gets the players input
+                    key = input("Would you like to use it? ").lower()  # gets the players input
                     print("")  # blank print for formatting
 
                     if key == "yes":  # if yes is entered it will carry out these functions:
@@ -323,12 +320,12 @@ into your pocket and shut the draws.""")  # displays the description
 
         # if the beside draw has been opened it will carry out these functions:
         elif (starting_room_options == "use draw" or starting_room_options == "open draw") and bedside_draw is True:
-            slow_type("when you open the draws they are both empty.")  # displays the description
+            slow_type("When you open the draws they are both empty.")  # displays the description
 
         # if use key is entered and key is in inventory:
         elif starting_room_options == "use key" and "key" in inventory:
             print("")  # blank print for formatting
-            key = input("what would you like to use it on? ").lower()  # gets the players input
+            key = input("What would you like to use it on? ").lower()  # gets the players input
             print("")  # blank print for formatting
 
             if key == "door":  # if door is enter it will carry out these functions:
@@ -621,6 +618,7 @@ can't see much, you reach your hand in but it goes straight into a spiders web. 
 to pull out a key. 
 weird.""")  # displays the description
                 inventory.append("key")  # adds the key to the inventory
+                vent_opened = True
 
             # if vent is entered and the vent has been opened it will carry out these functions:
             elif screwdriver_use == "vent" and vent_opened is True:
@@ -632,7 +630,21 @@ weird.""")  # displays the description
             open_vent = input("The vent is screwed shut, what would you like to use to open it? ").lower()
             # if screwdriver is enter and it is in inventory it will carry out these functions:
             if open_vent == "screwdriver" and "screwdriver" in inventory:
-                slow_type("You unscrew the vent")  # displays the description
+                slow_type("""You start unscrewing the vent, the screws are rusted so it takes a lot of effort but 
+eventually all four come out and you are able to pop the vent front off of the wall. You look around inside but you 
+can't see much, you reach your hand in but it goes straight into a spiders web. Still you search around a bit and manage 
+to pull out a key. 
+weird.""")  # displays the description
+                inventory.append("key")  # adds the key to the inventory
+                vent_opened = True
+
+            # if screwdriver is enter and it is in inventory it will carry out these functions:
+            elif open_vent == "screwdriver" and "screwdriver" not in inventory:
+                print("You do not have a screwdriver.")  # displays the description
+
+            else:  # if no other option is fitting it will carry out these functions:
+                slow_type("I do not understand, type help for general instructions")  # asking the player to reenter
+                slow_type("Perhaps try 'get off stool' if you are really stuck")  # giving a hint to get off the stool
 
         # if open vent is entered, and it has been opened it will carry out these functions:
         elif stool_options == "open vent" and vent_opened is True:
@@ -690,12 +702,21 @@ def cupboard_scene():
         elif cupboard_options == "west":  # if west is entered it will carry out these functions:
             starting_room_scene()  # will return the player to the starting room
 
-        elif cupboard_options == "examine stool":  # if help is entered it will carry out these functions:
-            slow_type("""The stool is very obviously old and well used, it's three legs are sturdy. They have probably 
+        # if examine stool is entered and stool is not in inventory nor the bathroom it will carry out these functions:
+        elif (cupboard_options == "examine stool" or cupboard_options == "examine stools"
+                and "stool" not in inventory and stool_in_bathroom is False):
+            slow_type("""The stools are very obviously old and well used, it's three legs are sturdy. They have probably 
 been replaced multiple times each leg is a different colour of wood. It could take your weight. You decide to take it 
 with you, it might be useful.
     """)  # displays the description
             inventory.append("stool")  # adds stool to the inventory
+
+        # if examine stool is entered and stool is in inventory or the bathroom it will carry out these functions:
+        elif (cupboard_options == "examine stool" or cupboard_options == "examine stools"
+              and ("stool" in inventory or stool_in_bathroom is True)):
+            slow_type("""The stools are very obviously old and well used, it's three legs are sturdy. They have probably 
+been replaced multiple times each leg is a different colour of wood. It could take your weight.
+""")  # displays the description
 
         elif cupboard_options == "examine boxes":  # if help is entered it will carry out these functions:
             slow_type("""The boxes are pretty full, though most are half bubble wrap and half different plates, bowls 
@@ -803,7 +824,7 @@ able to touch it without an issue. You recon theres probably something around he
 
         # if use lighter is entered and lighter is in inventory it will carry out these functions:
         elif upstairs_options == "use lighter" and "lighter" in inventory:
-            lighter = input("What would you like to use it on?")  # gets the players input
+            lighter = input("What would you like to use it on? ")  # gets the players input
             if lighter == "fireplace":  # if fireplace is enter it will carry out these functions:
                 slow_type("""You reach into the arch of the fireplace with lighter in your hand. It takes a few tries 
 but eventually the flame flickers to a start. You hold it to the kindling until it catches and relish in the warmth. You 
@@ -1111,7 +1132,7 @@ shack is some type of wooden stick.""")  # displays the description
             if ore_1 == "yes":  # if yes:
                 slow_type("When you look closer you realise it's an ore.")  # displays the description
                 print("")  # blank print for formatting
-                take_ore = input("Would you like to take it with you?").lower()  # gets the players input
+                take_ore = input("Would you like to take it with you? ").lower()  # gets the players input
                 if take_ore == "yes":  # if yes:
                     # displays the description
                     slow_type("You take the ore,  you have no idea how you're going to carry it but you will.")
@@ -1327,11 +1348,11 @@ in the first place.""")  # displays the description
             slow_type("""You didn't realise trees could be creepy. Yet here they are anyway. Looming over you 
 unnaturally. You wish someone would cut them all down. There something hidden amongst the moss at the bottom.""")
             print("")  # blank print for formatting
-            drink = input("Would you like to investigate further?").lower()  # gets the players input
+            drink = input("Would you like to investigate further? ").lower()  # gets the players input
             if drink == "yes":  # if yes:
                 slow_type("You look closer you and find it's a bottle of water.")  # displays the description
                 print("")  # blank print for formatting
-                take_drink = input("Would you like to take it with you?").lower()  # gets the players input
+                take_drink = input("Would you like to take it with you? ").lower()  # gets the players input
                 if take_drink == "yes":  # if yes:
                     slow_type("You shove it into you pocket.")  # displays the description
                     inventory.append("water")  # adds water to inventory
@@ -1408,10 +1429,10 @@ kept here of all places.""")  # displays the description
             if outhouse == "yes":  # if yes:
                 # displays the description
                 slow_type("""Out all the things you thought you would spend your day doing after being kidnapped, 
-putting your hand down a obviously well used toilet in an outhouse in the middle of nowhere was not it. Yet here you are
-It's uncomfortably wet, you're scared to know what it is but considering where your hand is you don't really need to 
-guess. When your hand wraps around something metal and cold you pull it out, shake your hand off, then question who the
-thought putting a canister of petrol in the toilet was a good idea? At least you have it now.""")
+putting your hand down an obviously well used toilet in an outhouse in the middle of nowhere was not it. Yet here you 
+are. It's uncomfortably wet, you're scared to know what it is but considering where your hand is you don't really need 
+to guess. When your hand wraps around something metal and cold you pull it out, shake your hand off, then question who 
+the thought putting a canister of petrol in the toilet was a good idea? At least you have it now.""")
                 inventory.append("petrol")  # adds petrol to inventory
 
             elif outhouse == "no":  # if no:
@@ -1487,13 +1508,13 @@ def outside_5_scene():
 leaves. You lean towards it. You still can't tell what it is.""")  # displays the description
 
             print("")  # blank print for formatting
-            knife = input("Would you like to investigate further?").lower()  # gets the players input
+            knife = input("Would you like to investigate further? ").lower()  # gets the players input
             if knife == "yes":  # if yes:
                 # displays the description
                 slow_type("You stick your hand in and find it's a knife, it cuts your hand.")
                 player_health = player_health - 5  # removes 5 from the players health
                 print("")  # blank print for formatting
-                take_knife = input("Would you like to take it with you?").lower()  # gets the players input
+                take_knife = input("Would you like to take it with you? ").lower()  # gets the players input
                 if take_knife == "yes":  # if yes:
                     slow_type("You carefully place it into you pocket.")  # displays the description
                     inventory.append("knife")  # adds knife to inventory
@@ -1634,6 +1655,7 @@ and slam it shut.""")  # displays the description
                 else:  # if no other option is fitting it will carry out these functions:
                     # asking the player to reenter
                     print("I do not understand, type help for general instructions. Perhaps try 'exit car'.")
+
         # if examine trees or tree is entered it will carry out these functions:
         elif outside_6_options == "examine tree" or outside_6_options == "examine trees":
             slow_type("""The trees are tall, taller than you think is normal. You don't know what type of tree they are
@@ -1908,11 +1930,11 @@ looks as bad as the outside does. There is rubble everywhere as if some attempte
 up halfway through. There is some paper flapping in the wind on the far side. You can't tell what it is from here.""")
 # displays the description
             print("")  # blank print for formatting
-            map_pickup = input("Would you like to investigate further?").lower()  # gets the players input
+            map_pickup = input("Would you like to investigate further? ").lower()  # gets the players input
             if map_pickup == "yes":  # if yes:
                 slow_type("You look closer and find a map.")  # displays the description
                 print("")  # blank print for formatting
-                take_map = input("Would you like to take it with you?").lower()  # gets the players input
+                take_map = input("Would you like to take it with you? ").lower()  # gets the players input
                 if take_map == "yes":  # if no:
                     slow_type("You carefully place it into you pocket.")  # displays the description
                     got_map = True  # sets map to true
@@ -2273,11 +2295,11 @@ out of this forest. You miss buildings... and people.... and not being kidnapped
 protect itself from the plethora attacks. The blood seeps around it and is far more blue than it is red. When you 
 step closer there is chain tied around it's back legs that had been broken a few chains down. On the chain is a bag.""")
             print("")  # blank print for formatting
-            food = input("Would you like to investigate further?")  # gets the players input
+            food = input("Would you like to investigate further? ")  # gets the players input
             if food == "yes":  # if yes:
                 slow_type("You look closer you and find the bag is full of food..")  # displays the description
                 print("")  # blank print for formatting
-                take_food = input("Would you like to take it with you?").lower()  # gets the players input
+                take_food = input("Would you like to take it with you? ").lower()  # gets the players input
                 if take_food == "yes":  # if yes:
                     slow_type("You shove it into you pocket.")  # displays the description
                     inventory.append("food")  # adds food to inventory
